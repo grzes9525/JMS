@@ -13,8 +13,8 @@ import javax.sql.DataSource;
 @Configuration
 public class DatabaseConfig {
 
-//    @Profile("dev")
-    @PropertySource("classpath:datasource.properties")
+    @Profile("dev")
+    @PropertySource("classpath:datasource-dev.properties")
     class DatasouceLocalConfig{
         @Value("${mysql.datasource.url}")
         public String url;
