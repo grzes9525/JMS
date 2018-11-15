@@ -10,19 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.LinkedList;
 import java.util.List;
 
-@RestController("/operationData")
-public class OperationDataRestController {
+@RestController("/file")
+public class FileReaderRestController {
 
     @Autowired
     OperationDataRepository operationDataRepository;
-
     @Autowired
     ModelMapper modelMapper;
 
-    @RequestMapping(path = "/operationData", method = RequestMethod.GET)
+    @RequestMapping(path = "/", method = RequestMethod.GET)
     public List<OperationDataDTO> getOperationData(){
         List<OperationData> all = (List<OperationData>) operationDataRepository.findAll();
         java.lang.reflect.Type targetListType = new TypeToken<List<OperationDataDTO>>(){}.getType();

@@ -32,6 +32,7 @@ public class DatabaseConfig {
                     .url(url)
                     .username(user)
                     .password(password)
+                    .driverClassName(driver)
                     .build();
             return dataSource;
         }
