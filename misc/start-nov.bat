@@ -1,0 +1,9 @@
+
+SET PROJECT_PATH=C:\workspace\JMS
+SET TARGET_PATH=%PROJECT_PATH%\target
+SET APP_NAME=%TARGET_PATH%\nov-1.0-SNAPSHOT.jar
+SET CONFIG_PATH=%TARGET_PATH%\config\
+
+cd %TARGET_PATH%
+
+start java -jar %TARGET_PATH%\nov-1.0-SNAPSHOT.jar --spring.config.location=%CONFIG_PATH% 

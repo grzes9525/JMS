@@ -2,36 +2,55 @@
 <configuration>
     <property name="LOG_FILE" value="LogJmsCommunication" />
     <property name="LOG_DIR" value="..\\logs" />
+    <property name="LOG_DIR" value=".\\logs\\all\\" />
     <appender name="JMS_COMMUNICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_DIR}/${LOG_FILE}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_DIR}/%d{yyyy/MM}/${LOG_FILE}.%i.log
+            <fileNamePattern>${LOG_DIR}/${LOG_FILE}-%d{yyyy-MM}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10KB</maxFileSize>
+                <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
     <property name="LOG_FILE" value="LogJmsFailedCommunication" />
     <property name="LOG_DIR" value="..\\logs" />
+    <property name="LOG_DIR" value=".\\logs\\failed2\\" />
     <appender name="JMS_FAILED_COMMUNICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_DIR}/${LOG_FILE}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>${LOG_DIR}/%d{yyyy/MM}/${LOG_FILE}.%i.log
+            <fileNamePattern>${LOG_DIR}/${LOG_FILE}-%d{yyyy-MM}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10KB</maxFileSize>
+                <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <property name="LOG_FILE" value="log" />
+    <property name="LOG_DIR" value=".\\logs" />
+    <appender name="LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${LOG_DIR}/${LOG_FILE}-%d{yyyy-MM}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -58,11 +77,14 @@
         <appender-ref ref="JMS_FAILED_COMMUNICATION" />
         <appender-ref ref="LOGS" />
     </logger>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
 
-    <root level="info">
-        <appender-ref ref="JMS_COMMUNICATION" />
-        <appender-ref ref="JMS_FAILED_COMMUNICATION" />
-        <appender-ref ref="LOGS" />
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
     </root>
 
 
