@@ -62,6 +62,4 @@
         <appender-ref ref="LOG"/>
         <appender-ref ref="CONSOLE"/>
     </root>
-
-
 </configuration>
