@@ -2,6 +2,7 @@ package com.blue.services;
 
 import com.blue.dto.OperationDataDTO;
 import com.blue.jms.producer.JmsProducer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVReader;
 import lombok.extern.log4j.Log4j;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,10 +24,13 @@ import java.util.List;
 @Service
 public class ReadCsvService {
 
-    Logger logs = LoggerFactory.getLogger("LOGS");
+    Logger logs = LoggerFactory.getLogger("LOG");
 
     @Value("${nov.input.main}")
     String csvFolderPath;
+
+    @Value("${nov.input.mockData}")
+    String csvMockFolderPath;
 
     @Autowired
     JmsProducer producer;
@@ -39,8 +44,10 @@ public class ReadCsvService {
             for(File f : files){
                 int line_number=1;
                 try {
-                    Reader reader = Files.newBufferedReader(Paths.get(csvFolderPath));
+                    Reader reader = Files.newBufferedReader(Paths.get(csvFolderPath+"//"+f.getName()));
                     csvReader = new CSVReader(reader);
+                    File file = new File(csvMockFolderPath+"//"+f.getName());
+                    HashMap<String,Object> mockData =  new ObjectMapper().readValue(file, HashMap.class);
                     String[] nextRecord = null;
                     while((nextRecord = csvReader.readNext()) != null){
 
@@ -67,4 +74,5 @@ public class ReadCsvService {
             producer.send(operation);
         }
     }
+
 }
