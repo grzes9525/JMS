@@ -13,9 +13,9 @@ import javax.sql.DataSource;
 @Configuration
 public class DatabaseConfig {
 
-    @Profile("dev")
-    @PropertySource("classpath:datasource-dev.properties")
-    class DatasouceLocalConfig{
+    @Profile("mysql")
+    @PropertySource("classpath:datasource-mysql.properties")
+    class DatasouceMysqlConfig{
         @Value("${mysql.datasource.url}")
         public String url;
         @Value("${mysql.datasource.user}")
@@ -23,6 +23,30 @@ public class DatabaseConfig {
         @Value("${mysql.datasource.password}")
         public String password;
         @Value("${mysql.datasource.driver-class-name}")
+        public String driver;
+
+        @Bean
+        DataSource getDataSource(){
+            DataSource dataSource = DataSourceBuilder
+                    .create()
+                    .url(url)
+                    .username(user)
+                    .password(password)
+                    .driverClassName(driver)
+                    .build();
+            return dataSource;
+        }
+    }
+
+    @Profile("dev")
+    class DatasouceH2Config{
+        @Value("${spring.datasource.url}")
+        public String url;
+        @Value("${spring.datasource.username}")
+        public String user;
+        @Value("${spring.datasource.password}")
+        public String password;
+        @Value("${spring.datasource.driver-class-name}")
         public String driver;
 
         @Bean

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
-    <property name="LOG_DIR" value=".\\logs" />
-    <property name="LOG_DIR_JMS_ALL" value="${LOG_DIR}\\jms\\all" />
-    <property name="LOG_DIR_JMS_FAILED" value="${LOG_DIR}\\jms\\failed" />
-    <property name="LOG_FILE_JMS" value="logJms" />
-    <property name="LOG_FILE" value="log" />
-
-    <appender name="JMS_COMMUNICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIR_JMS_ALL}\\${LOG_FILE_JMS}.log</file>
+    <property name="LOG_DIR" value="logs" />
+	<property name="LOG_DIR_JMS_ALL" value="${LOG_DIR}/jms/all" />
+	<property name="LOG_DIR_JMS_FAILED" value="${LOG_DIR}/jms/failed" />
+	<property name="LOG_FILE_JMS" value="logJms" />
+	<property name="LOG_FILE" value="log" />
+    
+	<appender name="JMS_COMMUNICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR_JMS_ALL}/${LOG_FILE_JMS}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
             <fileNamePattern>${LOG_DIR_JMS_ALL}/${LOG_FILE_JMS}-%d{yyyy-MM}.%i.log
@@ -22,7 +22,7 @@
         </encoder>
     </appender>
     <appender name="JMS_FAILED_COMMUNICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIR_JMS_FAILED}\\${LOG_FILE_JMS}.log</file>
+        <file>${LOG_DIR_JMS_FAILED}/${LOG_FILE_JMS}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
             <fileNamePattern>${LOG_DIR_JMS_FAILED}/${LOG_FILE_JMS}-%d{yyyy-MM}.%i.log
@@ -36,8 +36,9 @@
             <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
+
     <appender name="LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIR}\\${LOG_FILE}.log</file>
+        <file>${LOG_DIR}/${LOG_FILE}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
             <fileNamePattern>${LOG_DIR}/${LOG_FILE}-%d{yyyy-MM}.%i.log
@@ -58,8 +59,9 @@
         </encoder>
     </appender>
 
-    <root level="DEBUG">
+    <root level="TRACE">
         <appender-ref ref="LOG"/>
-        <appender-ref ref="CONSOLE"/>
+		<appender-ref ref="LOG"/>
     </root>
+
 </configuration>
