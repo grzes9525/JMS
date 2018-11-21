@@ -22,5 +22,13 @@ public class OperationData {
     public Date startTime;
     public Date endTime;
     public String cost;
+    public String statusOperation;
+    public String xmlWej;
+    public String xmlWyj;
+    public String nameOperation;
+    public String tariff;
+    public String operator;
+    public String numerType;
+    public String git;
 
 }
