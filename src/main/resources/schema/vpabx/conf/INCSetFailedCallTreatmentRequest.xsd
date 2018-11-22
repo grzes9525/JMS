@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd" />
+	<xs:include schemaLocation="../../INCComplexTypes.xsd" />
+	<xs:complexType name="t_setFailedCallTreatmentRequest">
+		<xs:sequence>
+			<xs:element name="type" type="t_vpabxFailedCallTreatmentType" />
+			<xs:element name="member" type="t_baseVpabxMember" minOccurs="0"/>
+			<xs:element name="announcement" type="t_databaseElement" minOccurs="0"/>
+			<xs:element name="businessContext" type="t_businessContext" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

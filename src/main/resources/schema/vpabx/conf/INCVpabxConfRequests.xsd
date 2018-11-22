@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd" />
+	<xs:include schemaLocation="INCSetFeatureRequest.xsd" />
+	<xs:include schemaLocation="INCAddMemberRequest.xsd" />
+	<xs:include schemaLocation="INCRemoveMemberRequest.xsd" />
+	<xs:include schemaLocation="INCSetMemberAclipRequest.xsd" />
+	<xs:include schemaLocation="INCSetFaxRequest.xsd" />
+	<xs:include schemaLocation="INCImportMemberRequest.xsd" />
+	<xs:include schemaLocation="INCOnlyBusinessContextRequest.xsd" />
+	<xs:include schemaLocation="INCSetFaxAutodetectionRequest.xsd" />
+	<xs:include schemaLocation="INCActivateScenarioRequest.xsd" />
+	<xs:include schemaLocation="INCSetCalendarRequest.xsd" />
+	<xs:include schemaLocation="INCSetFailedCallTreatmentRequest.xsd" />
+	<xs:include schemaLocation="INCSetVoiceMailBoxNumberRequest.xsd" />
+	<xs:include schemaLocation="INCSetAnnouncementRequest.xsd" />
+	<xs:include schemaLocation="INCQuerySubscribersRequest.xsd" />
+	<xs:include schemaLocation="INCGetUnansweredCallsListRequest.xsd" />
+	<xs:include schemaLocation="INCActivateVPABXServiceRequest.xsd" />
+	<xs:include schemaLocation="INCDefaultVPABXRequest.xsd" />
+	<xs:include schemaLocation="INCRemoveMemberFromAllVpabxsRequest.xsd" />
+	<xs:include schemaLocation="INCModifyVPABXServiceRequest.xsd" />
+	<xs:include schemaLocation="INCModifyMemberRequest.xsd" />
+	<xs:include schemaLocation="INCModifyNumberRequest.xsd" />
+	<xs:include schemaLocation="INCSendEmailRequest.xsd" />
+	<xs:include schemaLocation="INCModifyVpnFmsNumberRequest.xsd" />
+	<xs:include schemaLocation="INCAddVipListEntryRequest.xsd" />
+	<xs:include schemaLocation="INCRemoveVipListEntryRequest.xsd" />
+	
+
+	<xs:group name="t_vpabxConfRequestsBodies">
+		<xs:choice>
+			<!-- VPABX 2.0 GUI -->
+			<xs:element name="initAddMemberRequest" type="t_initAddMemberRequest" />
+			<xs:element name="initRemoveMemberRequest" type="t_initRemoveMemberRequest" />
+			<xs:element name="activateMemberRoamingCutOffRequest" type="t_setFeatureRequest" />
+			<xs:element name="deactivateMemberRoamingCutOffRequest" type="t_setFeatureRequest" />
+			<xs:element name="activateMemberSecretaryCallRequest" type="t_setFeatureRequest" />
+			<xs:element name="deactivateMemberSecretaryCallRequest" type="t_setFeatureRequest" />
+			<xs:element name="setMemberAclipRequest" type="t_setMemberAclipRequest" />
+			<xs:element name="addFaxRequest" type="t_setFaxRequest" />
+			<xs:element name="removeFaxRequest" type="t_setFaxRequest" />
+			<xs:element name="setFaxAutodetectionRequest" type="t_setFaxAutodetectionRequest" />
+			<xs:element name="importMemberRequest" type="t_importMemberRequest" />
+			<xs:element name="getClientContractsRequest" type="t_onlyBusinessContextRequest" />
+			<xs:element name="setAlertingAnnouncementRequest" type="t_setAnnouncementRequest" />
+			<xs:element name="setWelcomeAnnouncementRequest" type="t_setAnnouncementRequest" />
+			<xs:element name="activateScenarioRequest" type="t_activateScenarioRequest" />
+			<xs:element name="setCalendarRequest" type="t_setCalendarRequest" />
+			<xs:element name="setFailedCallTreatmentRequest" type="t_setFailedCallTreatmentRequest" />
+			<xs:element name="setVoiceMailBoxNumberRequest" type="t_setVoiceMailBoxNumberRequest" />
+			<xs:element name="querySubscribersRequest" type="t_querySubscribersRequest" />
+			<xs:element name="getUnansweredCallsListRequest" type="t_getUnansweredCallsListRequest" />
+			<xs:element name="activateVpabxRoamingCutOffRequest" type="t_onlyBusinessContextRequest" />
+			<xs:element name="deactivateVpabxRoamingCutOffRequest" type="t_onlyBusinessContextRequest" />
+			<xs:element name="removeMsisdnFromAllVpabxsRequest" type="t_baseVpabxMember" /><!-- initRemove -->
+			<xs:element name="sendEmailRequest" type="t_sendEmailRequest" />
+			<xs:element name="addVpnFmsNumberRequest" type="t_addVpnFmsNumberRequest" />
+			<xs:element name="addVipListEntryRequest" type="t_addVipListEntryRequest" />
+			<xs:element name="removeVipListEntryRequest" type="t_removeVipListEntryRequest" />
+			
+			<!-- VPABX 2.0 CPL -->
+			<xs:element name="addMemberRequest" type="t_addMemberRequest" />
+			<xs:element name="removeMemberRequest" type="t_removeMemberRequest" />
+			<xs:element name="activateVpabxServiceRequest" type="t_activateVpabxServiceRequest" />
+			<xs:element name="deactivateVpabxServiceRequest" type="t_defaultVPABXRequest" />
+			<xs:element name="enableVpabxServiceRequest" type="t_defaultVPABXRequest" />
+			<xs:element name="disableVpabxServiceRequest" type="t_defaultVPABXRequest" />
+			<xs:element name="modifyVpabxServiceRequest" type="t_modifyVpabxServiceRequest" />
+			<xs:element name="changeMemberNumberRequest" type="t_modifyMemberNumberRequest" />
+			<xs:element name="changeVpabxCCNNumberRequest" type="t_modifyVpabxCCNNumberRequest" />
+			<xs:element name="modifyMemberRequest" type="t_modifyMemberRequest" />
+			<xs:element name="removeVpnFmsNumberRequest" type="t_removeVpnFmsNumberRequest" />
+			
+			<xs:element name="activateVpabxAclipRequest" type="t_defaultVPABXRequest" />
+			<xs:element name="deactivateVpabxAclipRequest" type="t_defaultVPABXRequest" />
+			<xs:element name="activateVpabxSecretaryCallRequest" type="t_defaultVPABXRequest" />
+			<xs:element name="deactivateVpabxSecretaryCallRequest" type="t_defaultVPABXRequest" />
+			<xs:element name="removeMemberFromAllVpabxsRequest" type="t_removeMemberFromAllVpabxsRequest" />
+			
+			<xs:element name="removeVpabxOnlyFromDatabaseRequest" type="t_defaultVPABXRequest" />
+		</xs:choice>
+	</xs:group>
+</xs:schema>

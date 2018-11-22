@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 U (http://www.altova.com) by Michal Brandt (Infovide S.A.) -->
+<!--
+ #============================================================================
+ # AUTHOR:       Infovide-Matrix S.A. (http://www.infovidematrix.pl)
+ # CREATION:     2010-04-19
+ # VERSION:      01.00
+ #
+ #============================================================================
+ -->
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_conditionalOutpaymentResponse">
+		<xs:sequence>
+			<xs:element name="MSISDN" type="t_msisdn"/>
+			<xs:element name="MACOutpaymentResult" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="subaccountName" type="xs:string" minOccurs="0" maxOccurs="64"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,3609 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:q1="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:include schemaLocation="../../INCBaseTypes.xsd"/>
+  <xs:include schemaLocation="adamo.xsd"/>
+
+  <xs:complexType name="t_BusinessRouting">
+    <xs:sequence>
+      <xs:element name="busRoutingProfileRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Business RP ID
+Subscription to Business Routing Profile functionality – id of business routing profile in NTR BB
+
+NOTE: naming conventions proposed for migration: BRP_[hg_name]</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="40"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="calendarRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Calendar for NTR
+Id of calendar to be used when processing Business Routing Profile functionality (name of the calendar defined in Calendar object)
+DO WYTESTOWANIA - chodzi tu o nazwę, czy o id kalendarza?
+If calendar is not provided, business routing profile is applied always - no time/date check is performed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Business RP end date
+Subscription to Business Routing Profile functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Business RP end time
+Subscription to Business Routing Profile functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Business RP start date
+Subscription to Business Routing Profile functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Business RP start time
+Subscription to Business Routing Profile functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_ChGroup">
+    <xs:sequence>
+      <xs:element name="roamingCutOff" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag roamingCutOff
+Specifies if Roaming Cut Off functionality is active for specific Group / Group Member / User Key (access number). If this flag is set, then e.g. CH logic will filter (remove) members of Hunting Group that are not logged in domestic network.
+- notset - flag not set
+- set - flag set
+- notdef - flag not defined (default value)
+If not defined at Group level, then default value from Network operator will be used. Can be overridden by configuration done at Group Member level.
+If not defined at Group Member level then we need to check at Group level. Can be overridden by configuration done at User Key level.
+If not defined at User Key level then we need to check at Group Member level.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notset"/>
+            <xs:enumeration value="set"/>
+            <xs:enumeration value="notdef"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="timeout" type="t_ChTimeout" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_ChGroupModify">
+    <xs:sequence>
+      <xs:element name="timeout" type="t_ChTimeout" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_ChGroupRemove">
+    <xs:sequence>
+      <xs:element name="roamingCutOff" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag roamingCutOff
+Specifies if Roaming Cut Off functionality is active for specific Group / Group Member / User Key (access number). If this flag is set, then e.g. CH logic will filter (remove) members of Hunting Group that are not logged in domestic network.
+- notset - flag not set
+- set - flag set
+- notdef - flag not defined (default value)
+If not defined at Group level, then default value from Network operator will be used. Can be overridden by configuration done at Group Member level.
+If not defined at Group Member level then we need to check at Group level. Can be overridden by configuration done at User Key level.
+If not defined at User Key level then we need to check at Group Member level.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notset"/>
+            <xs:enumeration value="set"/>
+            <xs:enumeration value="notdef"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_ChGroupMember">
+    <xs:sequence>
+      <xs:element name="isCCNActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag ccnActive
+Defines if user is active with reference to all CCNs:
+0: user isn't active (default value)
+1: user is active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isHuntingGroupActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag hgActive
+Defines if user is active with reference to all HGs:
+0: user isn't active (default value)
+1: user is active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="roamingCutOff" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag roamingCutOff
+Specifies if Roaming Cut Off functionality is active for specific Group / Group Member / User Key (access number). If this flag is set, then e.g. CH logic will filter (remove) members of Hunting Group that are not logged in domestic network.
+- notset - flag not set
+- set - flag set
+- notdef - flag not defined (default value)
+If not defined at Group level, then default value from Network operator will be used. Can be overridden by configuration done at Group Member level.
+If not defined at Group Member level then we need to check at Group level. Can be overridden by configuration done at User Key level.
+If not defined at User Key level then we need to check at Group Member level.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notset"/>
+            <xs:enumeration value="set"/>
+            <xs:enumeration value="notdef"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_ChGroupMemberRemove">
+    <xs:sequence>
+      <xs:element name="isCCNActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag ccnActive
+Defines if user is active with reference to all CCNs:
+0: user isn't active (default value)
+1: user is active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isHuntingGroupActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag hgActive
+Defines if user is active with reference to all HGs:
+0: user isn't active (default value)
+1: user is active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="roamingCutOff" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag roamingCutOff
+Specifies if Roaming Cut Off functionality is active for specific Group / Group Member / User Key (access number). If this flag is set, then e.g. CH logic will filter (remove) members of Hunting Group that are not logged in domestic network.
+- notset - flag not set
+- set - flag set
+- notdef - flag not defined (default value)
+If not defined at Group level, then default value from Network operator will be used. Can be overridden by configuration done at Group Member level.
+If not defined at Group Member level then we need to check at Group level. Can be overridden by configuration done at User Key level.
+If not defined at User Key level then we need to check at Group Member level.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notset"/>
+            <xs:enumeration value="set"/>
+            <xs:enumeration value="notdef"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_ChTimeout">
+    <xs:sequence>
+      <xs:element name="alertingTimeout" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CH_Timeout_alertingTimeout
+Value of “Alerting Timeout” which specifies how long hunting mechanism should wait for an answer of alerted member of Hunting Group.
+Allowed value is from 0 to 2047.
+0 - means that timeout is not set at this level and we need to check at Provider level (default value).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="loopTimeout" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CH_Timeout_loopTimeout
+Value of “Loop Timeout” which specifies how long alerting of non-answering or busy members of Hunting Group should be repeated.
+Allowed value is from 0 to 2047.
+0 - means that timeout is not defined at this level and we need to check at Provider level (default value).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_ChTimeoutModify">
+    <xs:sequence>
+      <xs:element name="alertingTimeout" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CH_Timeout_alertingTimeout
+Value of “Alerting Timeout” which specifies how long hunting mechanism should wait for an answer of alerted member of Hunting Group.
+Allowed value is from 0 to 2047.
+0 - means that timeout is not set at this level and we need to check at Provider level (default value).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="loopTimeout" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CH_Timeout_loopTimeout
+Value of “Loop Timeout” which specifies how long alerting of non-answering or busy members of Hunting Group should be repeated.
+Allowed value is from 0 to 2047.
+0 - means that timeout is not defined at this level and we need to check at Provider level (default value).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_ChUserKey">
+    <xs:sequence>
+      <xs:element name="roamingCutOff" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag roamingCutOff
+Specifies if Roaming Cut Off functionality is active for specific Group / Group Member / User Key (access number). If this flag is set, then e.g. CH logic will filter (remove) members of Hunting Group that are not logged in domestic network.
+- notset - flag not set
+- set - flag set
+- notdef - flag not defined (default value)
+If not defined at Group level, then default value from Network operator will be used. Can be overridden by configuration done at Group Member level.
+If not defined at Group Member level then we need to check at Group level. Can be overridden by configuration done at User Key level.
+If not defined at User Key level then we need to check at Group Member level.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notset"/>
+            <xs:enumeration value="set"/>
+            <xs:enumeration value="notdef"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_ChUserKeyRemove">
+    <xs:sequence>
+      <xs:element name="roamingCutOff" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag roamingCutOff
+Specifies if Roaming Cut Off functionality is active for specific Group / Group Member / User Key (access number). If this flag is set, then e.g. CH logic will filter (remove) members of Hunting Group that are not logged in domestic network.
+- notset - flag not set
+- set - flag set
+- notdef - flag not defined (default value)
+If not defined at Group level, then default value from Network operator will be used. Can be overridden by configuration done at Group Member level.
+If not defined at Group Member level then we need to check at Group level. Can be overridden by configuration done at User Key level.
+If not defined at User Key level then we need to check at Group Member level.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notset"/>
+            <xs:enumeration value="set"/>
+            <xs:enumeration value="notdef"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CqGroupMember">
+    <xs:sequence>
+      <xs:element name="isCallQueuingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Call Queuing subscribed
+Indicates if Call Queuing functionality is subscribed with regards to particular group
+0 – Call Queuing not subscribed (default value)
+1 – Call Queuing subscribed
+This flag is only relevant when 'Call Transfer subscribed' flag is set to 1.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CqGroupMemberRemove">
+    <xs:sequence>
+      <xs:element name="isCallQueuingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Call Queuing subscribed
+Indicates if Call Queuing functionality is subscribed with regards to particular group
+0 – Call Queuing not subscribed (default value)
+1 – Call Queuing subscribed
+This flag is only relevant when 'Call Transfer subscribed' flag is set to 1.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CqMusicOnHold">
+    <xs:sequence>
+      <xs:element name="featureID" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CQ_Ann_FeatID_MusicOnHold
+Announcement Feature ID for the “Music on Hold” announcement, played to CgPA while he is in queue
+If value is 0, then it means that the announcement is not defined here and the value from Provider will be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="indexID" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CQ_Ann_IdxID_MusicOnHold
+Announcement Index ID for the “Music on Hold” announcement, played to CgPA while he is in queue
+If value is 0, then it means that the announcement is not defined here and the value from Provider will be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CqMusicOnHoldModify">
+    <xs:sequence>
+      <xs:element name="featureID" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CQ_Ann_FeatID_MusicOnHold
+Announcement Feature ID for the “Music on Hold” announcement, played to CgPA while he is in queue
+If value is 0, then it means that the announcement is not defined here and the value from Provider will be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="indexID" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CQ_Ann_IdxID_MusicOnHold
+Announcement Index ID for the “Music on Hold” announcement, played to CgPA while he is in queue
+If value is 0, then it means that the announcement is not defined here and the value from Provider will be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CqNoDivert">
+    <xs:sequence>
+      <xs:element name="featureID" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CQ_Ann_FeatID_NoDivert
+Announcement Feature ID for the “No Divert” announcement, played to CgPA while he is in queue
+If value is 0, then it means that the announcement is not defined here and the value from Provider will be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="indexID" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CQ_Ann_IdxID_NoDivert
+Announcement Index ID for the “No Divert” announcement, played to CgPA while he is in queue
+If value is 0, then it means that the announcement is not defined here and the value from Provider will be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CqNoDivertModify">
+    <xs:sequence>
+      <xs:element name="featureID" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CQ_Ann_FeatID_NoDivert
+Announcement Feature ID for the “No Divert” announcement, played to CgPA while he is in queue
+If value is 0, then it means that the announcement is not defined here and the value from Provider will be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="indexID" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CQ_Ann_IdxID_NoDivert
+Announcement Index ID for the “No Divert” announcement, played to CgPA while he is in queue
+If value is 0, then it means that the announcement is not defined here and the value from Provider will be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CqUser">
+    <xs:sequence>
+      <xs:element name="musicOnHold" type="t_CqMusicOnHold" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="noDivert" type="t_CqNoDivert" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CqUserModify">
+    <xs:sequence>
+      <xs:element name="musicOnHold" type="t_CqMusicOnHold" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="noDivert" type="t_CqNoDivert" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsGroup">
+    <xs:sequence>
+      <xs:element name="icsDomestic" type="t_CsIcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsRoaming" type="t_CsIcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isApartyRequired" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is A-party Required
+Indicates what to do at particular screening profile level (Group / Group Member / User / User Key (access number)) if A-party number is not available (applicable for incoming call screening):
+0 – Call will be continued (screening profile from lower level can be evaluated) (default)
+1 – Call  will be released (screening profile from lower level will not be processed)
+
+NOTE for migration OSP-CIN: currently not set at Group level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isIcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Subscribed
+Indicates if Incoming Call Screening functionality is subscribed at Group / Group Member / User / User Key (access number) level
+0 – Incoming CS not subscribed (default value)
+1 – Incoming CS subscribed
+If set to 1 then rest of the ICS subscription related information will be evaluated by service logic to determine what ICS should be evaluated (if any – subscription validity) and how to reach CS BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isOcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Subscribed
+Indicates if Outgoing Call Screening functionality is subscribed at Group / Group Member / User level
+0 – Outgoing CS not subscribed (default value)
+1 – Outgoing CS subscribed
+If set to 1 then rest of the OCS subscription related information will be evaluated by service logic to determine what OCS should be evaluated (if any – subscription validity) and how to reach CS BB. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsDomestic" type="t_CsOcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsRoaming" type="t_CsOcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsGroupModify">
+    <xs:sequence>
+      <xs:element name="icsDomestic" type="t_CsIcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsRoaming" type="t_CsIcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isApartyRequired" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is A-party Required
+Indicates what to do at particular screening profile level (Group / Group Member / User / User Key (access number)) if A-party number is not available (applicable for incoming call screening):
+0 – Call will be continued (screening profile from lower level can be evaluated) (default)
+1 – Call  will be released (screening profile from lower level will not be processed)
+
+NOTE for migration OSP-CIN: currently not set at Group level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsDomestic" type="t_CsOcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsRoaming" type="t_CsOcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsGroupRemove">
+    <xs:sequence>
+      <xs:element name="isIcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Subscribed
+Indicates if Incoming Call Screening functionality is subscribed at Group / Group Member / User / User Key (access number) level
+0 – Incoming CS not subscribed (default value)
+1 – Incoming CS subscribed
+If set to 1 then rest of the ICS subscription related information will be evaluated by service logic to determine what ICS should be evaluated (if any – subscription validity) and how to reach CS BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isOcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Subscribed
+Indicates if Outgoing Call Screening functionality is subscribed at Group / Group Member / User level
+0 – Outgoing CS not subscribed (default value)
+1 – Outgoing CS subscribed
+If set to 1 then rest of the OCS subscription related information will be evaluated by service logic to determine what OCS should be evaluated (if any – subscription validity) and how to reach CS BB. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsGroupMember">
+    <xs:sequence>
+      <xs:element name="icsDomestic" type="t_CsIcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsRoaming" type="t_CsIcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isApartyRequired" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is A-party Required
+Indicates what to do at particular screening profile level (Group / Group Member / User / User Key (access number)) if A-party number is not available (applicable for incoming call screening):
+0 – Call will be continued (screening profile from lower level can be evaluated) (default)
+1 – Call  will be released (screening profile from lower level will not be processed)
+
+NOTE for migration OSP-CIN: currently not set at Group level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isIcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Subscribed
+Indicates if Incoming Call Screening functionality is subscribed at Group / Group Member / User / User Key (access number) level
+0 – Incoming CS not subscribed (default value)
+1 – Incoming CS subscribed
+If set to 1 then rest of the ICS subscription related information will be evaluated by service logic to determine what ICS should be evaluated (if any – subscription validity) and how to reach CS BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isOcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Subscribed
+Indicates if Outgoing Call Screening functionality is subscribed at Group / Group Member / User level
+0 – Outgoing CS not subscribed (default value)
+1 – Outgoing CS subscribed
+If set to 1 then rest of the OCS subscription related information will be evaluated by service logic to determine what OCS should be evaluated (if any – subscription validity) and how to reach CS BB. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsDomestic" type="t_CsOcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsRoaming" type="t_CsOcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsGroupMemberModify">
+    <xs:sequence>
+      <xs:element name="icsDomestic" type="t_CsIcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsRoaming" type="t_CsIcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isApartyRequired" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is A-party Required
+Indicates what to do at particular screening profile level (Group / Group Member / User / User Key (access number)) if A-party number is not available (applicable for incoming call screening):
+0 – Call will be continued (screening profile from lower level can be evaluated) (default)
+1 – Call  will be released (screening profile from lower level will not be processed)
+
+NOTE for migration OSP-CIN: currently not set at Group level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsDomestic" type="t_CsOcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsRoaming" type="t_CsOcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsGroupMemberRemove">
+    <xs:sequence>
+      <xs:element name="isIcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Subscribed
+Indicates if Incoming Call Screening functionality is subscribed at Group / Group Member / User / User Key (access number) level
+0 – Incoming CS not subscribed (default value)
+1 – Incoming CS subscribed
+If set to 1 then rest of the ICS subscription related information will be evaluated by service logic to determine what ICS should be evaluated (if any – subscription validity) and how to reach CS BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isOcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Subscribed
+Indicates if Outgoing Call Screening functionality is subscribed at Group / Group Member / User level
+0 – Outgoing CS not subscribed (default value)
+1 – Outgoing CS subscribed
+If set to 1 then rest of the OCS subscription related information will be evaluated by service logic to determine what OCS should be evaluated (if any – subscription validity) and how to reach CS BB. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsIcsDomestic">
+    <xs:sequence>
+      <xs:element name="calendarRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Calendar (no roaming)
+Id of calendar to be used when processing Incoming Call Screening functionality (name of the calendar defined in Calendar object)
+DO WYTESTOWANIA - chodzi tu o nazwę, czy o id kalendarza?
+If calendar is not provided, incoming call screening profile (no roaming) is applied always - no time/date check is performed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening end date (no roaming)
+Subscription to Incoming Call Screening functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening end time (no roaming)
+Subscription to Incoming Call Screening functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsProfileRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening ID (no roaming)
+Subscription to Incoming Call Screening functionality – id of screening profile defined in CS BB </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening start date (no roaming)
+Subscription to Incoming Call Screening functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening start time (no roaming)
+Subscription to Incoming Call Screening functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsIcsDomesticModify">
+    <xs:sequence>
+      <xs:element name="calendarRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Calendar (no roaming)
+Id of calendar to be used when processing Incoming Call Screening functionality (name of the calendar defined in Calendar object)
+DO WYTESTOWANIA - chodzi tu o nazwę, czy o id kalendarza?
+If calendar is not provided, incoming call screening profile (no roaming) is applied always - no time/date check is performed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening end date (no roaming)
+Subscription to Incoming Call Screening functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening end time (no roaming)
+Subscription to Incoming Call Screening functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsProfileRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening ID (no roaming)
+Subscription to Incoming Call Screening functionality – id of screening profile defined in CS BB </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening start date (no roaming)
+Subscription to Incoming Call Screening functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening start time (no roaming)
+Subscription to Incoming Call Screening functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsIcsRoaming">
+    <xs:sequence>
+      <xs:element name="calendarRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Calendar (roaming)
+Id of calendar to be used when processing Incoming Call Screening functionality (name of the calendar defined in Calendar object)
+DO WYTESTOWANIA - chodzi tu o nazwę, czy o id kalendarza?
+If calendar is not provided, incoming call screening profile (roaming) is applied always - no time/date check is performed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening end date (roaming)
+Subscription to Incoming Call Screening functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening end time (roaming)
+Subscription to Incoming Call Screening functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsProfileRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening ID (roaming)
+Subscription to Incoming Call Screening functionality – id of screening profile defined in CS BB </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening start date (roaming)
+Subscription to Incoming Call Screening functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening start time (roaming)
+Subscription to Incoming Call Screening functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsIcsRoamingModify">
+    <xs:sequence>
+      <xs:element name="calendarRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Calendar (roaming)
+Id of calendar to be used when processing Incoming Call Screening functionality (name of the calendar defined in Calendar object)
+DO WYTESTOWANIA - chodzi tu o nazwę, czy o id kalendarza?
+If calendar is not provided, incoming call screening profile (roaming) is applied always - no time/date check is performed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening end date (roaming)
+Subscription to Incoming Call Screening functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening end time (roaming)
+Subscription to Incoming Call Screening functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsProfileRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening ID (roaming)
+Subscription to Incoming Call Screening functionality – id of screening profile defined in CS BB </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening start date (roaming)
+Subscription to Incoming Call Screening functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening start time (roaming)
+Subscription to Incoming Call Screening functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsOcsDomestic">
+    <xs:sequence>
+      <xs:element name="calendarRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Calendar (no roaming)
+Id of calendar to be used when processing Outgoing Call Screening functionality (name of the calendar defined in Calendar object)
+DO WYTESTOWANIA - chodzi tu o nazwę, czy o id kalendarza?
+If calendar is not provided, outgoing call screening profile (no roaming) is applied always - no time/date check is performed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening end date (no roaming)
+Subscription to Outgoing Call Screening functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening end time (no roaming)
+Subscription to Outgoing Call Screening functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsProfileRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening ID (no roaming)
+Subscription to Outgoing Call Screening functionality – id of screening profile defined in CS BB </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening start date (no roaming)
+Subscription to Outgoing Call Screening functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening start time (no roaming)
+Subscription to Outgoing Call Screening functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsOcsDomesticModify">
+    <xs:sequence>
+      <xs:element name="calendarRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Calendar (no roaming)
+Id of calendar to be used when processing Outgoing Call Screening functionality (name of the calendar defined in Calendar object)
+DO WYTESTOWANIA - chodzi tu o nazwę, czy o id kalendarza?
+If calendar is not provided, outgoing call screening profile (no roaming) is applied always - no time/date check is performed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening end date (no roaming)
+Subscription to Outgoing Call Screening functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening end time (no roaming)
+Subscription to Outgoing Call Screening functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsProfileRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening ID (no roaming)
+Subscription to Outgoing Call Screening functionality – id of screening profile defined in CS BB </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening start date (no roaming)
+Subscription to Outgoing Call Screening functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening start time (no roaming)
+Subscription to Outgoing Call Screening functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsOcsRoaming">
+    <xs:sequence>
+      <xs:element name="calendarRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Calendar (roaming)
+Id of calendar to be used when processing Outgoing Call Screening functionality (name of the calendar defined in Calendar object)
+DO WYTESTOWANIA - chodzi tu o nazwę, czy o id kalendarza?
+If calendar is not provided, outgoing call screening profile (roaming) is applied always - no time/date check is performed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening end date (roaming)
+Subscription to Outgoing Call Screening functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening end time (roaming)
+Subscription to Outgoing Call Screening functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsProfileRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening ID (roaming)
+Subscription to Outgoing Call Screening functionality – id of screening profile defined in CS BB </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening start date (roaming)
+Subscription to Outgoing Call Screening functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening start time (roaming)
+Subscription to Outgoing Call Screening functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsOcsRoamingModify">
+    <xs:sequence>
+      <xs:element name="calendarRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Calendar (roaming)
+Id of calendar to be used when processing Outgoing Call Screening functionality (name of the calendar defined in Calendar object)
+DO WYTESTOWANIA - chodzi tu o nazwę, czy o id kalendarza?
+If calendar is not provided, outgoing call screening profile (roaming) is applied always - no time/date check is performed.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening end date (roaming)
+Subscription to Outgoing Call Screening functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening end time (roaming)
+Subscription to Outgoing Call Screening functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsProfileRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening ID (roaming)
+Subscription to Outgoing Call Screening functionality – id of screening profile defined in CS BB </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening start date (roaming)
+Subscription to Outgoing Call Screening functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening start time (roaming)
+Subscription to Outgoing Call Screening functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsUser">
+    <xs:sequence>
+      <xs:element name="icsDomestic" type="t_CsIcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsRoaming" type="t_CsIcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isApartyRequired" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is A-party Required
+Indicates what to do at particular screening profile level (Group / Group Member / User / User Key (access number)) if A-party number is not available (applicable for incoming call screening):
+0 – Call will be continued (screening profile from lower level can be evaluated) (default)
+1 – Call  will be released (screening profile from lower level will not be processed)
+
+NOTE for migration OSP-CIN: currently not set at Group level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isIcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Subscribed
+Indicates if Incoming Call Screening functionality is subscribed at Group / Group Member / User / User Key (access number) level
+0 – Incoming CS not subscribed (default value)
+1 – Incoming CS subscribed
+If set to 1 then rest of the ICS subscription related information will be evaluated by service logic to determine what ICS should be evaluated (if any – subscription validity) and how to reach CS BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isOcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Subscribed
+Indicates if Outgoing Call Screening functionality is subscribed at Group / Group Member / User level
+0 – Outgoing CS not subscribed (default value)
+1 – Outgoing CS subscribed
+If set to 1 then rest of the OCS subscription related information will be evaluated by service logic to determine what OCS should be evaluated (if any – subscription validity) and how to reach CS BB. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsDomestic" type="t_CsOcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsRoaming" type="t_CsOcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsUserModify">
+    <xs:sequence>
+      <xs:element name="icsDomestic" type="t_CsIcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsRoaming" type="t_CsIcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isApartyRequired" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is A-party Required
+Indicates what to do at particular screening profile level (Group / Group Member / User / User Key (access number)) if A-party number is not available (applicable for incoming call screening):
+0 – Call will be continued (screening profile from lower level can be evaluated) (default)
+1 – Call  will be released (screening profile from lower level will not be processed)
+
+NOTE for migration OSP-CIN: currently not set at Group level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsDomestic" type="t_CsOcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsRoaming" type="t_CsOcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsUserRemove">
+    <xs:sequence>
+      <xs:element name="isIcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Subscribed
+Indicates if Incoming Call Screening functionality is subscribed at Group / Group Member / User / User Key (access number) level
+0 – Incoming CS not subscribed (default value)
+1 – Incoming CS subscribed
+If set to 1 then rest of the ICS subscription related information will be evaluated by service logic to determine what ICS should be evaluated (if any – subscription validity) and how to reach CS BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isOcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Subscribed
+Indicates if Outgoing Call Screening functionality is subscribed at Group / Group Member / User level
+0 – Outgoing CS not subscribed (default value)
+1 – Outgoing CS subscribed
+If set to 1 then rest of the OCS subscription related information will be evaluated by service logic to determine what OCS should be evaluated (if any – subscription validity) and how to reach CS BB. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsUserKey">
+    <xs:sequence>
+      <xs:element name="icsDomestic" type="t_CsIcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsRoaming" type="t_CsIcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isApartyRequired" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is A-party Required
+Indicates what to do at particular screening profile level (Group / Group Member / User / User Key (access number)) if A-party number is not available (applicable for incoming call screening):
+0 – Call will be continued (screening profile from lower level can be evaluated) (default)
+1 – Call  will be released (screening profile from lower level will not be processed)
+
+NOTE for migration OSP-CIN: currently not set at Group level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isIcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Subscribed
+Indicates if Incoming Call Screening functionality is subscribed at Group / Group Member / User / User Key (access number) level
+0 – Incoming CS not subscribed (default value)
+1 – Incoming CS subscribed
+If set to 1 then rest of the ICS subscription related information will be evaluated by service logic to determine what ICS should be evaluated (if any – subscription validity) and how to reach CS BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isOcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Subscribed
+Indicates if Outgoing Call Screening functionality is subscribed at Group / Group Member / User level
+0 – Outgoing CS not subscribed (default value)
+1 – Outgoing CS subscribed
+If set to 1 then rest of the OCS subscription related information will be evaluated by service logic to determine what OCS should be evaluated (if any – subscription validity) and how to reach CS BB. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsDomestic" type="t_CsOcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsRoaming" type="t_CsOcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsUserKeyModify">
+    <xs:sequence>
+      <xs:element name="icsDomestic" type="t_CsIcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsRoaming" type="t_CsIcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isApartyRequired" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is A-party Required
+Indicates what to do at particular screening profile level (Group / Group Member / User / User Key (access number)) if A-party number is not available (applicable for incoming call screening):
+0 – Call will be continued (screening profile from lower level can be evaluated) (default)
+1 – Call  will be released (screening profile from lower level will not be processed)
+
+NOTE for migration OSP-CIN: currently not set at Group level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsDomestic" type="t_CsOcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsRoaming" type="t_CsOcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CsUserKeyRemove">
+    <xs:sequence>
+      <xs:element name="isIcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Subscribed
+Indicates if Incoming Call Screening functionality is subscribed at Group / Group Member / User / User Key (access number) level
+0 – Incoming CS not subscribed (default value)
+1 – Incoming CS subscribed
+If set to 1 then rest of the ICS subscription related information will be evaluated by service logic to determine what ICS should be evaluated (if any – subscription validity) and how to reach CS BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isOcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Subscribed
+Indicates if Outgoing Call Screening functionality is subscribed at Group / Group Member / User level
+0 – Outgoing CS not subscribed (default value)
+1 – Outgoing CS subscribed
+If set to 1 then rest of the OCS subscription related information will be evaluated by service logic to determine what OCS should be evaluated (if any – subscription validity) and how to reach CS BB. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CtGroupMember">
+    <xs:sequence>
+      <xs:element name="isCallTransferSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Call Transfer subscribed
+Indicates if Call Transfer functionality is subscribed with regards to particular group
+0 – Call Transfer not subscribed (default value)
+1 – Call Transfer subscribed</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CtGroupMemberRemove">
+    <xs:sequence>
+      <xs:element name="isCallTransferSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Call Transfer subscribed
+Indicates if Call Transfer functionality is subscribed with regards to particular group
+0 – Call Transfer not subscribed (default value)
+1 – Call Transfer subscribed</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_DhGroupMember">
+    <xs:sequence>
+      <xs:element name="isDoubleHuntingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Double Hunting subscribed
+Indicates if Double Hunting functionality is subscribed 
+0 – Double Hunting not subscribed (default value)
+1 – Double Hunting subscribed
+Definition of secondary number is done at User Key level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_DhGroupMemberModify">
+    <xs:sequence>
+      <xs:element name="isDoubleHuntingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Double Hunting subscribed
+Indicates if Double Hunting functionality is subscribed 
+0 – Double Hunting not subscribed (default value)
+1 – Double Hunting subscribed
+Definition of secondary number is done at User Key level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_DhGroupMemberRemove">
+    <xs:sequence>
+      <xs:element name="isDoubleHuntingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Double Hunting subscribed
+Indicates if Double Hunting functionality is subscribed 
+0 – Double Hunting not subscribed (default value)
+1 – Double Hunting subscribed
+Definition of secondary number is done at User Key level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_DhUserKey">
+    <xs:sequence>
+      <xs:element name="isSecondary" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is Secondary
+Indicates if number defined in Key Number attribute should be treated as Secondary with regards to Double Hunting functionality:
+0 – Number should be treated as Primary (default value)
+1 – Number should be treated as Secondary
+If 1 then number defined in 'DH Second Number' attribute should be treated as Primary number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="secondNumber" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>DH Second number
+Contains information about second number. Used only in case of Double Hunting functionality.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <!-- zmiana w zwiazku z zgloszeniem 8074 -->
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>          
+<!--         <xs:restriction base="xs:unsignedInt"> -->
+<!--           <xs:totalDigits value="15"/> -->
+<!--          </xs:restriction> -->
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_DhUserKeyModify">
+    <xs:sequence>
+      <xs:element name="isSecondary" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is Secondary
+Indicates if number defined in Key Number attribute should be treated as Secondary with regards to Double Hunting functionality:
+0 – Number should be treated as Primary (default value)
+1 – Number should be treated as Secondary
+If 1 then number defined in 'DH Second Number' attribute should be treated as Primary number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="secondNumber" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>DH Second number
+Contains information about second number. Used only in case of Double Hunting functionality.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <!-- zmiana w zwiazku z zgloszeniem 8074 -->
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>     
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_DhUserKeyRemove">
+    <xs:sequence>
+      <xs:element name="isSecondary" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is Secondary
+Indicates if number defined in Key Number attribute should be treated as Secondary with regards to Double Hunting functionality:
+0 – Number should be treated as Primary (default value)
+1 – Number should be treated as Secondary
+If 1 then number defined in 'DH Second Number' attribute should be treated as Primary number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="secondNumber" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>DH Second number
+Contains information about second number. Used only in case of Double Hunting functionality.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <!-- zmiana w zwiazku z zgloszeniem 8074 -->
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>               
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenGroup">
+    <xs:sequence>
+      <xs:element name="diallingOption" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Dialling Option
+Indicates type of dialling option selected for particular group:
+1 – Dialling option 1 
+2 – Dialling option 2 (default value)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="1"/>
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="groupType" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Group type 
+The type of the group. Possible values:
+vpn
+fmsv1
+fmsv2
+vpnfms
+vprefix
+mug
+vpabx10
+vpabx20
+vitb
+prepaid
+gvpn
+postpaid
+This parameter will be assigned during provisioning and used as URR criteria of the RE. This information will be also stored in CDR.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="vpn"/>
+            <xs:enumeration value="fmsv1"/>
+            <xs:enumeration value="fmsv2"/>
+            <xs:enumeration value="vpnfms"/>
+            <xs:enumeration value="vprefix"/>
+            <xs:enumeration value="mug"/>
+            <xs:enumeration value="vpabx10"/>
+            <xs:enumeration value="vpabx20"/>
+            <xs:enumeration value="vitb"/>
+            <xs:enumeration value="prepaid"/>
+			<xs:enumeration value="gvpn"/>
+			<xs:enumeration value="postpaid"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="isForcedFunctionalityActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Forced Functionality Flag
+Indicates if Forced functionality is active for that group
+0 – forced functionality not active (default)
+1 – forced functionality active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ivrRepetitionNbr" type="xs:unsignedByte" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Repeat IVR Tree N times
+Defines how many times IVR tree repetition is allowed.
+If not defined here value as defined at Network operator level should be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ivrRepetitionSleepTimer" type="xs:unsignedByte" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Sleep Timer of IVR Repetition Announcement
+Indicates how long (in seconds) SIG should wait after B-party disconnection to start playing of IVR Tree Repetition announcement.
+If not defined here value as defined at Network operator level should be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="onnetDisconnectionTimeout" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>OnNet Calls Disconnection Timeout
+Value of disconnection timeout in case of OnNet calls.
+0 - indicates functionality is off (default value)
+> 0 - indicates maximum duration of the call in seconds</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="onnetSmsAllowed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>OnNet SMS Allowed
+Indicates if OnNet SMSes are allowed within a group (OnNet == rated with preferential rates)
+0 - OnNet SMS not allowed (default value)
+1 - OnNet SMS allowed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>	  
+      <xs:element name="partnershipDefinitionRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Partnership Definition Reference
+Reference to Partnership Definition object that keeps list of partner networks of particular Group / Group Member.
+Reference set at Group level can be overridden by configuration at Group Subscription level.
+If empty at Group Member level then configuration from Group level should be used.
+If empty both at Group and Group Member level then partner functionality is not subscribed.
+
+PYT2: W migracji jest ustawione, że wszyscy będą mieli przypisane na poziomie group subscription definicje o nazwie" Partner_'MSISDN'. Pytanie, czy takie jest założenie, że wszyscy muszą mieć przypisaną definicję, najwyżej będzie ona pusta?</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="pnpLength" type="xs:unsignedByte" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>PNP Length
+Defines maximum PNP length used in particular group (used for determination if PNP or public number has been dialled in case of dialling option 2).
+INC sets default value for the product if the attribute is not provided.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="transparentData" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Transparent Data
+Transparent data information to be included in ticket after recalculation by CHG LL script
+Default value for this attribute is equal to 0</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="3"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenGroupModify">
+    <xs:sequence>
+      <xs:element name="diallingOption" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Dialling Option
+Indicates type of dialling option selected for particular group:
+1 – Dialling option 1 
+2 – Dialling option 2 (default value)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="1"/>
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="groupType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Group type 
+The type of the group. Possible values:
+vpn
+fmsv1
+fmsv2
+vpnfms
+vprefix
+mug
+vpabx10
+vpabx20
+vitb
+prepaid
+gvpn
+This parameter will be assigned during provisioning and used as URR criteria of the RE. This information will be also stored in CDR.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="vpn"/>
+            <xs:enumeration value="fmsv1"/>
+            <xs:enumeration value="fmsv2"/>
+            <xs:enumeration value="vpnfms"/>
+            <xs:enumeration value="vprefix"/>
+            <xs:enumeration value="mug"/>
+            <xs:enumeration value="vpabx10"/>
+            <xs:enumeration value="vpabx20"/>
+            <xs:enumeration value="vitb"/>
+            <xs:enumeration value="prepaid"/>
+			<xs:enumeration value="gvpn"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="isForcedFunctionalityActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Forced Functionality Flag
+Indicates if Forced functionality is active for that group
+0 – forced functionality not active (default)
+1 – forced functionality active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ivrRepetitionNbr" type="xs:unsignedByte" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Repeat IVR Tree N times
+Defines how many times IVR tree repetition is allowed.
+If not defined here value as defined at Network operator level should be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ivrRepetitionSleepTimer" type="xs:unsignedByte" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Sleep Timer of IVR Repetition Announcement
+Indicates how long (in seconds) SIG should wait after B-party disconnection to start playing of IVR Tree Repetition announcement.
+If not defined here value as defined at Network operator level should be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="onnetDisconnectionTimeout" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>OnNet Calls Disconnection Timeout
+Value of disconnection timeout in case of OnNet calls.
+0 - indicates functionality is off (default value)
+> 0 - indicates maximum duration of the call in seconds</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="partnershipDefinitionRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Partnership Definition Reference
+Reference to Partnership Definition object that keeps list of partner networks of particular Group / Group Member.
+Reference set at Group level can be overridden by configuration at Group Subscription level.
+If empty at Group Member level then configuration from Group level should be used.
+If empty both at Group and Group Member level then partner functionality is not subscribed.
+
+PYT2: W migracji jest ustawione, że wszyscy będą mieli przypisane na poziomie group subscription definicje o nazwie" Partner_'MSISDN'. Pytanie, czy takie jest założenie, że wszyscy muszą mieć przypisaną definicję, najwyżej będzie ona pusta?</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="pnpLength" type="xs:unsignedByte" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>PNP Length
+Defines maximum PNP length used in particular group (used for determination if PNP or public number has been dialled in case of dialling option 2).
+INC sets default value for the product if the attribute is not provided.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="transparentData" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Transparent Data
+Transparent data information to be included in ticket after recalculation by CHG LL script
+Default value for this attribute is equal to 0</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="3"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenGroupRemove">
+    <xs:sequence>
+      <xs:element name="diallingOption" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Dialling Option
+Indicates type of dialling option selected for particular group:
+1 – Dialling option 1 
+2 – Dialling option 2 (default value)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="1"/>
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="groupType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Group type 
+The type of the group. Possible values:
+vpn
+fmsv1
+fmsv2
+vpnfms
+vprefix
+mug
+vpabx10
+vpabx20
+vitb
+prepaid
+gvpn
+This parameter will be assigned during provisioning and used as URR criteria of the RE. This information will be also stored in CDR.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="vpn"/>
+            <xs:enumeration value="fmsv1"/>
+            <xs:enumeration value="fmsv2"/>
+            <xs:enumeration value="vpnfms"/>
+            <xs:enumeration value="vprefix"/>
+            <xs:enumeration value="mug"/>
+            <xs:enumeration value="vpabx10"/>
+            <xs:enumeration value="vpabx20"/>
+            <xs:enumeration value="vitb"/>
+            <xs:enumeration value="prepaid"/>
+			<xs:enumeration value="gvpn"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="isForcedFunctionalityActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Forced Functionality Flag
+Indicates if Forced functionality is active for that group
+0 – forced functionality not active (default)
+1 – forced functionality active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ivrRepetitionNbr" type="xs:unsignedByte" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Repeat IVR Tree N times
+Defines how many times IVR tree repetition is allowed.
+If not defined here value as defined at Network operator level should be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ivrRepetitionSleepTimer" type="xs:unsignedByte" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Sleep Timer of IVR Repetition Announcement
+Indicates how long (in seconds) SIG should wait after B-party disconnection to start playing of IVR Tree Repetition announcement.
+If not defined here value as defined at Network operator level should be used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="onnetDisconnectionTimeout" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>OnNet Calls Disconnection Timeout
+Value of disconnection timeout in case of OnNet calls.
+0 - indicates functionality is off (default value)
+> 0 - indicates maximum duration of the call in seconds</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="partnershipDefinitionRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Partnership Definition Reference
+Reference to Partnership Definition object that keeps list of partner networks of particular Group / Group Member.
+Reference set at Group level can be overridden by configuration at Group Subscription level.
+If empty at Group Member level then configuration from Group level should be used.
+If empty both at Group and Group Member level then partner functionality is not subscribed.
+
+PYT2: W migracji jest ustawione, że wszyscy będą mieli przypisane na poziomie group subscription definicje o nazwie" Partner_'MSISDN'. Pytanie, czy takie jest założenie, że wszyscy muszą mieć przypisaną definicję, najwyżej będzie ona pusta?</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="pnpLength" type="xs:unsignedByte" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>PNP Length
+Defines maximum PNP length used in particular group (used for determination if PNP or public number has been dialled in case of dialling option 2).
+INC sets default value for the product if the attribute is not provided.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="transparentData" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Transparent Data
+Transparent data information to be included in ticket after recalculation by CHG LL script
+Default value for this attribute is equal to 0</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="3"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenGroupMember">
+    <xs:sequence>
+      <xs:element name="isIntlPABXCallsActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>International Calls via PABX Flag
+Indicates if International Calls via PABX functionality is active
+0 – International Calls via PABX not active (default)
+1 – International Calls via PABX active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isVIP" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>VIP Flag
+Indicates if particular Group Member is VIP:
+0 – not VIP (default value)
+1 – VIP
+Flag to be used to determine if OCS/ICS should be executed and to determine position in queue.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="partnershipDefinitionRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Partnership Definition Reference
+Reference to Partnership Definition object that keeps list of partner networks of particular Group / Group Member.
+Reference set at Group level can be overridden by configuration at Group Subscription level.
+If empty at Group Member level then configuration from Group level should be used.
+If empty both at Group and Group Member level then partner functionality is not subscribed.
+
+PYT2: W migracji jest ustawione, że wszyscy będą mieli przypisane na poziomie group subscription definicje o nazwie" Partner_'MSISDN'. Pytanie, czy takie jest założenie, że wszyscy muszą mieć przypisaną definicję, najwyżej będzie ona pusta?</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ratingCategory" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Rating Category
+Rating category value for particular Group Member / User Key (access number). Up to 16 values are allowed:
+- notdef – not defined (default)
+- onnet – OnNet (1)
+- onnet2 – OnNet2 (2)
+- pabxonnet – PABX OnNet (3)
+- pabxvp – PABX_VP (4)
+- virtualonnet – Virtual OnNet (5)
+- partneronnet – Partner OnNet (6)
+- offnet – OffNet (7)
+
+NOTE: Partner OnNet should never be defined directly in data base. This rating category is calculated by service ('Partner functionality')
+NOTE: OffNet rating category can be defined directly in data base (to support OffNet members of VPABX service). But it is also calculated by service during ('Forced'/'Partner Functionality')
+
+Do uzgodnienia, czy bedziemy tego pola wymagali z jedna z wartosci 1-7, czy zmienimy default (INC bedzie ustawial default, albo w CIN zmienimy definicje adamofield)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notdef"/>
+            <xs:enumeration value="onnet"/>
+            <xs:enumeration value="onnet2"/>
+            <xs:enumeration value="pabxonnet"/>
+            <xs:enumeration value="pabxvp"/>
+            <xs:enumeration value="virtualonnet"/>
+            <xs:enumeration value="partneronnet"/>
+            <xs:enumeration value="offnet"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenGroupMemberModify">
+    <xs:sequence>
+      <xs:element name="isIntlPABXCallsActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>International Calls via PABX Flag
+Indicates if International Calls via PABX functionality is active
+0 – International Calls via PABX not active (default)
+1 – International Calls via PABX active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isVIP" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>VIP Flag
+Indicates if particular Group Member is VIP:
+0 – not VIP (default value)
+1 – VIP
+Flag to be used to determine if OCS/ICS should be executed and to determine position in queue.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="partnershipDefinitionRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Partnership Definition Reference
+Reference to Partnership Definition object that keeps list of partner networks of particular Group / Group Member.
+Reference set at Group level can be overridden by configuration at Group Subscription level.
+If empty at Group Member level then configuration from Group level should be used.
+If empty both at Group and Group Member level then partner functionality is not subscribed.
+
+PYT2: W migracji jest ustawione, że wszyscy będą mieli przypisane na poziomie group subscription definicje o nazwie" Partner_'MSISDN'. Pytanie, czy takie jest założenie, że wszyscy muszą mieć przypisaną definicję, najwyżej będzie ona pusta?</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ratingCategory" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Rating Category
+Rating category value for particular Group Member / User Key (access number). Up to 16 values are allowed:
+- notdef – not defined (default)
+- onnet – OnNet (1)
+- onnet2 – OnNet2 (2)
+- pabxonnet – PABX OnNet (3)
+- pabxvp – PABX_VP (4)
+- virtualonnet – Virtual OnNet (5)
+- partneronnet – Partner OnNet (6)
+- offnet – OffNet (7)
+
+NOTE: Partner OnNet should never be defined directly in data base. This rating category is calculated by service ('Partner functionality')
+NOTE: OffNet rating category can be defined directly in data base (to support OffNet members of VPABX service). But it is also calculated by service during ('Forced'/'Partner Functionality')
+
+Do uzgodnienia, czy bedziemy tego pola wymagali z jedna z wartosci 1-7, czy zmienimy default (INC bedzie ustawial default, albo w CIN zmienimy definicje adamofield)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notdef"/>
+            <xs:enumeration value="onnet"/>
+            <xs:enumeration value="onnet2"/>
+            <xs:enumeration value="pabxonnet"/>
+            <xs:enumeration value="pabxvp"/>
+            <xs:enumeration value="virtualonnet"/>
+            <xs:enumeration value="partneronnet"/>
+            <xs:enumeration value="offnet"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenGroupMemberRemove">
+    <xs:sequence>
+      <xs:element name="isIntlPABXCallsActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>International Calls via PABX Flag
+Indicates if International Calls via PABX functionality is active
+0 – International Calls via PABX not active (default)
+1 – International Calls via PABX active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isVIP" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>VIP Flag
+Indicates if particular Group Member is VIP:
+0 – not VIP (default value)
+1 – VIP
+Flag to be used to determine if OCS/ICS should be executed and to determine position in queue.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="partnershipDefinitionRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Partnership Definition Reference
+Reference to Partnership Definition object that keeps list of partner networks of particular Group / Group Member.
+Reference set at Group level can be overridden by configuration at Group Subscription level.
+If empty at Group Member level then configuration from Group level should be used.
+If empty both at Group and Group Member level then partner functionality is not subscribed.
+
+PYT2: W migracji jest ustawione, że wszyscy będą mieli przypisane na poziomie group subscription definicje o nazwie" Partner_'MSISDN'. Pytanie, czy takie jest założenie, że wszyscy muszą mieć przypisaną definicję, najwyżej będzie ona pusta?</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ratingCategory" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Rating Category
+Rating category value for particular Group Member / User Key (access number). Up to 16 values are allowed:
+- notdef – not defined (default)
+- onnet – OnNet (1)
+- onnet2 – OnNet2 (2)
+- pabxonnet – PABX OnNet (3)
+- pabxvp – PABX_VP (4)
+- virtualonnet – Virtual OnNet (5)
+- partneronnet – Partner OnNet (6)
+- offnet – OffNet (7)
+
+NOTE: Partner OnNet should never be defined directly in data base. This rating category is calculated by service ('Partner functionality')
+NOTE: OffNet rating category can be defined directly in data base (to support OffNet members of VPABX service). But it is also calculated by service during ('Forced'/'Partner Functionality')
+
+Do uzgodnienia, czy bedziemy tego pola wymagali z jedna z wartosci 1-7, czy zmienimy default (INC bedzie ustawial default, albo w CIN zmienimy definicje adamofield)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notdef"/>
+            <xs:enumeration value="onnet"/>
+            <xs:enumeration value="onnet2"/>
+            <xs:enumeration value="pabxonnet"/>
+            <xs:enumeration value="pabxvp"/>
+            <xs:enumeration value="virtualonnet"/>
+            <xs:enumeration value="partneronnet"/>
+            <xs:enumeration value="offnet"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenUser">
+    <xs:sequence>
+      <xs:element name="privateMSISDN" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Specifies MSISDN that is used to identify private account created at CRE level for private call scenarios. 
+NOTE: MSISDN of private account must be prefixed with 11.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="providerRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Provider Reference
+Specified name of the provider to which particular User belongs to.
+
+Do dopytania co to jest I kto to powinien ustawiac.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="userType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>User Type
+Specifies type of the particular User. The following values have been identified:
+- normal - Normal Subscriber [Business] (default value)
+- vprefix - Vprefix Subscriber ["normal" and PABX_VP]
+- vpnfms - VPN_FMS Subscriber
+- fmsv1 - FMSv1 Subscriber
+- fmsv2 - FMSv2 Subscriber
+- private - Private Subscriber [Prepaid, Postpaid]
+- virtual - Virtual [Standalone OnNet, Offnet]
+Information from this attribute will be stored in CDR. Generally it is not planned to use this parameter in the service with one exception. It will be used to check if calling party is Vprefix service subscriber i.e. to check if user is entitled to make calls with Voice Prefix in front of the dialled number.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="normal"/>
+            <xs:enumeration value="vprefix"/>
+            <xs:enumeration value="vpnfms"/>
+            <xs:enumeration value="fmsv1"/>
+            <xs:enumeration value="fmsv2"/>
+            <xs:enumeration value="private"/>
+            <xs:enumeration value="virtual"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenUserModify">
+    <xs:sequence>
+      <xs:element name="privateMSISDN" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Specifies MSISDN that is used to identify private account created at CRE level for private call scenarios. 
+NOTE: MSISDN of private account must be prefixed with 11.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="providerRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Provider Reference
+Specified name of the provider to which particular User belongs to.
+
+Do dopytania co to jest I kto to powinien ustawiac.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="userType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>User Type
+Specifies type of the particular User. The following values have been identified:
+- normal - Normal Subscriber [Business] (default value)
+- vprefix - Vprefix Subscriber ["normal" and PABX_VP]
+- vpnfms - VPN_FMS Subscriber
+- fmsv1 - FMSv1 Subscriber
+- fmsv2 - FMSv2 Subscriber
+- private - Private Subscriber [Prepaid, Postpaid]
+- virtual - Virtual [Standalone OnNet, Offnet]
+Information from this attribute will be stored in CDR. Generally it is not planned to use this parameter in the service with one exception. It will be used to check if calling party is Vprefix service subscriber i.e. to check if user is entitled to make calls with Voice Prefix in front of the dialled number.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="normal"/>
+            <xs:enumeration value="vprefix"/>
+            <xs:enumeration value="vpnfms"/>
+            <xs:enumeration value="fmsv1"/>
+            <xs:enumeration value="fmsv2"/>
+            <xs:enumeration value="private"/>
+            <xs:enumeration value="virtual"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenUserRemove">
+    <xs:sequence>
+      <xs:element name="privateMSISDN" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Specifies MSISDN that is used to identify private account created at CRE level for private call scenarios. 
+NOTE: MSISDN of private account must be prefixed with 11.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="providerRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Provider Reference
+Specified name of the provider to which particular User belongs to.
+
+Do dopytania co to jest I kto to powinien ustawiac.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="userType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>User Type
+Specifies type of the particular User. The following values have been identified:
+- normal - Normal Subscriber [Business] (default value)
+- vprefix - Vprefix Subscriber ["normal" and PABX_VP]
+- vpnfms - VPN_FMS Subscriber
+- fmsv1 - FMSv1 Subscriber
+- fmsv2 - FMSv2 Subscriber
+- private - Private Subscriber [Prepaid, Postpaid]
+- virtual - Virtual [Standalone OnNet, Offnet]
+Information from this attribute will be stored in CDR. Generally it is not planned to use this parameter in the service with one exception. It will be used to check if calling party is Vprefix service subscriber i.e. to check if user is entitled to make calls with Voice Prefix in front of the dialled number.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="normal"/>
+            <xs:enumeration value="vprefix"/>
+            <xs:enumeration value="vpnfms"/>
+            <xs:enumeration value="fmsv1"/>
+            <xs:enumeration value="fmsv2"/>
+            <xs:enumeration value="private"/>
+            <xs:enumeration value="virtual"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenUserKey">
+    <xs:sequence>
+      <xs:element name="commonNumber" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Common phone number
+Attribute should be populated for wildcard subscribers only. It keeps fake phone number that will be used on CRE side to identify wildcard subscriber.
+Recommended format is prefix00CCxxxxxxxxx where:
+- prefix is used to avoid number overlapping with real numbers (only digits 0 to 9 are allowed)
+- 00CCxxxxxxxxx is the number equal to one defined in 'nbrkey' without % and with zeros padding e.g. 0048224130000 given 'nbrkey' equals to 004822413%
+Default value: empty</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="24"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="imsi" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>IMSI 
+Contains IMSI assigned to particular User Key (access number).</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:nonNegativeInteger">
+            <xs:totalDigits value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="isActiveAsCCN" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CCN Active Flag
+Indicates if particular CCN is active or not:
+0 – CCN is not active
+1 – CCN is active (default value)
+NOTE: Information from this attribute is relevant only if Number Type indicates that this is CCN number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="mayDivertToOffnet" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CCN Divert to OffNet Flag
+Indicates if divert to OffNet members is allowed for particular CCN
+0 – Divert to OffNet not allowed (default value)
+1 – Divert to OffNet allowed
+NOTE: Information from this attribute is relevant only if Number Type indicates that this is CCN number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="numberType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Number type
+Specifies what the type of the User Key (access number) it is. The following values have been identified so far:
+- tn – Terminal Number (default)
+- ccngsm – Company Contact Number - gsm number
+- ccnfixed - Company Contact Number - fixed number</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="tn"/>
+            <xs:enumeration value="ccngsm"/>
+            <xs:enumeration value="ccnfixed"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ratingCategory" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Rating Category
+Rating category value for particular Group Member / User Key (access number). Up to 16 values are allowed:
+- notdef – not defined (default)
+- onnet – OnNet (1)
+- onnet2 – OnNet2 (2)
+- pabxonnet – PABX OnNet (3)
+- pabxvp – PABX_VP (4)
+- virtualonnet – Virtual OnNet (5)
+- partneronnet – Partner OnNet (6)
+- offnet – OffNet (7)
+
+NOTE: Partner OnNet should never be defined directly in data base. This rating category is calculated by service ('Partner functionality')
+NOTE: OffNet rating category can be defined directly in data base (to support OffNet members of VPABX service). But it is also calculated by service during ('Forced'/'Partner Functionality')
+
+Do uzgodnienia, czy bedziemy tego pola wymagali z jedna z wartosci 1-7, czy zmienimy default (INC bedzie ustawial default, albo w CIN zmienimy definicje adamofield)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notdef"/>
+            <xs:enumeration value="onnet"/>
+            <xs:enumeration value="onnet2"/>
+            <xs:enumeration value="pabxonnet"/>
+            <xs:enumeration value="pabxvp"/>
+            <xs:enumeration value="virtualonnet"/>
+            <xs:enumeration value="partneronnet"/>
+            <xs:enumeration value="offnet"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenUserKeyModify">
+    <xs:sequence>
+      <xs:element name="commonNumber" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Common phone number
+Attribute should be populated for wildcard subscribers only. It keeps fake phone number that will be used on CRE side to identify wildcard subscriber.
+Recommended format is prefix00CCxxxxxxxxx where:
+- prefix is used to avoid number overlapping with real numbers (only digits 0 to 9 are allowed)
+- 00CCxxxxxxxxx is the number equal to one defined in 'nbrkey' without % and with zeros padding e.g. 0048224130000 given 'nbrkey' equals to 004822413%
+Default value: empty</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="24"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="imsi" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>IMSI 
+Contains IMSI assigned to particular User Key (access number).</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="isActiveAsCCN" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CCN Active Flag
+Indicates if particular CCN is active or not:
+0 – CCN is not active
+1 – CCN is active (default value)
+NOTE: Information from this attribute is relevant only if Number Type indicates that this is CCN number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="mayDivertToOffnet" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CCN Divert to OffNet Flag
+Indicates if divert to OffNet members is allowed for particular CCN
+0 – Divert to OffNet not allowed (default value)
+1 – Divert to OffNet allowed
+NOTE: Information from this attribute is relevant only if Number Type indicates that this is CCN number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="numberType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Number type
+Specifies what the type of the User Key (access number) it is. The following values have been identified so far:
+- tn – Terminal Number (default)
+- ccngsm – Company Contact Number - gsm number
+- ccnfixed - Company Contact Number - fixed number</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="tn"/>
+            <xs:enumeration value="ccngsm"/>
+            <xs:enumeration value="ccnfixed"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ratingCategory" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Rating Category
+Rating category value for particular Group Member / User Key (access number). Up to 16 values are allowed:
+- notdef – not defined (default)
+- onnet – OnNet (1)
+- onnet2 – OnNet2 (2)
+- pabxonnet – PABX OnNet (3)
+- pabxvp – PABX_VP (4)
+- virtualonnet – Virtual OnNet (5)
+- partneronnet – Partner OnNet (6)
+- offnet – OffNet (7)
+
+NOTE: Partner OnNet should never be defined directly in data base. This rating category is calculated by service ('Partner functionality')
+NOTE: OffNet rating category can be defined directly in data base (to support OffNet members of VPABX service). But it is also calculated by service during ('Forced'/'Partner Functionality')
+
+Do uzgodnienia, czy bedziemy tego pola wymagali z jedna z wartosci 1-7, czy zmienimy default (INC bedzie ustawial default, albo w CIN zmienimy definicje adamofield)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notdef"/>
+            <xs:enumeration value="onnet"/>
+            <xs:enumeration value="onnet2"/>
+            <xs:enumeration value="pabxonnet"/>
+            <xs:enumeration value="pabxvp"/>
+            <xs:enumeration value="virtualonnet"/>
+            <xs:enumeration value="partneronnet"/>
+            <xs:enumeration value="offnet"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenUserKeyRemove">
+    <xs:sequence>
+      <xs:element name="isActiveAsCCN" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CCN Active Flag
+Indicates if particular CCN is active or not:
+0 – CCN is not active
+1 – CCN is active (default value)
+NOTE: Information from this attribute is relevant only if Number Type indicates that this is CCN number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="mayDivertToOffnet" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CCN Divert to OffNet Flag
+Indicates if divert to OffNet members is allowed for particular CCN
+0 – Divert to OffNet not allowed (default value)
+1 – Divert to OffNet allowed
+NOTE: Information from this attribute is relevant only if Number Type indicates that this is CCN number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="numberType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Number type
+Specifies what the type of the User Key (access number) it is. The following values have been identified so far:
+- tn – Terminal Number (default)
+- ccngsm – Company Contact Number - gsm number
+- ccnfixed - Company Contact Number - fixed number</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="tn"/>
+            <xs:enumeration value="ccngsm"/>
+            <xs:enumeration value="ccnfixed"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ratingCategory" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Rating Category
+Rating category value for particular Group Member / User Key (access number). Up to 16 values are allowed:
+- notdef – not defined (default)
+- onnet – OnNet (1)
+- onnet2 – OnNet2 (2)
+- pabxonnet – PABX OnNet (3)
+- pabxvp – PABX_VP (4)
+- virtualonnet – Virtual OnNet (5)
+- partneronnet – Partner OnNet (6)
+- offnet – OffNet (7)
+
+NOTE: Partner OnNet should never be defined directly in data base. This rating category is calculated by service ('Partner functionality')
+NOTE: OffNet rating category can be defined directly in data base (to support OffNet members of VPABX service). But it is also calculated by service during ('Forced'/'Partner Functionality')
+
+Do uzgodnienia, czy bedziemy tego pola wymagali z jedna z wartosci 1-7, czy zmienimy default (INC bedzie ustawial default, albo w CIN zmienimy definicje adamofield)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notdef"/>
+            <xs:enumeration value="onnet"/>
+            <xs:enumeration value="onnet2"/>
+            <xs:enumeration value="pabxonnet"/>
+            <xs:enumeration value="pabxvp"/>
+            <xs:enumeration value="virtualonnet"/>
+            <xs:enumeration value="partneronnet"/>
+            <xs:enumeration value="offnet"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoGroup">
+    <xs:sequence>
+      <xs:element name="isZoningSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone functionality subscribed
+Indicates if Zone functionality is subscribed at Group / User level
+0 – Zone not subscribed (default value)
+1 – Zone subscribed
+If set to 1 then rest of the Zone subscription related information will be evaluated by service logic to determine what zones should be evaluated (if any – subscription validity) and how to reach IZO BB.
+
+NOTE for migration OSP-CIN: all HZ type subscriptions are done at User level, either it was done previously (on OSP) at subscriber or vpn customer level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="zoneAssignment" type="t_IzoZoning" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoGroupSubscribe">
+    <xs:sequence>
+      <xs:element name="zoneAssignment" type="t_IzoZoning" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoGroupModify">
+    <xs:sequence>
+      <xs:element name="zoneAssignment" type="t_IzoZoning" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoGroupRemove">
+    <xs:sequence>
+      <xs:element name="isZoningSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone functionality subscribed
+Indicates if Zone functionality is subscribed at Group / User level
+0 – Zone not subscribed (default value)
+1 – Zone subscribed
+If set to 1 then rest of the Zone subscription related information will be evaluated by service logic to determine what zones should be evaluated (if any – subscription validity) and how to reach IZO BB.
+
+NOTE for migration OSP-CIN: all HZ type subscriptions are done at User level, either it was done previously (on OSP) at subscriber or vpn customer level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="zoneAssignment" type="t_IzoZoning" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoGroupMember">
+    <xs:sequence>
+      <xs:element name="applyGroupZoning" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Apply group zoning
+Indicates if in case zone functionality is subscribed at Group level localization of particular Group Subscribtion should be tested against zones defined at Group level (in addition to zone functionality subscribed at Group Member level):
+0 – group zoning not applied (default value)
+1 – group zoning applied
+Do potwierdzenia: mapowanie na oz_flag przepisane z mapowania do migracji.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoGroupMemberModify">
+    <xs:sequence>
+      <xs:element name="applyGroupZoning" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Apply group zoning
+Indicates if in case zone functionality is subscribed at Group level localization of particular Group Subscribtion should be tested against zones defined at Group level (in addition to zone functionality subscribed at Group Member level):
+0 – group zoning not applied (default value)
+1 – group zoning applied
+Do potwierdzenia: mapowanie na oz_flag przepisane z mapowania do migracji.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoGroupMemberRemove">
+    <xs:sequence>
+      <xs:element name="applyGroupZoning" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Apply group zoning
+Indicates if in case zone functionality is subscribed at Group level localization of particular Group Subscribtion should be tested against zones defined at Group level (in addition to zone functionality subscribed at Group Member level):
+0 – group zoning not applied (default value)
+1 – group zoning applied
+Do potwierdzenia: mapowanie na oz_flag przepisane z mapowania do migracji.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoTonePlaying">
+    <xs:sequence>
+      <xs:element name="playForGZ" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Play Tone for GZ
+Defines for particular zone type (home, office, green) if:
+- never - tone should not be played  (default)
+- inside - tone should be played when in zone
+- outside - tone should be played when outside zone</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="never"/>
+            <xs:enumeration value="inside"/>
+            <xs:enumeration value="outside"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="playForHZ" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Play Tone for HZ
+Defines for particular zone type (home, office, green) if:
+- never - tone should not be played (default)
+- inside - tone should be played when in zone
+- outside - tone should be played when outside zone</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="never"/>
+            <xs:enumeration value="inside"/>
+            <xs:enumeration value="outside"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="playForOZ" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Play Tone for OZ
+Defines for particular zone type (home, office, green) if:
+- never - tone should not be played (default)
+- inside - tone should be played when in zone
+- outside - tone should be played when outside zone</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="never"/>
+            <xs:enumeration value="inside"/>
+            <xs:enumeration value="outside"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="playForPPS012" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Play Tone for PPS012
+Defines for particular zone type (pps_12 zone) if:
+- never - tone should not be played  (default)
+- inside - tone should be played when in zone
+- outside - tone should be played when outside zone</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="never"/>
+            <xs:enumeration value="inside"/>
+            <xs:enumeration value="outside"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoTonePlayingModify">
+    <xs:sequence>
+      <xs:element name="playForGZ" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Play Tone for GZ
+Defines for particular zone type (home, office, green) if:
+- never - tone should not be played  (default)
+- inside - tone should be played when in zone
+- outside - tone should be played when outside zone</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="never"/>
+            <xs:enumeration value="inside"/>
+            <xs:enumeration value="outside"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="playForHZ" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Play Tone for HZ
+Defines for particular zone type (home, office, green) if:
+- never - tone should not be played (default)
+- inside - tone should be played when in zone
+- outside - tone should be played when outside zone</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="never"/>
+            <xs:enumeration value="inside"/>
+            <xs:enumeration value="outside"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="playForOZ" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Play Tone for OZ
+Defines for particular zone type (home, office, green) if:
+- never - tone should not be played (default)
+- inside - tone should be played when in zone
+- outside - tone should be played when outside zone</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="never"/>
+            <xs:enumeration value="inside"/>
+            <xs:enumeration value="outside"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="playForPPS012" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Play Tone for PPS012
+Defines for particular zone type (pps_12 zone) if:
+- never - tone should not be played  (default)
+- inside - tone should be played when in zone
+- outside - tone should be played when outside zone</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="never"/>
+            <xs:enumeration value="inside"/>
+            <xs:enumeration value="outside"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoUser">
+    <xs:sequence>
+      <xs:element name="isZoningSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone functionality subscribed
+Indicates if Zone functionality is subscribed at Group / User level
+0 – Zone not subscribed (default value)
+1 – Zone subscribed
+If set to 1 then rest of the Zone subscription related information will be evaluated by service logic to determine what zones should be evaluated (if any – subscription validity) and how to reach IZO BB.
+
+NOTE for migration OSP-CIN: all HZ type subscriptions are done at User level, either it was done previously (on OSP) at subscriber or vpn customer level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tonePlaying" type="t_IzoTonePlaying" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="zoneAssignment" type="t_IzoZoning" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoUserSubscribe">
+    <xs:sequence>
+      <xs:element name="tonePlaying" type="t_IzoTonePlaying" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="zoneAssignment" type="t_IzoZoning" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoUserModify">
+    <xs:sequence>
+      <xs:element name="tonePlaying" type="t_IzoTonePlaying" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="zoneAssignment" type="t_IzoZoning" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoUserRemove">
+    <xs:sequence>
+      <xs:element name="isZoningSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone functionality subscribed
+Indicates if Zone functionality is subscribed at Group / User level
+0 – Zone not subscribed (default value)
+1 – Zone subscribed
+If set to 1 then rest of the Zone subscription related information will be evaluated by service logic to determine what zones should be evaluated (if any – subscription validity) and how to reach IZO BB.
+
+NOTE for migration OSP-CIN: all HZ type subscriptions are done at User level, either it was done previously (on OSP) at subscriber or vpn customer level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="zoneAssignment" type="t_IzoZoning" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoUserKey">
+    <xs:sequence>
+      <xs:element name="allowCallOutsideHZ" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Call Allowed When Outside HZ
+In case of home zone this parameter indicates if call is allowed to be originated / received when subscriber identified by this particular User Key (access number) is outside his home zone.
+0 – call not allowed (default)
+1 – call allowed</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoUserKeyModify">
+    <xs:sequence>
+      <xs:element name="allowCallOutsideHZ" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Call Allowed When Outside HZ
+In case of home zone this parameter indicates if call is allowed to be originated / received when subscriber identified by this particular User Key (access number) is outside his home zone.
+0 – call not allowed (default)
+1 – call allowed</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoUserKeyRemove">
+    <xs:sequence>
+      <xs:element name="allowCallOutsideHZ" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Call Allowed When Outside HZ
+In case of home zone this parameter indicates if call is allowed to be originated / received when subscriber identified by this particular User Key (access number) is outside his home zone.
+0 – call not allowed (default)
+1 – call allowed</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoZoning">
+    <xs:sequence>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone end date
+Subscription to Zone functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone end time
+Subscription to Zone functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone start date
+Subscription to Zone functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone start time
+Subscription to Zone functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="zoneDefinitionRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone subscription ID
+Subscription to Zone functionality – id of zone subscription defined in IZO BB </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="zonePriority" type="xs:unsignedShort" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone Priority
+A four digit number representing priority in which zone information will be analyzed. Digit position presents priority (1st digit highest priority, last digit lowest priority) while digit value describes what zone type will be checked during each step (1 – office zone, 2 – home zone, 3 – green zone, 4 – pps012 zone).
+
+E.g. value 2341 entered here means that as first home zone will be checked, then green zone followed by PPS012 zone and finally office zone.
+0 - zone priority not defined (default value).
+
+If not defined at Group level zone priority as defined at Network operator level should be applied. 
+Zone priority set at Group level can be overridden by definition at User level.
+If not defined at User level zone priority as defined at Group or Network operator level should be applied.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoZoningModify">
+    <xs:sequence>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone end date
+Subscription to Zone functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone end time
+Subscription to Zone functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone start date
+Subscription to Zone functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone start time
+Subscription to Zone functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="zoneDefinitionRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone subscription ID
+Subscription to Zone functionality – id of zone subscription defined in IZO BB </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="zonePriority" type="xs:unsignedByte" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zone Priority
+A four digit number representing priority in which zone information will be analyzed. Digit position presents priority (1st digit highest priority, last digit lowest priority) while digit value describes what zone type will be checked during each step (1 – office zone, 2 – home zone, 3 – green zone, 4 – pps012 zone).
+
+E.g. value 2341 entered here means that as first home zone will be checked, then green zone followed by PPS012 zone and finally office zone.
+0 - zone priority not defined (default value).
+
+If not defined at Group level zone priority as defined at Network operator level should be applied. 
+Zone priority set at Group level can be overridden by definition at User level.
+If not defined at User level zone priority as defined at Group or Network operator level should be applied.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrGroup">
+    <xs:sequence>
+      <xs:element name="isTechRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP subscribed
+Indicates if Technical Routing Profile functionality is subscribed at Group / Group Member / User / User Key (access number) level 
+0 – Technical RP not subscribed (default value)
+1 – Technical RP subscribed
+If set to 1 then rest of the TRP subscription related information will be evaluated by service logic to determine what TRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+   <xs:complexType name="t_NtrGroupSubscribe">
+    <xs:sequence>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrGroupModify">
+    <xs:sequence>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrGroupRemove">
+    <xs:sequence>
+      <xs:element name="isTechRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP subscribed
+Indicates if Technical Routing Profile functionality is subscribed at Group / Group Member / User / User Key (access number) level 
+0 – Technical RP not subscribed (default value)
+1 – Technical RP subscribed
+If set to 1 then rest of the TRP subscription related information will be evaluated by service logic to determine what TRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrGroupMember">
+    <xs:sequence>
+      <xs:element name="isTechRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP subscribed
+Indicates if Technical Routing Profile functionality is subscribed at Group / Group Member / User / User Key (access number) level 
+0 – Technical RP not subscribed (default value)
+1 – Technical RP subscribed
+If set to 1 then rest of the TRP subscription related information will be evaluated by service logic to determine what TRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+   <xs:complexType name="t_NtrGroupMemberSubscribe">
+    <xs:sequence>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrGroupMemberModify">
+    <xs:sequence>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrGroupMemberRemove">
+    <xs:sequence>
+      <xs:element name="isTechRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP subscribed
+Indicates if Technical Routing Profile functionality is subscribed at Group / Group Member / User / User Key (access number) level 
+0 – Technical RP not subscribed (default value)
+1 – Technical RP subscribed
+If set to 1 then rest of the TRP subscription related information will be evaluated by service logic to determine what TRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrUser">
+    <xs:sequence>
+      <xs:element name="businessRouting" type="t_BusinessRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isBusRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Business RP subscribed
+Indicates if Business Routing Profile functionality is subscribed at User / User Key (access number) level
+0 – Business RP not subscribed (default value)
+1 – Business RP subscribed
+If set to 1 then rest of the BRP subscription related information will be evaluated by service logic to determine what BRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isTechRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP subscribed
+Indicates if Technical Routing Profile functionality is subscribed at Group / Group Member / User / User Key (access number) level 
+0 – Technical RP not subscribed (default value)
+1 – Technical RP subscribed
+If set to 1 then rest of the TRP subscription related information will be evaluated by service logic to determine what TRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrUserModify">
+    <xs:sequence>
+      <xs:element name="businessRouting" type="t_BusinessRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrUserRemove">
+    <xs:sequence>
+      <xs:element name="isBusRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Business RP subscribed
+Indicates if Business Routing Profile functionality is subscribed at User / User Key (access number) level
+0 – Business RP not subscribed (default value)
+1 – Business RP subscribed
+If set to 1 then rest of the BRP subscription related information will be evaluated by service logic to determine what BRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isTechRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP subscribed
+Indicates if Technical Routing Profile functionality is subscribed at Group / Group Member / User / User Key (access number) level 
+0 – Technical RP not subscribed (default value)
+1 – Technical RP subscribed
+If set to 1 then rest of the TRP subscription related information will be evaluated by service logic to determine what TRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrUserKey">
+    <xs:sequence>
+      <xs:element name="businessRouting" type="t_BusinessRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isBusRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Business RP subscribed
+Indicates if Business Routing Profile functionality is subscribed at User / User Key (access number) level
+0 – Business RP not subscribed (default value)
+1 – Business RP subscribed
+If set to 1 then rest of the BRP subscription related information will be evaluated by service logic to determine what BRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isTechRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP subscribed
+Indicates if Technical Routing Profile functionality is subscribed at Group / Group Member / User / User Key (access number) level 
+0 – Technical RP not subscribed (default value)
+1 – Technical RP subscribed
+If set to 1 then rest of the TRP subscription related information will be evaluated by service logic to determine what TRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrUserKeyModify">
+    <xs:sequence>
+      <xs:element name="businessRouting" type="t_BusinessRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrUserKeyRemove">
+    <xs:sequence>
+      <xs:element name="isBusRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Business RP subscribed
+Indicates if Business Routing Profile functionality is subscribed at User / User Key (access number) level
+0 – Business RP not subscribed (default value)
+1 – Business RP subscribed
+If set to 1 then rest of the BRP subscription related information will be evaluated by service logic to determine what BRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isTechRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP subscribed
+Indicates if Technical Routing Profile functionality is subscribed at Group / Group Member / User / User Key (access number) level 
+0 – Technical RP not subscribed (default value)
+1 – Technical RP subscribed
+If set to 1 then rest of the TRP subscription related information will be evaluated by service logic to determine what TRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_PvcGroupMember">
+    <xs:sequence>
+      <xs:element name="forcedPrivateCall" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Forced Private Call Flag
+Indicates if Private Call functionality should be applied automatically in case of OffNet calls (only if private call flag is checked)
+0 – don't apply forced private calls functionality (default)
+1 - apply forced private calls functionality</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isPrivateCallSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private Call Flag
+Indicates if Private Call functionality is active
+0 – Private call functionality not active (default)
+1 – Private call functionality active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="onlineRating" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private Call with OnLine Rating Flag
+Indicates if Private Call should be rated in real time i.e. payment part needs to be involved
+0 – private calls to be marked in CDR (default)
+1 – private calls to be rated on-line</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="prepaidPrefix" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>PrePaid Prefix
+Informs what prefix should be added in front of destination number to reach appropriate NSN PrePaid platform.
+Valid only in case PrivateCallwithOnLineRatingFlag is set to true
+If empty it means that rating and charging will be processed by payment part of CIN platform</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="6"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_PvcGroupMemberSubscribe">
+    <xs:sequence>
+      <xs:element name="forcedPrivateCall" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Forced Private Call Flag
+Indicates if Private Call functionality should be applied automatically in case of OffNet calls (only if private call flag is checked)
+0 – don't apply forced private calls functionality (default)
+1 - apply forced private calls functionality</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="onlineRating" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private Call with OnLine Rating Flag
+Indicates if Private Call should be rated in real time i.e. payment part needs to be involved
+0 – private calls to be marked in CDR (default)
+1 – private calls to be rated on-line</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="prepaidPrefix" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>PrePaid Prefix
+Informs what prefix should be added in front of destination number to reach appropriate NSN PrePaid platform.
+Valid only in case PrivateCallwithOnLineRatingFlag is set to true
+If empty it means that rating and charging will be processed by payment part of CIN platform</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="6"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_PvcGroupMemberModify">
+    <xs:sequence>
+      <xs:element name="forcedPrivateCall" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Forced Private Call Flag
+Indicates if Private Call functionality should be applied automatically in case of OffNet calls (only if private call flag is checked)
+0 – don't apply forced private calls functionality (default)
+1 - apply forced private calls functionality</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isPrivateCallSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private Call Flag
+Indicates if Private Call functionality is active
+0 – Private call functionality not active (default)
+1 – Private call functionality active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="onlineRating" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private Call with OnLine Rating Flag
+Indicates if Private Call should be rated in real time i.e. payment part needs to be involved
+0 – private calls to be marked in CDR (default)
+1 – private calls to be rated on-line</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="prepaidPrefix" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>PrePaid Prefix
+Informs what prefix should be added in front of destination number to reach appropriate NSN PrePaid platform.
+Valid only in case PrivateCallwithOnLineRatingFlag is set to true
+If empty it means that rating and charging will be processed by payment part of CIN platform</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="6"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_PvcGroupMemberRemove">
+    <xs:sequence>
+      <xs:element name="forcedPrivateCall" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Forced Private Call Flag
+Indicates if Private Call functionality should be applied automatically in case of OffNet calls (only if private call flag is checked)
+0 – don't apply forced private calls functionality (default)
+1 - apply forced private calls functionality</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isPrivateCallSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private Call Flag
+Indicates if Private Call functionality is active
+0 – Private call functionality not active (default)
+1 – Private call functionality active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="onlineRating" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private Call with OnLine Rating Flag
+Indicates if Private Call should be rated in real time i.e. payment part needs to be involved
+0 – private calls to be marked in CDR (default)
+1 – private calls to be rated on-line</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="prepaidPrefix" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>PrePaid Prefix
+Informs what prefix should be added in front of destination number to reach appropriate NSN PrePaid platform.
+Valid only in case PrivateCallwithOnLineRatingFlag is set to true
+If empty it means that rating and charging will be processed by payment part of CIN platform</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="6"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_PvsGroupMember">
+    <xs:sequence>
+      <xs:element name="isPrivateSmsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private SMS
+Indicates if Private SMS functionality is subscribed
+0 - Private SMS not subscribed (default value)
+1 - Private SMS subscribed
+Dummy MSISDN that is used to identify private account (created for private scenarios) is provisioned at User level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_PvsGroupMemberModify">
+    <xs:sequence>
+      <xs:element name="isPrivateSmsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private SMS
+Indicates if Private SMS functionality is subscribed
+0 - Private SMS not subscribed (default value)
+1 - Private SMS subscribed
+Dummy MSISDN that is used to identify private account (created for private scenarios) is provisioned at User level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_PvsGroupMemberRemove">
+    <xs:sequence>
+      <xs:element name="isPrivateSmsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private SMS
+Indicates if Private SMS functionality is subscribed
+0 - Private SMS not subscribed (default value)
+1 - Private SMS subscribed
+Dummy MSISDN that is used to identify private account (created for private scenarios) is provisioned at User level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_TechnicalRouting">
+    <xs:sequence>
+      <xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP end date
+Subscription to Technical Routing Profile functionality – end date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP end time
+Subscription to Technical Routing Profile functionality – end time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startDate" type="xs:date" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP start date
+Subscription to Technical Routing Profile functionality – start date of subscription validity in DD/MM/YYYY format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:time" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP start time
+Subscription to Technical Routing Profile functionality – start time of subscription validity in HH:MM:SS format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="techRoutingProfileRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP ID
+Subscription to Technical Routing Profile functionality – id of technical routing profile in NTR BB
+
+Do dopytania Grześka, czy CGM będzie miał możliwość ustawiania technical Rotuing Profile, czy raczej powinien to robić INC, na podstawie produktu, albo czegoś jeszcze.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="40"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+   <xs:complexType name="t_ChGroupMemberFilter">
+    <xs:sequence>
+      <xs:element name="isCCNActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag ccnActive
+Defines if user is active with reference to all CCNs:
+0: user isn't active (default value)
+1: user is active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isHuntingGroupActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag hgActive
+Defines if user is active with reference to all HGs:
+0: user isn't active (default value)
+1: user is active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="roamingCutOff" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Flag roamingCutOff
+Specifies if Roaming Cut Off functionality is active for specific Group / Group Member / User Key (access number). If this flag is set, then e.g. CH logic will filter (remove) members of Hunting Group that are not logged in domestic network.
+- notset - flag not set
+- set - flag set
+- notdef - flag not defined (default value)
+If not defined at Group level, then default value from Network operator will be used. Can be overridden by configuration done at Group Member level.
+If not defined at Group Member level then we need to check at Group level. Can be overridden by configuration done at User Key level.
+If not defined at User Key level then we need to check at Group Member level.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notset"/>
+            <xs:enumeration value="set"/>
+            <xs:enumeration value="notdef"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType> 
+  
+    <xs:complexType name="t_CqGroupMemberFilter">
+    <xs:sequence>
+      <xs:element name="isCallQueuingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Call Queuing subscribed
+Indicates if Call Queuing functionality is subscribed with regards to particular group
+0 – Call Queuing not subscribed (default value)
+1 – Call Queuing subscribed
+This flag is only relevant when 'Call Transfer subscribed' flag is set to 1.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_NtrGroupMemberFilter">
+    <xs:sequence>
+      <xs:element name="isTechRoutingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Technical RP subscribed
+Indicates if Technical Routing Profile functionality is subscribed at Group / Group Member / User / User Key (access number) level 
+0 – Technical RP not subscribed (default value)
+1 – Technical RP subscribed
+If set to 1 then rest of the TRP subscription related information will be evaluated by service logic to determine what TRP should be evaluated (if any – subscription validity) and how to reach NTR BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="technicalRouting" type="t_TechnicalRouting" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+ <xs:complexType name="t_CsGroupMemberFilter">
+    <xs:sequence>
+      <xs:element name="icsDomestic" type="t_CsIcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="icsRoaming" type="t_CsIcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isApartyRequired" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Is A-party Required
+Indicates what to do at particular screening profile level (Group / Group Member / User / User Key (access number)) if A-party number is not available (applicable for incoming call screening):
+0 – Call will be continued (screening profile from lower level can be evaluated) (default)
+1 – Call  will be released (screening profile from lower level will not be processed)
+
+NOTE for migration OSP-CIN: currently not set at Group level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isIcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Incoming Call Screening Subscribed
+Indicates if Incoming Call Screening functionality is subscribed at Group / Group Member / User / User Key (access number) level
+0 – Incoming CS not subscribed (default value)
+1 – Incoming CS subscribed
+If set to 1 then rest of the ICS subscription related information will be evaluated by service logic to determine what ICS should be evaluated (if any – subscription validity) and how to reach CS BB.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isOcsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Outgoing Call Screening Subscribed
+Indicates if Outgoing Call Screening functionality is subscribed at Group / Group Member / User level
+0 – Outgoing CS not subscribed (default value)
+1 – Outgoing CS subscribed
+If set to 1 then rest of the OCS subscription related information will be evaluated by service logic to determine what OCS should be evaluated (if any – subscription validity) and how to reach CS BB. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsDomestic" type="t_CsOcsDomestic" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ocsRoaming" type="t_CsOcsRoaming" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation></xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_CtGroupMemberFilter">
+    <xs:sequence>
+      <xs:element name="isCallTransferSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Call Transfer subscribed
+Indicates if Call Transfer functionality is subscribed with regards to particular group
+0 – Call Transfer not subscribed (default value)
+1 – Call Transfer subscribed</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_DhGroupMemberFilter">
+    <xs:sequence>
+      <xs:element name="isDoubleHuntingSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Double Hunting subscribed
+Indicates if Double Hunting functionality is subscribed 
+0 – Double Hunting not subscribed (default value)
+1 – Double Hunting subscribed
+Definition of secondary number is done at User Key level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_PvcGroupMemberFilter">
+    <xs:sequence>
+      <xs:element name="forcedPrivateCall" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Forced Private Call Flag
+Indicates if Private Call functionality should be applied automatically in case of OffNet calls (only if private call flag is checked)
+0 – don't apply forced private calls functionality (default)
+1 - apply forced private calls functionality</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isPrivateCallSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private Call Flag
+Indicates if Private Call functionality is active
+0 – Private call functionality not active (default)
+1 – Private call functionality active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="onlineRating" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private Call with OnLine Rating Flag
+Indicates if Private Call should be rated in real time i.e. payment part needs to be involved
+0 – private calls to be marked in CDR (default)
+1 – private calls to be rated on-line</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="prepaidPrefix" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>PrePaid Prefix
+Informs what prefix should be added in front of destination number to reach appropriate NSN PrePaid platform.
+Valid only in case PrivateCallwithOnLineRatingFlag is set to true
+If empty it means that rating and charging will be processed by payment part of CIN platform</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:totalDigits value="6"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_PvsGroupMemberFilter">
+    <xs:sequence>
+      <xs:element name="isPrivateSmsSubscribed" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Private SMS
+Indicates if Private SMS functionality is subscribed
+0 - Private SMS not subscribed (default value)
+1 - Private SMS subscribed
+Dummy MSISDN that is used to identify private account (created for private scenarios) is provisioned at User level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_IzoGroupMemberFilter">
+    <xs:sequence>
+      <xs:element name="applyGroupZoning" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Apply group zoning
+Indicates if in case zone functionality is subscribed at Group level localization of particular Group Subscribtion should be tested against zones defined at Group level (in addition to zone functionality subscribed at Group Member level):
+0 – group zoning not applied (default value)
+1 – group zoning applied
+Do potwierdzenia: mapowanie na oz_flag przepisane z mapowania do migracji.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="t_GenGroupMemberFilter">
+    <xs:sequence>
+      <xs:element name="isIntlPABXCallsActive" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>International Calls via PABX Flag
+Indicates if International Calls via PABX functionality is active
+0 – International Calls via PABX not active (default)
+1 – International Calls via PABX active</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isVIP" type="xs:boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>VIP Flag
+Indicates if particular Group Member is VIP:
+0 – not VIP (default value)
+1 – VIP
+Flag to be used to determine if OCS/ICS should be executed and to determine position in queue.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="partnershipDefinitionRef" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Partnership Definition Reference
+Reference to Partnership Definition object that keeps list of partner networks of particular Group / Group Member.
+Reference set at Group level can be overridden by configuration at Group Subscription level.
+If empty at Group Member level then configuration from Group level should be used.
+If empty both at Group and Group Member level then partner functionality is not subscribed.
+
+PYT2: W migracji jest ustawione, że wszyscy będą mieli przypisane na poziomie group subscription definicje o nazwie" Partner_'MSISDN'. Pytanie, czy takie jest założenie, że wszyscy muszą mieć przypisaną definicję, najwyżej będzie ona pusta?</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ratingCategory" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Rating Category
+Rating category value for particular Group Member / User Key (access number). Up to 16 values are allowed:
+- notdef – not defined (default)
+- onnet – OnNet (1)
+- onnet2 – OnNet2 (2)
+- pabxonnet – PABX OnNet (3)
+- pabxvp – PABX_VP (4)
+- virtualonnet – Virtual OnNet (5)
+- partneronnet – Partner OnNet (6)
+- offnet – OffNet (7)
+
+NOTE: Partner OnNet should never be defined directly in data base. This rating category is calculated by service ('Partner functionality')
+NOTE: OffNet rating category can be defined directly in data base (to support OffNet members of VPABX service). But it is also calculated by service during ('Forced'/'Partner Functionality')
+
+Do uzgodnienia, czy bedziemy tego pola wymagali z jedna z wartosci 1-7, czy zmienimy default (INC bedzie ustawial default, albo w CIN zmienimy definicje adamofield)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="15"/>
+            <xs:enumeration value="notdef"/>
+            <xs:enumeration value="onnet"/>
+            <xs:enumeration value="onnet2"/>
+            <xs:enumeration value="pabxonnet"/>
+            <xs:enumeration value="pabxvp"/>
+            <xs:enumeration value="virtualonnet"/>
+            <xs:enumeration value="partneronnet"/>
+            <xs:enumeration value="offnet"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>  
+  
+</xs:schema>

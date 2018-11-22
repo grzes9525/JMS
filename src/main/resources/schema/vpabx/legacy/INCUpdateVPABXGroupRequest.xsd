@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_updateVPABXGroupRequestType">
+		<xs:sequence>
+			<xs:element name="groupName" type="xs:string"/>
+			<xs:element name="groupSetName" type="xs:string" minOccurs="0"/>
+			<xs:element name="useAclip" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="language" type="xs:string" minOccurs="0"/>
+			<xs:element ref="abstractVoiceMail" minOccurs="0"/>
+			<xs:element name="defaultFAX" type="xs:string" minOccurs="0"/>
+			<!-- points to the member that represents default FAX of the group -->
+			<xs:element name="defaultCCN" type="xs:string" minOccurs="0"/>
+						<!-- points to the member that represents default CCN -->
+			<xs:element name="defaultHuntingGroup" type="xs:string" minOccurs="0"/>
+			<xs:element name="failedCallTreatment" type="t_failedCallTreatmentType" minOccurs="0"/>
+			<xs:element name="failedCallTreatmentMemberName" type="xs:string" minOccurs="0"/>
+			<xs:element name="faxTreatment" type="t_faxTreatmentType" minOccurs="0"/>
+			<xs:element name="updateMembers" type="t_modifyVPABXGroupMembersType" minOccurs="0"/>
+			<xs:element name="updateHuntingGroups" type="t_modifyVPABXGroupHGType" minOccurs="0"/>
+			<xs:element name="updateIvr" type="t_modifyIvrType" minOccurs="0"/>
+			<xs:element name="updateAnnouncements" type="t_modifyGroupAnnouncementsType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="abstractVoiceMail" abstract="true"/>
+	<xs:element name="voiceMail" type="t_modifyVoiceMailType" substitutionGroup="abstractVoiceMail"/>
+	<xs:element name="deleteVoiceMail" substitutionGroup="abstractVoiceMail"/>
+</xs:schema>

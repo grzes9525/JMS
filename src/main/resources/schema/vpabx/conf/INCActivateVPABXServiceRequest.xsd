@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd" />
+	<xs:include schemaLocation="../../INCComplexTypes.xsd" />
+	<xs:complexType name="t_activateVpabxServiceRequest">
+		<xs:sequence>
+			<xs:element name="ccn" type="t_vpabxMsisdn" />
+			<xs:element name="aclipAllowed" type="xs:boolean" minOccurs="0" />
+			<xs:element name="aclipBillingForMember" type="xs:boolean" minOccurs="0" />
+			<xs:element name="secretaryCall" type="xs:boolean" minOccurs="0" />
+			<xs:element name="failedCallTreatment" type="t_vpabxFailedCallTreatmentType" minOccurs="0" />
+			<xs:element name="language" type="t_language" minOccurs="0" />
+			<xs:element name="voicemailBox" type="xs:string" minOccurs="0" />
+			<xs:element name="groupSet" type="xs:string" minOccurs="0" />
+			<xs:element name="clientId" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC"
+	elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_migrateSubscriber">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContext"/>
+			<xs:element name="deactivateTariff" type="t_tariffOperator" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>this element contains the specification of the tariff to be deactivated
+			  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="deactivateServices" type="t_deactivateServices" minOccurs="0"/>
+			<xs:element name="sourceSubaccounts" type="t_migrateSubaccounts" minOccurs="0"/>
+			<xs:element name="activateTariff" type="t_tariffOperator">
+				<xs:annotation>
+					<xs:documentation>this element contains the specification of the tariff to be activated (if no operator is given new tariff is assumed to have the same operator as the deactivated tariff)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="activateServices" type="t_activateServicesNoCharge" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

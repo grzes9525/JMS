@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_chargeOneAccountRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContext"/>
+			<xs:choice maxOccurs="64">
+				<xs:annotation>
+					<xs:documentation>Accounts (MAC and subaccounts) will be charged in the sequence in which they appear in the request. There must be maximum one element chargeMAC in the request.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="chargeMAC" type="t_chargeMAC"/>
+				<xs:element name="chargeSubaccount" type="t_chargeSubaccount"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

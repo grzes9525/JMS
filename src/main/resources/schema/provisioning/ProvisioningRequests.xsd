@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="ProvisioningTypes.xsd" />
+
+	<xs:element name="ocpProvisioningRequest">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="header">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="component" type="xs:string" />
+							<xs:element name="version" type="xs:string" />
+							<xs:element name="referenceID" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="body" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:choice>
+							<xs:choice maxOccurs="unbounded" minOccurs="1">
+								<xs:element name="create" maxOccurs="unbounded">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="attribute" type="attributeType" maxOccurs="unbounded" />
+											<xs:element name="composite" type="relationType" minOccurs="0" maxOccurs="unbounded" />
+										</xs:sequence>
+										<xs:attribute name="type" type="xs:string" use="required" />
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="update" type="updateType" maxOccurs="unbounded" />
+								<xs:element name="createOrUpdate" type="updateType" maxOccurs="unbounded" />
+								<xs:element name="delete" maxOccurs="unbounded">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="key" type="keyType" maxOccurs="unbounded" />
+											<xs:element name="deleteMany" type="deleteManyType" minOccurs="0" maxOccurs="unbounded" />
+											<xs:element name="deleteOne" type="deleteOneType" minOccurs="0" maxOccurs="unbounded" />
+										</xs:sequence>
+										<xs:attribute name="type" type="xs:string" use="required" />
+										<xs:attribute name="mustExist" type="xs:boolean" default="true">
+											<xs:annotation>
+												<xs:appinfo>Default value is not respected by XStream, but Delete
+													operation implements proper behaviour.</xs:appinfo>
+											</xs:annotation>
+										</xs:attribute>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="read" maxOccurs="unbounded">
+									<xs:annotation>
+										<xs:documentation>zwracane moga byc tez obiekty podrzedne,
+											glebokosc mozna zapisac w mapowaniu (per user albo grupa
+											userow?); jesli pobieramy
+											wszystkie obiekty najwyzszego
+											poziomu nie podajemy key ani parent</xs:documentation>
+									</xs:annotation>
+									<xs:complexType>
+										<xs:sequence>
+											<xs:choice minOccurs="1" maxOccurs="1">
+												<xs:element name="key" type="keyType" minOccurs="1" maxOccurs="unbounded">
+													<xs:annotation>
+														<xs:documentation>select...where col=?</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="keyLike" type="keyType">
+													<xs:annotation>
+														<xs:documentation>select...where col like ?</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:choice>
+											<xs:element name="readOne" type="readOneType" minOccurs="0" maxOccurs="unbounded" />
+											<xs:element name="readMany" type="readManyType" minOccurs="0" maxOccurs="unbounded" />
+										</xs:sequence>
+										<xs:attribute name="type" type="xs:string" use="required" />
+									</xs:complexType>
+								</xs:element>
+							</xs:choice>
+							<xs:element name="requestStatus">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="referenceID" type="xs:string" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

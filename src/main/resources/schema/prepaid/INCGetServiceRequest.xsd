@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_getServiceRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithOperator"/>
+			<xs:element name="tariff" type="xs:string">
+			 <xs:annotation>
+			  <xs:documentation>this element contains the tariff name for the given subscriber (as string)
+			  </xs:documentation>
+			 </xs:annotation>
+			</xs:element>
+			<xs:element name="serviceName" type="xs:string" maxOccurs="unbounded">
+			 <xs:annotation>
+			  <xs:documentation>this element contains the service name (as string) for which information should be read
+			  </xs:documentation>
+			 </xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

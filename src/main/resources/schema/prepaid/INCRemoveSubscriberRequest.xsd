@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_removeSubscriberRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContextAndTariffType">
+			 <xs:annotation><xs:documentation>subscriber to be removed</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="sourcePlatform" type="t_platformID" minOccurs="0">
+			 <xs:annotation><xs:documentation>element ignored - preserved for backwards compatibility</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="outpaymentMode" minOccurs="0">
+			 <xs:annotation><xs:documentation>this element indicates if the outpayment records for subscriber account should be logged to technical log and logs for MZ; 
+			  value true in the element &lt;outpaymentMode&gt; - outpayment of subscriber accounts will be logged to technical and MZ log; 
+			   lack of the element &lt;outpaymentMode&gt; - do not log outpayment of subscriber accounts to technical and MZ logs
+			 </xs:documentation></xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="true"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="reasonCode" type="xs:long" minOccurs="0" maxOccurs="1">
+			    <xs:annotation><xs:documentation>
+			    This element allows clients to supply optional reason code for subscriber removal to persist in SDB TT database.   
+			    </xs:documentation></xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

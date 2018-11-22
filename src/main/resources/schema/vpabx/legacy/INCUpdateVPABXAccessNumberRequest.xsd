@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_updateVPABXAccessNumberRequestType">
+		<xs:sequence>
+			<xs:element name="address" type="xs:string"/>
+			<xs:element name="newAddress" type="xs:string" minOccurs="0"/>
+			<xs:element name="service" type="t_parametrizedVPABXServiceType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

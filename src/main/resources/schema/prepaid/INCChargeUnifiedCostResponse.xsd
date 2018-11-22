@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_chargeUnifiedCostResponse">
+		<xs:sequence>
+			<xs:element name="MACChargeResult" type="t_MACChargeResult" minOccurs="0">
+				 <xs:annotation>
+				  <xs:documentation>present if MAC account was charged in the request</xs:documentation>
+				 </xs:annotation>
+			</xs:element>
+			<xs:element name="subaccountChargeResult" type="t_subaccountChargeResult" minOccurs="0" maxOccurs="20">
+				 <xs:annotation>
+				  <xs:documentation>one element for each charged subaccount</xs:documentation>
+				 </xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd" />
+	<xs:include schemaLocation="../../INCComplexTypes.xsd" />
+	<xs:complexType name="t_modifyMemberNumberRequest">
+		<xs:sequence>
+			<xs:element name="originalMsisdn" type="t_vpabxMsisdn"/>
+			<xs:element name="newMsisdn" type="t_vpabxMsisdn"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_modifyVpabxCCNNumberRequest">
+		<xs:sequence>
+			<xs:element name="originalCCN" type="t_vpabxMsisdn" />
+			<xs:element name="newCCN" type="t_vpabxMsisdn" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

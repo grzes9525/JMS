@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC"
+	elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_outpaymentRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContext"/>
+			<xs:element name="force" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>if set to true, all checked accounts are outpayed, even if they are not qualified for outpayment, otherwise only qualified accounts (such that their expiry date meets the requirements in the outpayment rules) are outpayed, default value is false.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MAC" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>should MAC account be checked for outpayment, default value is false.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="allSubaccounts" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>this element can only have value true, if present all active subaccounts of subscriber`s tariff are checked for outpayment</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="subaccount" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>each of them containing name of the subaccount to check.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

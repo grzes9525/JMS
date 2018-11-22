@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_getTariffRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContext"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

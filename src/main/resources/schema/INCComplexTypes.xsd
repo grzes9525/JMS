@@ -1,0 +1,1406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Michal Brandt (Infovide S.A.) -->
+<!--
+	#============================================================================
+	# AUTHOR:       TLS-Technologie (http://www.tls.pl), Infovide-Matrix S.A. (http://www.infovidematrix.pl)
+	# CREATION:     2006-10-23
+	# VERSION:      01.40
+	# SHORT DESC:   Complex XML Types of the A-Interface of INC
+	#
+	# Copyright (C) 2006 by PTC/TSD/INU - all rights reserved
+	#____________________________________________________________________________
+	# HISTORY OF CHANGES:
+	#
+	# 2007-02-15	Anna Derlacka: 01.40 - With version 1.4 of A-Interface documentation
+	# 2007-02-11	Anna Derlacka: 01.20 - With version 1.2 of A-Interface documentation
+	# 2006-11-06    Marek Biskup: 01.00 - With version 1.0 of A-Interface documentation
+	# 2006-10-27    Marek Biskup: 00.20 - With version 0.2 of A-Interface documentation
+	#
+	#============================================================================
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC" targetNamespace="INC"
+	elementFormDefault="qualified">
+	<xs:include schemaLocation="INCBaseTypes.xsd"/>
+	<xs:complexType name="t_chargeMAC">
+		<xs:sequence>
+			<xs:element name="MACChargeValue" type="xs:positiveInteger">
+				<xs:annotation>
+					<xs:documentation>amount in grosz by which the account balance will be decreased; must be greater than zero</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_chargeMACNoCharge">
+		<xs:sequence>
+			<xs:element name="MACChargeValue" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Amount in grosz by which the account balance will be decreased. If not given default amount from configuration will be charged.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MACThreshold" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Amount which in grosz below which account balance cannot drop as a result of the operation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_chargeMACOptional">
+		<xs:sequence>
+			<xs:element name="MACChargeValue" type="xs:positiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>amount in grosz by which the account balance will be decreased.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_chargeMACWithExpDate">
+		<xs:sequence>
+			<xs:element name="MACChargeValue" type="xs:positiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Amount in grosz by which the account balance will be decreased.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MACThreshold" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Amount in grosz below which account balance cannot drop as a result of the operation. Can be present only if MACChargeValue is present.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MACExpiryDateLimitValue" type="xs:positiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Amount in days by which the MAC's expiry date will be limited. If the resulting expiry date will be earlier than activityBeginDate of account then INC will set expiry date to activityBeginDate instead and log warning in traces.
+					If chargeMAC element is present, either MACChargeValue or MACExpiryDateLimitValue must be present.
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_modifyMAC">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element name="MACChargeValue" type="xs:positiveInteger">
+					<xs:annotation>
+						<xs:documentation>Amount in grosz by which the account balance will be decreased.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="MACAddValue" type="xs:positiveInteger">
+					<xs:annotation>
+						<xs:documentation>Amount in grosz by which the account balance will be increased</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="MACSetValue" type="xs:nonNegativeInteger">
+					<xs:annotation>
+						<xs:documentation>Amount in grosz to which the account balance will be set</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			
+			<xs:element name="revenueRateMAC" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The revenue rate of units managed by MAC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:choice minOccurs="0">
+				<xs:element name="MACExpiryDateLimitValue" type="xs:positiveInteger">
+					<xs:annotation>
+						<xs:documentation>Number of days by which the MAC's expiry date will be limited. If the resulting expiry date will be earlier than activityBeginDate of account then INC will set expiry date to activityBeginDate instead and log warning in traces.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="MACExpiryDateExtendValue" type="xs:positiveInteger">
+					<xs:annotation>
+						<xs:documentation>Number of days by which the MAC's expiry date will be extended. For Barred or Suspended state extension is always calculated from current date.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="MACExpiryDateSetValue" type="xs:date">
+					<xs:annotation>
+						<xs:documentation>Date which will be set as expiry date. If given date is earlier than activityBeginDate of account then INC will set expiry date to activityBeginDate instead and log warning in traces.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_chargeSubaccount">
+		<xs:sequence>
+			<xs:element name="subaccountName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>name of the subaccount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chargeValue" type="xs:positiveInteger">
+				<xs:annotation>
+					<xs:documentation>amount in units by which the subaccount's balance will be decreased; must be grater than zero</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_chargeSubaccountWithExpDate">
+		<xs:sequence>
+			<xs:element name="subaccountName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>name of the subaccount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chargeValue" type="xs:positiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>amount in units by which the subaccount's balance will be decreased.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expiryDateLimitValue" type="xs:positiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>amount in days by which, the subaccount's expiry date will be limited.
+						If chargeSubaccount element is present, either chargeValue or expiryDateLimitValue element must be present.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_modifySubaccount">
+		<xs:sequence>
+			<xs:element name="subaccountName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Name of the subaccount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:choice minOccurs="0">
+				<xs:element name="chargeValue" type="xs:positiveInteger">
+					<xs:annotation>
+						<xs:documentation>Number of units by which the subaccount's balance will be decreased. Used for monobucket subaccounts.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="addValue" type="xs:positiveInteger">
+					<xs:annotation>
+						<xs:documentation>Number of units by which the subaccount's balance will be increased. Used for monobucket subaccounts.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="setValue" type="xs:nonNegativeInteger">
+					<xs:annotation>
+						<xs:documentation>Number of units to which the subaccount's balance will be set. Used for monobucket subaccounts.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			
+			<xs:element name="revenueRate" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>the revenue rate of units managed by the subaccount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="0">
+				<xs:choice>
+					<xs:element name="expiryDateLimitValue" type="xs:positiveInteger">
+						<xs:annotation>
+							<xs:documentation>Number of days by which the subaccount's expiry date will be limited. Used for monobucket subaccounts.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="expiryDateExtendValue" type="xs:positiveInteger">
+						<xs:annotation>
+							<xs:documentation>Number of days by which the subaccount's expiry date will be extended. Used for monobucket subaccounts.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:sequence>
+						<xs:element name="expiryDateSetValue" type="xs:date">
+							<xs:annotation>
+								<xs:documentation>Date to which subaccount's expiry date will be set. Used for monobucket subaccounts.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="expiryTimeSetValue" type="xs:time" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Time to which subaccount's expiry date will be set. If not present assumed to be equal to 23:59:59. Used for monobucket subaccounts.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:choice>
+				<xs:choice>
+					<xs:element name="validityLimitValue" type="xs:positiveInteger">
+						<xs:annotation>
+							<xs:documentation>Number of days by which the subaccount's validity period will be limited. Used for monobucket subaccounts.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="validityExtendValue" type="xs:positiveInteger">
+						<xs:annotation>
+							<xs:documentation>Number of days by which the subaccount's validity period will be extended. Used for monobucket subaccounts.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="validitySetValue" type="xs:positiveInteger">
+						<xs:annotation>
+							<xs:documentation>Value to which subaccount's validity period will be set. Used for monobucket subaccounts.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_createUnitPack">
+		<xs:sequence>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="toDate" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>Date and time of unit pack validity.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="fromDate" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>Date and time of unit pack activation.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="validity" type="xs:positiveInteger">
+					<xs:annotation>
+						<xs:documentation>Validity period of unit pack. For OCS, first usage fired validity available only for non-monetary subaccounts (Free Units).</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="balance" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation>Number of unit pack units.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_selectUnitPack">
+		<xs:sequence>
+			<xs:element name="unitPackID" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Technical identifier of a particular bucket on IN platform.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<!-- <xs:choice>
+			<xs:element name="unitPackID" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Technical identifier of a particular bucket on CIN platform.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="algorithm" type="t_unitPackSelectionAlgorithm">
+				<xs:annotation>
+					<xs:documentation>Algorithm to pick a bucket on CIN platform.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>-->
+	</xs:complexType>
+	<xs:complexType name="t_modifyUnitPack">
+		<xs:complexContent>
+			<xs:extension base="t_selectUnitPack">
+				<xs:sequence>
+					<xs:choice>
+						<xs:sequence>
+							<xs:element name="toDate" type="xs:dateTime" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Modified date of unit pack validity to set.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="fromDate" type="xs:dateTime" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Modified date of unit pack activation to set.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+						<xs:element name="validity" type="xs:positiveInteger" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Modified unit pack validity period to set. For OCS, first usage fired validity available only for non-monetary subaccounts (Free Units). On OCS, this option is supported only for not yet activated validity unit-packs.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+					<xs:element name="balance" type="xs:nonNegativeInteger" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Modified unit pack balance to set.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_modifySubaccountWithUnitPacks">
+		<xs:complexContent>
+			<xs:extension base="t_modifySubaccount">
+				<xs:sequence>
+					<xs:element name="createUnitPack" type="t_createUnitPack" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation><xs:documentation>specification of unit packs to create, used only for multibucket subaccounts</xs:documentation></xs:annotation>
+					</xs:element>
+					<xs:element name="removeUnitPack" type="t_selectUnitPack" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation><xs:documentation>specification of unit packs to remove, used only for multibucket subaccounts. For OCS platform unit packs are not removed, only outpayed.</xs:documentation></xs:annotation>
+					</xs:element>
+					<xs:element name="modifyUnitPack" type="t_modifyUnitPack" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation><xs:documentation>specification of unit packs to modify, used only for multibucket subaccounts</xs:documentation></xs:annotation>
+					</xs:element>
+					<xs:element name="outpayAllUnitPacks" type="t_true" minOccurs="0">
+						<xs:annotation><xs:documentation>flag requesting outpayment of all subaccount’s unit packs.</xs:documentation></xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_counter">
+		<xs:sequence>
+			<xs:element name="counterName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>counter name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currentValue" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>value of the counter </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="datePeriod" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>date period for the counter</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_subscriberIdentifier">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="MSISDN" type="t_msisdn">
+					<xs:annotation>
+						<xs:documentation>prepaid subscriber's MSISDN with routing prefix</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="IN_ID" type="t_IN_ID">
+					<xs:annotation>
+						<xs:documentation>Subscriber's IN ID </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_subscriber">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="MSISDN" type="t_msisdn">
+					<xs:annotation>
+						<xs:documentation>prepaid subscriber's MSISDN with routing prefix</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="IN_ID" type="t_IN_ID">
+					<xs:annotation>
+						<xs:documentation source="request">Subscriber's IN ID</xs:documentation>
+						<xs:documentation source="createSubscriberRequest">Subscriber's IN ID. INC will reject request if IN ID instead of MSISDN is given.</xs:documentation>
+						<xs:documentation source="response">Subscriber's IN ID</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="platform" type="t_platformID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>logical identifier of platform where subscriber data are stored.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_subscriberWithCustKey">
+		<xs:sequence>
+			<xs:element name="MSISDN" type="t_msisdn">
+				<xs:annotation>
+					<xs:documentation>prepaid subscriber's MSISDN with routing prefix</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="custKey" type="t_custKey" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Additional subscriber identifier</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="platform" type="t_platformID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>logical identifier of platform where subscriber data are stored.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_subscriberWithOperator">
+		<xs:complexContent>
+			<xs:extension base="t_subscriber">
+				<xs:sequence>
+					<xs:element name="operator" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>operator name for the subscriber.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_subscriberWithCustKeyAndOperator">
+		<xs:complexContent>
+			<xs:extension base="t_subscriberWithCustKey">
+				<xs:sequence>
+					<xs:element name="operator" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>operator name for the subscriber.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_subscriberWithContext">
+		<xs:complexContent>
+			<xs:extension base="t_subscriber">
+				<xs:sequence>
+					<xs:element name="operator" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>operator name for the subscriber.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="tariff" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>tariff name for the subscriber.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_subscriberWithContextAndTariffType">
+		<xs:complexContent>
+			<xs:extension base="t_subscriberWithContext">
+				<xs:sequence>
+					<xs:element name="tariffType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>tariff type of subscriber (PREPAID, PRIVATE or POSTPAID), when given INC will make sure that only subscriber of the given type will be removed</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="PREPAID"/>
+								<xs:enumeration value="PRIVATE"/>
+								<xs:enumeration value="POSTPAID"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_attributeName">
+		<xs:attribute name="name" type="xs:string" use="required"> </xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="t_attribute">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="t_getSubscriberProfile">
+		<xs:choice>
+			<xs:element name="getAllAttributes" type="t_getAllAttributes">
+				<xs:annotation>
+					<xs:documentation>this element indicates if all attributes of subscriber's profile should be provided in the response; value true - all attributes will be returned; lack of this means that the client asks about specific attributes, therefore the list of &lt;profileAttribute&gt; must be provided</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="profileAttribute" type="t_attributeName" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation source="getAccountsRequest">each element has an attribute 'name' containing the profile attribute name (a string) which gives the name of a profile attribute (as string) to be read from IN Platform. Only attributes that can be read from HDS (for CIN) or DCC (for OCS) are accepted by INC.
+				</xs:documentation>
+					<xs:documentation source="request">each element has an attribute 'name' containing the profile attribute name (a string) and contains the profile attribute value (a string).
+				</xs:documentation>
+					<xs:documentation source="response">each element has an attribute 'name' containing the profile attribute name (a string) and contains the profile attribute value (a string).
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="t_tariffOperator">
+		<xs:sequence>
+			<xs:element name="operator" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>name of the operator for the tariff</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tariffName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>name of the tariff (as string)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_tariff">
+		<xs:sequence>
+			<xs:element name="tariffName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation source="request">tariff name (as string) that the subscriber has</xs:documentation>
+					<xs:documentation source="updateServicesRequest">tariff name (as string) that the subscriber has; note that the tariff will not be changed</xs:documentation>
+					<xs:documentation source="response">tariff name (as string) that the subscriber has</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_tariffWithAttributes">
+		<xs:complexContent>
+			<xs:extension base="t_tariff">
+				<xs:sequence>
+					<xs:element name="tariffAttribute" type="t_attribute" minOccurs="0"
+						maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>each element has an attribute 'name' containing the tariff attribute name (as string) and contains the tariff attribute value (as string)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_service">
+		<xs:sequence>
+			<xs:element name="serviceName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>this element contains the name of the service</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceAttribute" type="t_attribute" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation source="request">each element has an attribute 'name' containing the service attribute name (as string) and contains the service attribute value (as string)</xs:documentation>
+					<xs:documentation source="response">each element has an attribute 'name' containing the service attribute name (as string) and contains the service attribute value (as string)</xs:documentation>
+					<xs:documentation source="getServiceResponse">each element has an attribute 'name' containing the service attribute name (as string) and contains the service attribute value (as string); service attributes are provided only for active services</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_serviceCharged">
+		<xs:complexContent>
+			<xs:extension base="t_service">
+				<xs:sequence>
+					<xs:element name="MACChargeValue" type="xs:positiveInteger" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>this element contains the net amount (the amount of Polish grosz) by which the MAC account balance will be decreased, Element placed in this place means MACChargeValue for this specific service. MACChargeValue can be set globally for whole request or separately in activated (at least one) services but not in both places.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_serviceWithStatus">
+		<xs:complexContent>
+			<xs:extension base="t_service">
+				<xs:sequence>
+					<xs:element name="status" type="t_serviceStatus">
+						<xs:annotation>
+							<xs:documentation>indicates if the service is active or not (values active / inactive)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_MACaccountOptionalDate">
+		<xs:sequence>
+			<xs:element name="expiryDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>expiry date for the MAC account</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="balance" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>balance for the MAC account; if charge failed because resulting balance would be below threshold this element is present even if no 'getMAC' or 'getAllAccounts' flag was present</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_MACaccount">
+		<xs:sequence>
+			<xs:element name="expiryDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>expiry date for the MAC account</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="balance" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>balance for the MAC account</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grossBalance" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="response">Gross balance of the monetary account.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_activateSubaccount">
+		<xs:sequence>
+			<xs:element name="subaccountName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>this element contains the subaccount name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:sequence>
+					<xs:sequence minOccurs="0">
+						<xs:element name="activationDate" type="xs:date">
+							<xs:annotation>
+								<xs:documentation>Activation date for the subaccount. Ignored for limitless subaccounts.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="activationTime" type="xs:time" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Activation time for the subaccount. If not given in request assumed to be equal to 00:00:00. Ignored for limitless subaccounts.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:element name="expiryDate" type="xs:date">
+						<xs:annotation>
+							<xs:documentation>Expiry date for the subaccount. Ignored for limitless subaccounts.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="expiryTime" type="xs:time" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Expiry time for the subaccount. If not given in request assumed to be equal to 23:59:59. Ignored for limitless subaccounts.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="validityPeriod" type="xs:positiveInteger">
+					<xs:annotation>
+						<xs:documentation>Validity period for the subaccount. For OCS, first usage fired validity available only for non-monetary subaccounts (Free Units).</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="balance" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Initial balance for the subaccount. If not provided it is set to zero.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_subaccount">
+		<xs:sequence>
+			<xs:element name="subaccountName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>this element contains the subaccount name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="0">
+				<xs:element name="activationDate" type="xs:date">
+					<xs:annotation>
+						<xs:documentation source="request">Activation date for the subaccount.</xs:documentation>
+						<xs:documentation source="createSubscriberRequest">Activation date for the subaccount. Ignored for limitless subaccounts.</xs:documentation>
+						<xs:documentation source="response">Activation date for the subaccount. It is returned if 'getExtendedTimeInfo' flag is true. If subaccount is multibucket then earliest activation date different than 1970-01-01 01:00:00 is returned. If subaccount has no bucket on IN or only buckets with validity period then this element is not present in response. For OCS platform, calculated by OCS when 'getAccountsUnitPacks' flag is not set (DCC version) or by INC otherwise (WS version).</xs:documentation>
+						<xs:documentation source="getAccountsDetailsResponse">Activation date for the subaccount. It is returned if 'getExtendedTimeInfo' flag is true. If subaccount is multibucket then earliest activation date is returned. If subaccount has no bucket on IN or only buckets with validity period then this element is not present in response.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="activationTime" type="xs:time" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation source="request">Activation time for the subaccount. If not given in request assumed to be equal to 00:00:00.</xs:documentation>
+						<xs:documentation source="createSubscriberRequest">Activation time for the subaccount. If not given in request assumed to be equal to 00:00:00. Ignored for limitless subaccounts.</xs:documentation>
+						<xs:documentation source="response">Activation time for the subaccount. It is returned if 'getExtendedTimeInfo' flag is true. If subaccount is multibucket then activation time of earliest activation date different than 1970-01-01 01:00:00 is returned. If subaccount has no bucket on IN or only buckets with validity period then this element is not present in response. For OCS platform, calculated by OCS when 'getAccountsUnitPacks' flag is not set (DCC version) or by INC otherwise (WS version).</xs:documentation>
+						<xs:documentation source="getAccountsDetailsResponse">Activation time for the subaccount. It is returned if 'getExtendedTimeInfo' flag is true. If subaccount is multibucket then activation time of earliest activation date is returned. If subaccount has no bucket on IN or only buckets with validity period then this element is not present in response.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence minOccurs="0">
+				<xs:element name="expiryDate" type="xs:date">
+					<xs:annotation>
+						<xs:documentation source="request">Expiry date for the subaccount.</xs:documentation>
+						<xs:documentation source="createSubscriberRequest">Expiry date for the subaccount. Ignored for limitless subaccounts.</xs:documentation>
+						<xs:documentation source="response">Expiry date for the subaccount. If subaccount is multibucket then latest expiry date different than 1970-01-01 01:00:00 is returned. If subaccount has no bucket on IN or only buckets with validity period then 1970-01-01 is returned. For limitless subaccounts 2030-01-01 is always returned. For OCS platform, calculated by OCS when 'getAccountsUnitPacks' flag is not set (DCC version) or by INC otherwise (WS version)</xs:documentation>
+						<xs:documentation source="getAccountsDetailsResponse">Expiry date for the subaccount. If subaccount is multibucket then latest expiry date is returned. If subaccount has no bucket on IN or only buckets with validity period then 1970-01-01 is returned. For limitless subaccounts 2030-01-01 is always returned.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="expiryTime" type="xs:time" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation source="request">Expiry time for the subaccount. If not given in request assumed to be equal to 23:59:59.</xs:documentation>
+						<xs:documentation source="createSubscriberRequest">Expiry time for the subaccount. If not given in request assumed to be equal to 23:59:59. Ignored for limitless subaccounts.</xs:documentation>
+						<xs:documentation source="response">Expiry time for the subaccount. It is returned if 'getExtendedTimeInfo' flag is true. If subaccount is multibucket then expiry time of latest expiry date different than 1970-01-01 01:00:00 is returned. If subaccount has no bucket on IN or only buckets with validity period then 23:59:59 is returned. For limitless subaccounts 23:59:59 is always returned. For OCS platform, calculated by OCS when 'getAccountsUnitPacks' flag is not set (DCC version) or by INC otherwise (WS version)</xs:documentation>
+						<xs:documentation source="getAccountsDetailsResponse">Expiry time for the subaccount. It is returned if 'getExtendedTimeInfo' flag is true. If subaccount is multibucket then expiry time of latest expiry date is returned. If subaccount has no bucket on IN or only buckets with validity period then 23:59:59 is returned. For limitless subaccounts 23:59:59 is always returned.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="balance" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="request">Initial balance for the subaccount. If not provided it is set to zero.</xs:documentation>
+					<xs:documentation source="response">Balance of the subaccount. If subaccount is multibucket then sum of bucket balances is returned: all buckets for CIN, only active buckets (with current validity period) for OCS. If subaccount has no bucket on IN then 0 is returned.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grossBalance" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation source="response">Gross balance of the monetary subaccount if includeGrossBalance request parameter was set on true. If subaccount is multibucket then they will be used in the calculation of gross balance. If subaccount has no bucket on IN then 0 is returned.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_subaccountWithStatus">
+		<xs:complexContent>
+			<xs:extension base="t_subaccount">
+				<xs:sequence>
+					<xs:element name="status" type="t_serviceStatus">
+						<xs:annotation>
+							<xs:documentation>Information about subaccount activity (which in turn depends on MAC state). If client is not configured to use this information active state is always returned.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_subaccountWithUnitPacksWithBalanceAndStatus">
+		<xs:complexContent>
+			<xs:extension base="t_subaccountWithStatus">
+				<xs:sequence>
+					<xs:element name="multibucket" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+								<xs:documentation>Information if the given subaccount is mono- or multibucket subaccount. Returned only when ‘getMultibucketInfo’ flag is set.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="unit_pack" type="t_unitPackWithBalance" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation source="request">&lt;unit_pack&gt; elements provide information about subaccount buckets and are returned only for multibucket subaccount if flag 'getAccountsUnitPacks' is set to true</xs:documentation>
+							<xs:documentation source="response">&lt;unit_pack&gt; elements provide information about subaccount buckets only active subaccounts (with current validity period)and are returned for all subaccounts only if flag 'getAccountsUnitPacks' is set to true - information read from WS interface.</xs:documentation>
+							<xs:documentation source="topUpResponse">&lt;unit_pack&gt; elements provide information about subaccount buckets and are returned only for multibucket subaccount if flag 'getAccountsUnitPacks' is set to true</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_subaccountWithIdentifiedUnitPacksWithBalanceAndStatus">
+		<xs:complexContent>
+			<xs:extension base="t_subaccountWithStatus">
+				<xs:sequence>
+					<xs:element name="multibucket" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+								<xs:documentation>Information if the given subaccount is mono- or multibucket subaccount. Returned only when ‘getMultibucketInfo’ flag is set.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="unit_pack" type="t_identifiedUnitPackWithBalance" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>&lt;unit_pack&gt; elements provide information about subaccount buckets and are returned for all subaccounts only if flag 'getAccountsUnitPacks' is set to true</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_subaccountWithUnitPacksWithBalance">
+		<xs:complexContent>
+			<xs:extension base="t_subaccount">
+				<xs:sequence>
+					<xs:element name="multibucket" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+								<xs:documentation>Information if the given subaccount is mono- or multibucket subaccount. Returned only when ‘getMultibucketInfo’ flag is set.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="unit_pack" type="t_unitPackWithBalance" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>&lt;unit_pack&gt; elements provide information about subaccount buckets and are returned for all subaccounts only if flag 'getAccountsUnitPacks' is set to true</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_subaccountWithCreatedUnitPacks">
+		<xs:sequence>
+			<xs:element name="subaccountName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>this element contains the subaccount name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unit_pack" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>identifiers of created buckets in order corresponding to order of bucket creation specifications in request (i.e. second identifier is identifier of bucket whose creation was specified as second for given subaccount)</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="unitPackID" type="xs:long" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Technical identifier of a particular bucket on IN platform.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_unitPack">
+		<xs:sequence>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="toDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Expiration date of bucket. It is returned if validity period is not set.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="fromDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Activation date of bucket. It is returned if validity period is not set.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="validityPeriod" type="xs:nonNegativeInteger">
+					<xs:annotation>
+						<xs:documentation source="request">Validity period of bucket.</xs:documentation>
+						<xs:documentation source="response">Validity period of bucket. It is returned only if it is set. INC assumes that validity period is set if expiration date of bucket is null and validity is not null and non zero. For CIN, expiration date 1970-01-01 01:00:00 is treated as null for purpose of determining if validity period is set. On OCS this element is supported only for non-monetary subaccounts (Free Units).</xs:documentation>
+						<xs:documentation source="getAccountsDetailsResponse">Validity period of bucket. It is returned only if it is set. INC assumes that validity period is set if expiration date of bucket is null and validity is not null and non zero.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_unitPackWithBalance">
+		<xs:complexContent>
+			<xs:extension base="t_unitPack">
+				<xs:sequence>
+					<xs:element name="currentBalance" type="xs:nonNegativeInteger">
+						<xs:annotation>
+								<xs:documentation>Remaining units of bucket.</xs:documentation>
+							</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_identifiedUnitPackWithBalance">
+		<xs:complexContent>
+			<xs:extension base="t_unitPackWithBalance">
+				<xs:sequence>
+					<xs:element name="unitPackID" type="xs:long" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Technical identifier of a particular bucket on CIN platform.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_activateServices">
+		<xs:sequence>
+			<xs:element name="service" type="t_serviceCharged" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>services to be activated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_activateServicesNoCharge">
+		<xs:sequence>
+			<xs:element name="service" type="t_service" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>services to be activated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_activateSubaccounts">
+		<xs:sequence>
+			<xs:element name="subaccount" type="t_activateSubaccount" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_deactivateServices">
+		<xs:sequence>
+			<xs:element name="serviceName" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation source="response">each gives the name of a service (as string) to be deactivated</xs:documentation>
+					<xs:documentation source="request">each gives the name of a service (as string) to be deactivated</xs:documentation>
+					<xs:documentation source="activateTariffRequest">each gives the name of a service (as string) to be deactivated; if the &lt;deactivateTariff&gt; section is given and the subscriber has any active services, the &lt;deactivateServices&gt; section is required; some services may be migrated instead of deactivated depending on their status strategy (see Use Case document for details) - in such case their presence in this section is ignored and optional
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_deactivateSubaccounts">
+		<xs:sequence>
+			<xs:element name="subaccountName" type="xs:string" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+					each gives the name of a subaccount (as string) to be deactivated
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_migrateSubaccounts">
+		<xs:sequence>
+			<xs:element name="subaccountName" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation source="response">this element should not appear in response</xs:documentation>
+					<xs:documentation source="request">each gives the name of subaccount to be deleted. The type of action is controlled by "method" attribute (with default value "migrate").
+						On CIN this element should not be ommitted. If it is ommitted all subaccounts which can be migrated will be migrated, but other subaccounts will not be outpayed or deleted.
+						On OCS, only "delete" method is supported. If this element is ommitted, then all subaccounts present in new tariff will be migrated. External system may override migration of subaccount by specifying "delete" method for subaccount that would otherwise be migrated.
+					</xs:documentation>
+					<xs:documentation source="migrateSubscriberRequest">each gives the name of subaccount to be migrated or deleted, the type of action is controlled by attribute "method" (optional, in OCS only DELETE value is supported).
+						On CIN, if this element is ommitted all subaccounts will be deleted.
+						On OCS, only "delete" method is supported. If this element is ommitted, then all subaccounts present in new tariff will be migrated. External system may override migration of subaccount by specifying "delete" method for subaccount that would otherwise be migrated.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="method" default="migrate"
+								type="t_migrateSubaccountName"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_subaccountChargeResult">
+		<xs:sequence>
+			<xs:element name="subaccountName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>the name of the charged subaccount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subaccountBalance" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>the final balance of the subaccount, after executing the request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chargedUnits" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>the number of units charged from the subaccount during the operation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- number of units subtracted from the subaccount -->
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_MACChargeResult">
+		<xs:sequence>
+			<xs:element name="MACBalance" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>the final balance of MAC, after executing the request</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chargedBalance" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>the number of polish grosz (net) charged from MAC during the operation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- number of units subtracted from MAC -->
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_subaccountChargeAccountsResult">
+		<xs:sequence>
+			<xs:element name="subaccountName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>the name of the charged subaccount</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subaccountBalance" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>subaccount balance after operation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_MACChargeAccountsResult">
+		<xs:sequence>
+			<xs:element name="MACBalance" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>MAC balance after operation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="t_memberBaseGroup">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="address" type="xs:string"/>
+			<xs:element minOccurs="0" name="addressType" type="t_addressType"/>
+			<xs:element name="PNP" type="xs:string" minOccurs="0"/>
+			<xs:element name="isCCN" type="xs:boolean"/>
+			<xs:element name="CCNRedirectionOption" minOccurs="0" type="t_CCNRedirectionOption"/>
+			<xs:element name="CCNRedirectionObject" type="xs:string" minOccurs="0"/>
+			<xs:element name="groupPriority" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="127"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isGroupActive" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="isHuntingGroupActive" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="isQueueActive" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Default true</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isPositionInQueueActive" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Default true</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AClipActive" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="AClipType" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="CCN">
+							<xs:annotation>
+								<xs:documentation>Default value</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="PERSONAL"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="AClipPersonalNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Required if AClipType set to PERSONAL</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mayTransferIncoming" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="mayTransferOutgoing" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="t_memberType">
+		<xs:sequence>
+			<xs:group ref="t_memberBaseGroup"/>
+			<xs:element name="ratingCategory" type="t_vpabx_ratingCategory"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_modifyMemberType">
+		<xs:sequence>
+			<xs:group ref="t_memberBaseGroup"/>
+			<xs:element name="service" type="t_parametrizedVPABXServiceType" minOccurs="0"/>
+			<xs:element name="ratingCategory" type="t_vpabx_ratingCategory" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="t_memberWithHuntingGroupBaseGroup">
+		<xs:sequence>
+			<xs:element name="huntingGroupMember" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="huntingGroupName" type="xs:string"/>
+						<xs:element name="position" type="xs:positiveInteger" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="t_memberWithHuntingGroup">
+		<xs:complexContent>
+			<xs:extension base="t_memberType">
+				<xs:sequence>
+					<xs:group ref="t_memberWithHuntingGroupBaseGroup"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_modifyMemberWithHuntingGroup">
+		<xs:complexContent>
+			<xs:extension base="t_modifyMemberType">
+				<xs:sequence>
+					<xs:group ref="t_memberWithHuntingGroupBaseGroup"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_ivrType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="address" type="xs:string"/>
+			<xs:element name="addressType" type="t_announcementAddressTypeType" minOccurs="0"/>
+			<xs:element name="PNP" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="t_voiceMailBaseGroup">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="address" type="xs:string"/>
+			<xs:element name="addressType" type="t_addressType" minOccurs="0"/>
+			<!-- TODO FAZA2 dodane pole  -->
+			<xs:element name="PNP" type="xs:string" minOccurs="0"/>
+			<xs:element name="box" type="xs:string" minOccurs="0"/>
+			<!-- TODO FAZA2 dodane pole  -->
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="t_voiceMailType">
+		<xs:sequence>
+			<xs:group ref="t_voiceMailBaseGroup"/>
+			<xs:element name="ratingCategory" type="t_ratingCategoryType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_modifyVoiceMailType">
+		<xs:sequence>
+			<xs:group ref="t_voiceMailBaseGroup"/>
+			<xs:element name="ratingCategory" type="t_ratingCategoryType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_annoucementType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="url" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_huntingGroupType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="strategy" type="t_strategy"/>
+			<xs:element name="algorithm" type="t_algorithm"/>
+			<xs:element name="PNP" type="xs:string" minOccurs="0"/>
+			<xs:element name="alertingTimeout" type="t_vpabx_timeout" minOccurs="0"/>
+			<!-- The alerting timeout for the Hunting Group Members in seconds.-->
+			<xs:element name="offsetTimeout" type="t_offset_timeout" minOccurs="0"/>
+			<!-- The offset timeout for the Hunting Group in seconds. -->
+			<xs:element name="waitingTimeout" type="t_vpabx_timeout" minOccurs="0">
+			<!-- The waiting timeout for the Hunting Group Members in seconds. -->
+				<xs:annotation>
+					<xs:documentation>This field is deprecated and it's value is ignored</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isPositionInQueueActive" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Default true</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="huntingGroupMember" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="memberName" type="xs:string"/>
+						<xs:element name="position" type="xs:int" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_accessNumberType">
+		<xs:sequence>
+			<xs:element name="address" type="xs:string"/>
+			<xs:element name="addressType" default="tel-uri" minOccurs="0" type="t_addressType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_groupAnnouncementType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="PNP" type="xs:string" minOccurs="0"/>
+			<xs:element name="announcementType" type="t_announcementType"/>
+			<!-- TODO FAZA2 dodane pole  -->
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_modifyVPABXGroupMembersType">
+		<xs:sequence>
+			<xs:element name="deleteAll" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="delete" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="add" minOccurs="0" maxOccurs="unbounded"
+				type="t_memberWithHuntingGroup"/>
+			<xs:element name="update" minOccurs="0" maxOccurs="unbounded"
+				type="t_modifyMemberWithHuntingGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_modifyVPABXGroupHGType">
+		<xs:sequence>
+			<xs:element name="deleteAll" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="delete" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="add" minOccurs="0" maxOccurs="unbounded" type="t_huntingGroupType"/>
+			<xs:element name="update" minOccurs="0" maxOccurs="unbounded" type="t_huntingGroupType"
+			/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_modifyIvrType">
+		<xs:sequence>
+			<xs:element name="deleteAll" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="delete" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="add" minOccurs="0" maxOccurs="unbounded" type="t_ivrType"/>
+			<xs:element name="update" minOccurs="0" maxOccurs="unbounded" type="t_ivrType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_modifyGroupAnnouncementsType">
+		<xs:sequence>
+			<xs:element name="deleteAll" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="delete" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="add" minOccurs="0" maxOccurs="unbounded"
+				type="t_groupAnnouncementType"/>
+			<xs:element name="update" minOccurs="0" maxOccurs="unbounded"
+				type="t_groupAnnouncementType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_inParameter">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="t_inParameterWithCondition">
+		<xs:complexContent mixed="false">
+			<xs:extension base="t_inParameter">
+				<xs:attribute name="if" type="xs:string" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_inParameterWithOldValue">
+		<xs:complexContent mixed="false">
+			<xs:extension xmlns:q1="INC" base="q1:t_inParameter">
+				<xs:attribute name="oldValue" type="xs:string" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_inParameterCondition">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="equals" type="t_inParameter"> </xs:element>
+			<xs:element name="notEquals" type="t_inParameter"> </xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="t_inParametersConditionSet">
+		<xs:sequence>
+			<xs:element name="if" minOccurs="0" type="t_inParameterCondition"> </xs:element>
+			<xs:element name="set">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="parameter" type="t_inParameter" maxOccurs="unbounded">
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="t_areaCode">
+		<xs:sequence>
+			<xs:element name="acNumber">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9]{1,2}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="validityStart" type="xs:dateTime" minOccurs="0"/>
+			<!-- TODO FAZA2 pole opcjonalne  -->
+			<xs:element name="validityStop" type="xs:dateTime" minOccurs="0"/>
+			<!-- TODO FAZA2 pole opcjonalne  -->
+			<xs:element name="destination" type="t_aus_destination" minOccurs="0"/>
+			<!-- TODO FAZA2 pole opcjonalne  -->
+			<xs:element name="routingProfile" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="t_AUSAccessNumberType">
+		<xs:sequence>
+			<xs:element name="number" type="t_aus_number"/>
+			<xs:element name="exists" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether the number already exists. If not specified, existence doesn't matter.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="destination" type="t_aus_destination" minOccurs="0"/>
+			<xs:element name="routingProfile" type="xs:string" minOccurs="0"/>
+			<xs:element name="serviceName" type="t_serviceName" minOccurs="0"/>
+			<xs:element name="language" type="t_language" minOccurs="0"/>
+			<xs:element name="applyGlobalAUS" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="annDomestic" type="xs:string" minOccurs="0"/>
+			<xs:element name="annRoaming" type="xs:string" minOccurs="0"/>
+			<xs:element name="annInternational" type="xs:string" minOccurs="0"/>
+			<xs:element name="provider" type="xs:string" minOccurs="0"/>
+			<xs:element name="areaCodes" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="areaCode" type="t_areaCode" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_parametrizedVPABXServiceType">
+		<xs:sequence>
+			<xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="block" type="xs:string"/>
+					<xs:attribute name="name" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+
+	<!-- merge z schemami VPABXConf -->
+	<xs:complexType name="t_businessContext">
+		<xs:sequence>
+			<xs:element name="ccn" type="t_vpabxMsisdn"/>
+			<xs:element name="email" type="xs:string"/>
+			<xs:element name="login" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_baseVpabxMember">
+		<xs:sequence>
+			<xs:element name="msisdn" type="t_vpabxMsisdn"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_vpabxBaseMembersList">
+		<xs:sequence>
+			<xs:element name="msisdn" type="t_vpabxMsisdn" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_simpleVpabxMember">
+		<xs:complexContent>
+			<xs:extension base="t_baseVpabxMember">
+				<xs:sequence>
+					<xs:element name="shortNumber" type="xs:string" minOccurs="0"/>
+					<xs:element name="type" type="t_vpabxMemberType"/>
+					<xs:element name="vpnFeature" type="xs:boolean"/>
+					<xs:element name="vpnFmsNumber" type="t_vpabxMsisdn" minOccurs="0"/>
+					<xs:element name="vpnFmsShortNumber" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_vpabxImportedMember">
+		<xs:complexContent>
+			<xs:extension base="t_baseVpabxMember">
+				<xs:sequence>
+					<xs:element name="type" type="t_vpabxMemberType"/>
+					<xs:element name="aclipVariant" type="t_aclipVariant"/>
+					<xs:element name="aclipNumber" type="t_vpabxMsisdn" minOccurs="0"/>
+					<xs:element name="secretaryCall" type="xs:boolean"/>
+					<xs:element name="roamingCutOff" type="xs:boolean"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_databaseElement">
+		<xs:sequence>
+			<xs:element name="id" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_scenario">
+		<xs:complexContent>
+			<xs:extension base="t_databaseElement">
+				<xs:sequence>
+					<xs:element name="isCopy" type="xs:boolean"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="t_voicemail">
+		<xs:choice>
+			<xs:element name="setDefault" type="t_true"/>
+			<xs:element name="box" type="t_vpabxMsisdn"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="t_numberInfo">
+		<xs:sequence>
+			<xs:element name="number" type="t_vpabxMsisdn"/>
+			<xs:element name="shortNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="type" type="t_vpabxMemberType"/>
+			<xs:element name="status" type="t_numberInfoStatus"/>
+			<xs:element name="vpnFeature" type="xs:boolean"/>
+			<xs:element name="vpnFmsNumber" type="t_vpabxMsisdn" minOccurs="0"/>
+			<xs:element name="vpnFmsShortNumber" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_unansweredCall">
+		<xs:sequence>
+			<xs:element name="number" type="t_vpabxMsisdn"/>
+			<xs:element name="timeConnected" type="xs:dateTime"/>
+			<xs:element name="duration" type="xs:integer" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

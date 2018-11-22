@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ elementFormDefault="qualified">
+ <xs:include schemaLocation="../INCBaseTypes.xsd"/>
+ <xs:include schemaLocation="../INCComplexTypes.xsd"/>
+ <xs:complexType name="t_createSubscriberRequest">
+  <xs:sequence>
+   <xs:element name="subscriber" type="t_subscriberWithCustKeyAndOperator">
+    <!-- operator is required -->
+    <xs:annotation>
+     <xs:documentation>this element specifies the subscriber to be created.</xs:documentation>
+    </xs:annotation>
+   </xs:element>
+   <xs:element name="destinationPlatform" type="t_platformID" minOccurs="0">
+    <xs:annotation>
+     <xs:documentation>this element contains the logical identifier of a platform (as string) where the new subscriber will be created; if no platform is given the default platform from INC configuration is used in SDB and logs but any platform could be chosen on CIN</xs:documentation>
+    </xs:annotation>
+   </xs:element>
+   <xs:element name="activateTariff" type="t_tariffWithAttributes">
+    <xs:annotation>
+     <xs:documentation>this element contains the specification of the tariff to be set for the subscriber</xs:documentation>
+    </xs:annotation>
+   </xs:element>
+   <xs:element name="activateServices" type="t_activateServicesNoCharge" minOccurs="0">
+    <xs:annotation>
+     <xs:documentation>specify services to be activated for the new subscriber; if the list of services is not provided, the system will activate the default list of services for a given tariff.
+NOTE: given service attributes must be valid according to the service status strategy (service status strategy won't determine that the service is inactive based on its service attributes)</xs:documentation>
+    </xs:annotation>
+   </xs:element>
+   <xs:element name="activateSubaccounts" type="t_activateSubaccounts" minOccurs="0">
+    <xs:annotation><xs:documentation>specify the subaccounts that should be activated for the new subscriber; if the list of subaccounts is not provided, the system will not activate any subaccounts; if the same subaccount is specified more than once then multiple buckets will be created, in such case each subaccount element will be interpreted as bucket specification</xs:documentation></xs:annotation>
+   </xs:element>
+  </xs:sequence>
+ </xs:complexType>
+</xs:schema>

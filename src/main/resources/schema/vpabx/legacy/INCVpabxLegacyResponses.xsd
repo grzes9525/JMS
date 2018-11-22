@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd" />
+	
+	<xs:include schemaLocation="INCGetVPABXAccessNumberMembershipResponse.xsd" />
+	<xs:include schemaLocation="INCGetVPABXAnnouncementResponse.xsd" />
+	<xs:include schemaLocation="INCGetVPABXGroupResponse.xsd" />
+
+
+	<xs:group name="t_vpabxLegacyResponsesBodies">
+		<xs:choice>
+			<!-- VPABX old -->
+			<xs:element name="createVPABXGroupResponse" type="t_empty" />
+			<xs:element name="getVPABXAccessNumberMembershipResponse" type="t_getVPABXAccessNumberMembershipResponseType" />
+			<xs:element name="getVPABXAnnouncementResponse" type="t_getVPABXAnnouncementResponseType" />
+			<xs:element name="getVPABXGroupHGResponse" type="t_huntingGroupType" />
+			<xs:element name="getVPABXGroupMemberResponse" type="t_memberType" />
+			<xs:element name="getVPABXGroupResponse" type="t_getVPABXGroupResponseType" />
+			<xs:element name="removeVPABXAccessNumberResponse" type="t_empty" />
+			<xs:element name="removeVPABXAnnouncementResponse" type="t_empty" />
+			<xs:element name="removeVPABXGroupResponse" type="t_empty" />
+			<xs:element name="updateVPABXAccessNumberResponse" type="t_empty" />
+			<xs:element name="updateVPABXAnnouncementResponse" type="t_empty" />
+			<xs:element name="updateVPABXGroupAnnouncementsResponse" type="t_empty" />
+			<xs:element name="updateVPABXGroupHGResponse" type="t_empty" />
+			<xs:element name="updateVPABXGroupIvrResponse" type="t_empty" />
+			<xs:element name="updateVPABXGroupMembersResponse" type="t_empty" />
+			<xs:element name="updateVPABXGroupResponse" type="t_empty" />
+
+			<!-- AUS -->
+			<xs:element name="getAUSAccessNumberResponse" type="t_AUSAccessNumberType" />
+			<xs:element name="updateAUSAccessNumberResponse" type="t_empty" />
+			<xs:element name="removeAUSAccessNumberResponse" type="t_empty" />
+			
+			<!-- MNP -->
+			<xs:element name="createOrUpdateMNPSubscribersResponse" type="t_empty" />
+			<xs:element name="removeMNPSubscribersResponse" type="t_empty" />
+
+		</xs:choice>
+	</xs:group>
+</xs:schema>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_createOrUpdateMNPSubscribersRequestType">
+		<xs:sequence>
+			<xs:element name="msisdn" type="t_msisdn">
+				<xs:annotation>
+					<xs:documentation>
+					MSISDN for a ported subscriber or a range of msisdns (as msisdn prefix) for polish operators range
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isPolishOperatorRange" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>
+					if true msisdn above is a msisdn prefix for polish operators range, if false msisdn above is a ported subscriber number
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routingNumber" type="xs:string"/>
+			<xs:element name="isMobile" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

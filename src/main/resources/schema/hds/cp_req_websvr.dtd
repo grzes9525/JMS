@@ -1,0 +1,35 @@
+<!ELEMENT cp_request (cp_id, cp_transaction_id, op_transaction_id?, application, action, user_id, account_id?, cp_timer?, transaction_currency?, transaction_price?, transaction_description?, sms_id?, debit_params?, credit_params?, recharge_id?, option?)>
+<!ELEMENT cp_id (#PCDATA)>
+<!ELEMENT cp_transaction_id (#PCDATA)>
+<!ELEMENT op_transaction_id (#PCDATA)>
+<!ELEMENT application (#PCDATA)>
+<!ELEMENT action (#PCDATA)>
+<!ELEMENT user_id (#PCDATA)>
+<!ELEMENT account_id (#PCDATA)>
+<!ELEMENT cp_timer (#PCDATA)>
+<!ELEMENT transaction_currency (#PCDATA)>
+<!ELEMENT transaction_description (#PCDATA)>
+<!ELEMENT transaction_price (#PCDATA)>
+<!ELEMENT debit_params (dbt_param+, account_bundles?)>
+<!ELEMENT credit_params (crd_param*)>
+<!ELEMENT recharge_id (#PCDATA)>
+<!ELEMENT sms_id (#PCDATA)>
+<!ATTLIST user_id type (MSISDN|Login) "MSISDN">
+<!ATTLIST account_id a_type (Login) "Login">
+<!ELEMENT dbt_param (#PCDATA)>
+<!ATTLIST dbt_param dbt_ref CDATA #REQUIRED>
+<!ELEMENT account_bundles (bundle+)>
+<!ELEMENT bundle (bdl_name, amount)>
+<!ELEMENT bdl_name (#PCDATA)>
+<!ELEMENT amount (#PCDATA)>
+<!ELEMENT option (#PCDATA)>
+<!ATTLIST credit_params main_activity CDATA #IMPLIED>
+<!ATTLIST credit_params main_inactivity CDATA #IMPLIED>
+<!ATTLIST credit_params main_limit CDATA #IMPLIED>
+<!ATTLIST credit_params main_balance CDATA #IMPLIED>
+<!ELEMENT crd_param (#PCDATA)>
+<!ATTLIST crd_param bdl_name CDATA #REQUIRED>
+<!ATTLIST crd_param bdl_validity CDATA #IMPLIED>
+<!ATTLIST crd_param bdl_start CDATA #IMPLIED>
+<!ATTLIST crd_param bdl_limit CDATA #IMPLIED>
+<!ATTLIST crd_param bdl_balance CDATA #IMPLIED> 

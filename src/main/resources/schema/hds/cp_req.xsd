@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="cp_request">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="cp_id"/>
+        <xs:element ref="cp_transaction_id"/>
+        <xs:element minOccurs="0" ref="op_transaction_id"/>
+        <xs:element ref="application"/>
+        <xs:element ref="action"/>
+        <xs:element ref="user_id"/>
+        <xs:element minOccurs="0" ref="account_id"/>
+        <xs:element minOccurs="0" ref="cp_timer"/>
+        <xs:element minOccurs="0" ref="transaction_currency"/>
+        <xs:element minOccurs="0" ref="transaction_price"/>
+        <xs:element minOccurs="0" ref="transaction_description"/>
+        <xs:element minOccurs="0" ref="sms_id"/>
+        <xs:element minOccurs="0" ref="debit_params"/>
+        <xs:element minOccurs="0" ref="credit_params"/>
+        <xs:element minOccurs="0" ref="recharge_id"/>
+        <xs:element minOccurs="0" ref="option"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cp_id" type="xs:string"/>
+  <xs:element name="cp_transaction_id" type="xs:string"/>
+  <xs:element name="op_transaction_id" type="xs:string"/>
+  <xs:element name="application" type="xs:string"/>
+  <xs:element name="action" type="xs:string"/>
+  <xs:element name="user_id">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.user_id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="account_id">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.account_id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cp_timer" type="xs:string"/>
+  <xs:element name="transaction_currency" type="xs:string"/>
+  <xs:element name="transaction_description" type="xs:string"/>
+  <xs:element name="transaction_price" type="xs:string"/>
+  <xs:element name="debit_params">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="dbt_param"/>
+        <xs:element minOccurs="0" ref="account_bundles"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="credit_params">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="crd_param"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="attlist.credit_params"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="recharge_id" type="xs:string"/>
+  <xs:element name="option" type="xs:nonNegativeInteger"/>
+  <xs:element name="sms_id" type="xs:string"/>
+  <xs:attributeGroup name="attlist.user_id">
+    <xs:attribute name="type" default="MSISDN">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="MSISDN"/>
+          <xs:enumeration value="Login"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="attlist.account_id">
+    <xs:attribute name="a_type" default="Login">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="Login"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="dbt_param">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.dbt_param"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.dbt_param">
+    <xs:attribute name="dbt_ref" use="required"/>
+  </xs:attributeGroup>
+  <xs:element name="account_bundles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="bundle"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bundle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="bdl_name"/>
+        <xs:element ref="amount" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bdl_name" type="xs:string"/>
+  <xs:element name="amount" type="xs:string"/>
+  <xs:attributeGroup name="attlist.credit_params">
+    <xs:attribute name="main_activity"/>
+    <xs:attribute name="main_inactivity"/>
+    <xs:attribute name="main_limit"/>
+    <xs:attribute name="main_balance"/>
+  </xs:attributeGroup>
+  <xs:element name="crd_param">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.crd_param"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.crd_param">
+    <xs:attribute name="bdl_name" use="required"/>
+    <xs:attribute name="bdl_validity"/>
+    <xs:attribute name="bdl_start"/>
+    <xs:attribute name="bdl_limit"/>
+    <xs:attribute name="bdl_balance"/>
+  </xs:attributeGroup>
+</xs:schema>

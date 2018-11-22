@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 U (http://www.altova.com) by Michal Brandt (Infovide S.A.)
+-->
+<!--
+	#============================================================================
+	# AUTHOR:       TLS-Technologie (http://www.tls.pl), Infovide-Matrix S.A. (http://www.infovidematrix.pl)
+	# CREATION:     2006-10-23
+	# VERSION:      01.40
+	# SHORT DESC:   Basic XML Types of the A-Interface of INC
+	#
+	# Copyright (C) 2006 by PTC/TSD/INU - all rights reserved
+	#____________________________________________________________________________
+	# HISTORY OF CHANGES:
+	#
+	# 2007-02-15	Anna Derlacka: 01.40 - With version 1.4 of A-Interface documentation
+	# 2007-02-11	Anna Derlacka: 01.20 - With version 1.2 of A-Interface documentation
+	# 2006-11-06    Marek Biskup: 01.00 - With version 1.0 of A-Interface documentation
+	# 2006-10-27    Marek Biskup: 00.20 - With version 0.2 of A-Interface documentation
+	#
+	#============================================================================
+-->
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Atomic types for XML Schema of INC</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="t_msisdn">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_IN_ID">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_custKey">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_GID">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_HLTID">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_platformID">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_RC">
+		<xs:annotation>
+			<xs:documentation>Result code of the request.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="10000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_priority">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="1"/>
+			<xs:maxInclusive value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_requestState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="received"/>
+			<xs:enumeration value="in_progress"/>
+			<xs:enumeration value="successful"/>
+			<xs:enumeration value="failed"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="t_vpabx_ratingCategory">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="onNet">
+				<xs:annotation>
+					<xs:documentation>native value = 1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="virtualOnNet">
+				<xs:annotation>
+					<xs:documentation>native value = 2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="offNet">
+				<xs:annotation>
+					<xs:documentation>native value = 3</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_vpabx_timeout">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:annotation>
+				<xs:documentation>timeout in seconds</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_offset_timeout">
+		<xs:restriction base="xs:nonNegativeInteger">
+			<xs:annotation>
+				<xs:documentation>timeout in seconds</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_language">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="pl"/>
+			<xs:enumeration value="en"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_aus_destination">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-E]{1,50}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_aus_number">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-E%]{1,25}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_getAllAttributes">
+		<xs:annotation>
+			<xs:documentation>this element indicates if all attributes of subscriber's profile should be provided in the response; 
+				value true in the element &lt;getAllAttributes&gt; – all attributes will be returned
+				lack of the element &lt;getAllAttributes&gt; means that the client asks about specific attributes, therefore the list of &lt;profileAttribute&gt;s must be provided
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="true"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_serviceStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="active"/>
+			<xs:enumeration value="inactive"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_migrateSubaccountName">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="migrate"/>
+			<xs:enumeration value="delete"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_strategy">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="chained"/>
+			<xs:enumeration value="simultaneous"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_algorithm">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ordered"/>
+			<xs:enumeration value="random"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_addressType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="tel-uri"/>
+			<xs:enumeration value="sip-uri"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_serviceName">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AUS"/>
+			<xs:enumeration value="PA"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_sogName">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_failedCallTreatmentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RC"/>
+			<xs:enumeration value="D2VM"/>
+			<xs:enumeration value="D2GM"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_faxTreatmentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RC"/>
+			<xs:enumeration value="D2VM"/>
+			<xs:enumeration value="D2FAX"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_announcementAddressTypeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EMID">
+				<xs:annotation>
+					<xs:documentation>the elementaryMessageId</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="URL">
+				<xs:annotation>
+					<xs:documentation>the whole URL local or remote</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="file">
+				<xs:annotation>
+					<xs:documentation>the path to the file at local filesystem</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_transferTypeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="selection"/>
+			<xs:enumeration value="blind"/>
+			<xs:enumeration value="consultation"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_ratingCategoryType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="onNet"/>
+			<xs:enumeration value="virtualOnNet"/>
+			<xs:enumeration value="offNet"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="t_CCNRedirectionOption">
+		<xs:restriction base="xs:string">
+				<xs:enumeration value=""/>
+				<xs:enumeration value="VM"/>
+				<xs:enumeration value="HG"/>
+				<xs:enumeration value="GM"/>
+				<xs:enumeration value="IVR"/>
+				<xs:enumeration value="ANN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	
+	<xs:simpleType name="t_announcementType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Alerting">
+				<xs:annotation>
+					<xs:documentation>HG or Group Member is being called.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Beep">
+				<xs:annotation>
+					<xs:documentation>Incoming connection is diverted from CCN.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CAError">
+				<xs:annotation>
+					<xs:documentation>Continuous Announcement error.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CCNNotActive">
+				<xs:annotation>
+					<xs:documentation>CCN not active.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IVRError">
+				<xs:annotation>
+					<xs:documentation>IVR error.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NoAnswer">
+				<xs:annotation>
+					<xs:documentation>Unsuccesful HG call and disconnection.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Transferring">
+				<xs:annotation>
+					<xs:documentation>Call transfer in progress.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TransferProcessing">
+				<xs:annotation>
+					<xs:documentation>Ongoing transfer.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TransferReturning">
+				<xs:annotation>
+					<xs:documentation>Transfer coming back to initiator.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TransferSelection">
+				<xs:annotation>
+					<xs:documentation>Choice of transfer type.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TransferWrongAddress">
+				<xs:annotation>
+					<xs:documentation>Transfer to invalid number.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Welcome">
+				<xs:annotation>
+					<xs:documentation>Incoming connection to CCN. </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Early">
+				<xs:annotation>
+					<xs:documentation>Outgoing ACLIP connection</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TransferNotAllowed">
+				<xs:annotation>
+					<xs:documentation>Transfer not allowed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BlindProcessing">
+				<xs:annotation>
+					<xs:documentation>Ongoing blind transfer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BlindIncoming">
+				<xs:annotation>
+					<xs:documentation>Incoming connection is transfered (blind)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ConsultationProcessing">
+				<xs:annotation>
+					<xs:documentation>Consultation transfer in progres</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ConsultationIncoming">
+				<xs:annotation>
+					<xs:documentation>Incoming connection is consultation connection</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="t_empty">
+		<xs:annotation>
+			<xs:documentation>empty type - for responses without any information in the business part_t </xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:simpleType name="t_true">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="true"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_unitPackSelectionAlgorithm">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="oldestActive">
+				<xs:annotation>
+					<xs:documentation>Operation is performed on the oldest active bucket, based on HLAPI startDate attribute value</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="newestActive">
+				<xs:annotation>
+					<xs:documentation>Operation is performed on the newest active bucket, based on HLAPI startDate attribute value</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="oldest">
+				<xs:annotation>
+					<xs:documentation>Operation is performed on the oldest bucket, based on HLAPI creationDate attribute value</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="newest">
+				<xs:annotation>
+					<xs:documentation>Operation is performed on the newest bucket, based on HLAPI creationDate attribute value</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+<!-- VPABXConf Schema merge -->
+	<xs:simpleType name="t_vpabxMsisdn">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="00\d{7,15}" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_aclipVariant">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MOBILE" />
+			<xs:enumeration value="VPABX" />
+			<xs:enumeration value="VPN_FMS" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_vpabxMemberType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INTERNAL" />
+			<xs:enumeration value="EXTERNAL" />
+			<xs:enumeration value="INTERNAL_VPN_FMS" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_faxAutodetectionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DEFAULT" />
+			<xs:enumeration value="MEMBER" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_vpabxFailedCallTreatmentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MEMBER" />
+			<xs:enumeration value="VOICEMAIL" />
+			<xs:enumeration value="DISCONNECT" />
+			<xs:enumeration value="ANNOUNCEMENT" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_numberInfoStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FREE" />
+			<xs:enumeration value="VPABX1" />
+			<xs:enumeration value="VPABX2" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

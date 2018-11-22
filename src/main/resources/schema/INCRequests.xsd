@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- VERSION 3.0.0 -->
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<xs:include schemaLocation="INCBaseTypes.xsd" />
+	
+	<xs:include schemaLocation="prepaid/INCPrePaidRequests.xsd" />
+	<xs:include schemaLocation="vpabx/legacy/INCVpabxLegacyRequests.xsd" />
+	<xs:include schemaLocation="vpabx/conf/INCVpabxConfRequests.xsd" />
+	<xs:include schemaLocation="business/suite/INCPostPaidRequests.xsd" />
+	
+	<xs:include schemaLocation="special/INCConditionalOutpaymentRequest.xsd" />
+	<xs:include schemaLocation="special/INCSogSubscriptionExpirationRequest.xsd" />
+	<xs:include schemaLocation="special/INCSogSubscriptionsRepairRequest.xsd" />
+
+	<xs:complexType name="t_header">
+		<xs:annotation>
+			<xs:documentation>Contains elements common for all requests</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="version" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Version of the A-Interface used by the client</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="client" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Name of the client</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="msgSeqID" type="xs:string" minOccurs="0" />
+			<xs:element name="HLTID" type="xs:string" minOccurs="0" />
+			<xs:element name="batchID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Request identifier used for batch operations</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="0">
+				<xs:element name="relativeTimeout" type="xs:integer" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>timeout from the time of receiving the request, if greater than 1000 is assumed to be given in milliseconds, otherwise in seconds</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="absoluteTimeout" type="xs:dateTime" minOccurs="0" />
+				<!-- timeout in miliseconds, from the time of receiving the request -->
+			</xs:choice>
+			<xs:element name="priority" type="t_priority" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:group name="t_specialRequestsBodies">
+		<xs:choice>
+		
+			<!-- internal -->
+			<xs:element name="conditionalOutpaymentRequest" type="t_conditionalOutpaymentRequest" />
+			<xs:element name="sogSubscriptionExpirationRequest" type="t_sogSubscriptionExpirationRequest" />
+			<xs:element name="sogSubscriptionsRepairRequest" type="t_sogSubscriptionsRepairRequest" />
+			
+			<!-- batch -->
+			<xs:element name="batchRequest" type="t_batchRequest" />
+			
+		</xs:choice>
+	</xs:group>
+
+	<xs:complexType name="t_body">
+		<xs:choice>
+			<xs:group ref="t_prePaidRequestsBodies"/>
+			<xs:group ref="t_specialRequestsBodies"/>
+		
+			<xs:group ref="t_vpabxLegacyRequestsBodies"/>
+			<xs:group ref="t_postPaidRequestsBodies"/>
+			<xs:group ref="t_vpabxConfRequestsBodies"/>
+			
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="t_batchRequest">
+		<xs:sequence>
+			<xs:element name="step" type="t_body" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="t_AInterfaceRequest">
+		<xs:annotation>
+			<xs:documentation>Top level element for all A-interface requests</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="header" type="t_header">
+				<xs:annotation>
+					<xs:documentation>Contains elements common for all requests</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="body" type="t_body">
+				<xs:annotation>
+					<xs:documentation>Contains elements specific for each request.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="AInterfaceRequest" type="t_AInterfaceRequest" />
+
+</xs:schema>

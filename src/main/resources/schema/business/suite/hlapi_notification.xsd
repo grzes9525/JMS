@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by Anna Derlacka (InfoViDE Sp. z o.o.) -->
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:q1="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="adamo.xsd"/>
+	<xs:complexType name="t_AnnouncementList">
+		<xs:sequence>
+			<xs:element name="announcementID" type="xs:unsignedShort" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>UP to 4 announcement id references (see Announcement Definition)
+Mandatory only if isAnnouncement = 1 (true). Mustn't be filled otherwise.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_AnnouncementListModify">
+		<xs:sequence>
+			<xs:element name="announcementID" type="xs:unsignedShort" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>UP to 4 announcement id references (see Announcement Definition)
+Mandatory only if isAnnouncement = 1 (true). Mustn't be filled otherwise.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_AppliedTo">
+		<xs:sequence>
+			<xs:element name="accessNumber" type="t_msisdn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Access Number reference for which particular notification is defined (SigUserKey.KeyValue)
+Mandatory only if Access Level is set.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eventType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates for which event types (represented as a bitmaps) this particular notification is defined.
+0 - CAP3_MOC_DP2
+1 - CAP3_MOC_DP3
+2 - CAP3_MOC_CF
+3 - CAP3_MTC_DP12
+4 - CAP3_MTC_DP3
+5 - CAP3_ROAM_MTC
+6 - CAP3_SMS_MO
+7 - CAP1_ROAM_MOC
+8 - CAP1_ROAM_MOC_CF
+9 - CAP2_ROAM_MOC
+10 - CAP2_ROAM_MOC_CF
+11 - DIAM_MMS_MO
+12 - DIAM_MMS_MT
+13 - DIAM_CONTENT
+14 - DIAM_DATA
+15-31 - Reserved for future use
+E.g.: if  CAP3_MTC_DP12 and CAP2_ROAM_MOC are defined, then the bitmap's value will be “NNNYNNNNNYNNNNNNNNNNNNNNNNNNNNNN”Always mandatory to be filled-in.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="groupID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Group ID reference for which particular notification is defined (SigGroup.GroupName)
+Mandatory only if Group Level is set</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates at which level notification will be applied:
+- accessnumber 
+- subscriber
+- group
+- provider 
+- network
+Always mandatory to be filled-in.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="networkOperatorID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Network operator ID reference for which particular notification is defined (SigServiceRetailer.Name)
+Always mandatory to be filled-in.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="providerID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Provider ID reference for which particular notification is defined (SigGenObj1.Identifier).
+Mandatory only if Provider Level is set.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="subscriberID" type="t_IN_ID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Subscriber ID reference for which particular notification is defined (SigUser.PhoneNumber)
+Mandatory only if subscriber Level or Access Number Level are set.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_CreateNotificationRequest">
+		<xs:sequence>
+			<xs:element name="object" type="t_Notification">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="objectID" type="t_NotificationIdentifier">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_GetNotificationRequest">
+		<xs:sequence>
+			<xs:element name="objectID" type="t_NotificationIdentifier">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_GetNotificationResponse">
+		<xs:sequence>
+			<xs:element name="object" type="t_Notification">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="objectID" type="t_NotificationIdentifier">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_MessageList">
+		<xs:sequence>
+			<xs:element name="messageFeatureID" type="xs:unsignedShort" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Up to 4 notifications id to be forwarded to UNS (Feature Id)
+Mandatory only if isMessage = 1 (true). Mustn't be filled otherwise.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="messageIndexID" type="xs:unsignedShort" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Up to 4 notifications id to be forwarded to UNS (Index Id)
+Mandatory only if isMessage = 1 (true). Mustn't be filled otherwise.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_MessageListModify">
+		<xs:sequence>
+			<xs:element name="messageFeatureID" type="xs:unsignedShort" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Up to 4 notifications id to be forwarded to UNS (Feature Id)
+Mandatory only if isMessage = 1 (true). Mustn't be filled otherwise.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="messageIndexID" type="xs:unsignedShort" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Up to 4 notifications id to be forwarded to UNS (Index Id)
+Mandatory only if isMessage = 1 (true). Mustn't be filled otherwise.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_ModifyNotificationRequest">
+		<xs:sequence>
+			<xs:element name="object" type="t_NotificationModify">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="objectID" type="t_NotificationIdentifier">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_Notification">
+		<xs:sequence>
+			<xs:element name="announcements" type="t_AnnouncementList" minOccurs="0" maxOccurs="4">
+				<xs:annotation>
+					<xs:documentation>-</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isAnnouncement" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicates if notification is announcement type
+0 – false - notification is not announcement type
+1 – true - notification is announcement type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isMessage" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicates if notification is message type (sms, ussd or http/xml)
+0 – false - notification is not message type
+1- true - notification is message type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="messages" type="t_MessageList" minOccurs="0" maxOccurs="4">
+				<xs:annotation>
+					<xs:documentation>-</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_NotificationModify">
+		<xs:sequence>
+			<xs:element name="announcements" type="t_AnnouncementList" minOccurs="0" maxOccurs="4">
+				<xs:annotation>
+					<xs:documentation>-</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isAnnouncement" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates if notification is announcement type
+0 – false - notification is not announcement type
+1 – true - notification is announcement type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isMessage" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates if notification is message type (sms, ussd or http/xml)
+0 – false - notification is not message type
+1- true - notification is message type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="messages" type="t_MessageList" minOccurs="0" maxOccurs="4">
+				<xs:annotation>
+					<xs:documentation>-</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_NotificationIdentifier">
+		<xs:sequence>
+			<xs:element name="appliedTo" type="t_AppliedTo">
+				<xs:annotation>
+					<xs:documentation>-</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="featureID" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>Notification feature identity
+Always mandatory to be filled-in.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="indexID" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>Notification index identity
+Always mandatory to be filled-in.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_NotificationIdentifierModify">
+		<xs:sequence>
+			<xs:element name="appliedTo" type="t_AppliedTo" maxOccurs="4">
+				<xs:annotation>
+					<xs:documentation>-</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="featureID" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>Notification feature identity
+Always mandatory to be filled-in.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="indexID" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>Notification index identity
+Always mandatory to be filled-in.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_RemoveNotificationRequest">
+		<xs:sequence>
+			<xs:element name="objectID" type="t_NotificationIdentifier">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC"
+	elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+
+	<xs:include schemaLocation="./INCChargeAccountsResponse.xsd"/>
+	<xs:include schemaLocation="./INCCloneSubscriberResponse.xsd"/>
+	<xs:include schemaLocation="./INCGetAccountsAndChargeResponse.xsd"/>
+	<xs:include schemaLocation="./INCGetAccountsDetailsResponse.xsd"/>
+	<xs:include schemaLocation="./INCGetDynamicDataResponse.xsd"/>
+	<xs:include schemaLocation="./INCGetServiceResponse.xsd"/>
+	<xs:include schemaLocation="./INCPrePaidResponses.xsd"/>
+	<xs:include schemaLocation="./INCChargeOneAccountResponse.xsd"/>
+	<xs:include schemaLocation="./INCGetAccountsDataResponse.xsd"/>
+	<xs:include schemaLocation="./INCGetProfileResponse.xsd"/>
+	<xs:include schemaLocation="./INCGetTariffResponse.xsd"/>
+	<xs:include schemaLocation="./INCAdjustAccountsResponse.xsd"/>
+	<xs:include schemaLocation="./INCTopUpResponse.xsd"/>
+	<xs:include schemaLocation="./INCChargeUnifiedCostResponse.xsd"/>
+	<xs:include schemaLocation="./INCCreateSubscriberResponse.xsd"/>
+	<xs:include schemaLocation="./INCGetAccountsResponse.xsd"/>
+	<xs:include schemaLocation="./INCGetRequestStatusResponse.xsd"/>
+	<xs:include schemaLocation="./INCOutpaymentResponse.xsd"/>
+
+
+	<xs:group name="t_prePaidResponsesBodies">
+		<xs:choice>
+
+
+
+
+			<xs:element name="getProfileResponse" type="t_getProfileResponse"/>
+			<xs:element name="updateProfileResponse" type="t_empty"/>
+			<xs:element name="getTariffResponse" type="t_getTariffResponse"/>
+			<xs:element name="getServiceResponse" type="t_getServiceResponse"/>
+			<xs:element name="activateTariffResponse" type="t_empty"/>
+			<xs:element name="migrateSubscriberResponse" type="t_empty"/>
+			<xs:element name="changeTariffResponse" type="t_empty"/>
+			<xs:element name="updateServicesResponse" type="t_empty"/>
+			<xs:element name="updateMUGServiceResponse" type="t_empty"/>
+			<xs:element name="createSubscriberResponse" type="t_createSubscriberResponse"/>
+			<xs:element name="removeSubscriberResponse" type="t_empty"/>
+			<xs:element name="cloneSubscriberResponse" type="t_cloneSubscriberResponse"/>
+			<xs:element name="purgeSubscriberResponse" type="t_empty"/>
+
+
+			<!-- SAM -->
+			<xs:element name="deactivateSubaccountsResponse" type="t_empty"/>
+			<xs:element name="getAccountsResponse" type="t_getAccountsResponse"/>
+			<xs:element name="getAccountsDataResponse" type="t_getAccountsDataResponse"/>
+			<xs:element name="getAccountsDetailsResponse" type="t_getAccountsDetailsResponse"/>
+			<xs:element name="getDynamicDataResponse" type="t_getDynamicDataResponse"/>
+			<xs:element name="chargeOneAccountResponse" type="t_chargeOneAccountResponse"/>
+			<xs:element name="chargeUnifiedCostResponse" type="t_chargeUnifiedCostResponse"/>
+			<xs:element name="chargeAccountsResponse" type="t_chargeAccountsResponse"/>
+			<xs:element name="adjustAccountsResponse" type="t_adjustAccountsResponse"/>
+			<xs:element name="topUpResponse" type="t_topUpResponse"/>
+			<xs:element name="outpaymentResponse" type="t_outpaymentResponse"/>
+			<xs:element name="getAccountsAndChargeResponse" type="t_getAccountsAndChargeResponse"/>
+
+
+			<xs:element name="getRequestStatusResponse" type="t_getRequestStatusResponse"/>
+		</xs:choice>
+	</xs:group>
+</xs:schema>

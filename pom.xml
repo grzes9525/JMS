@@ -20,6 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <cxf.version>3.2.7</cxf.version>
     </properties>
 
     <dependencies>
@@ -44,6 +45,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
@@ -80,14 +85,106 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <!--
+                    If we e.g. execute on JDK 1.7, we should compile for Java 7 to get
+                    the same (or higher) JAXB API version as used during the xjc execution.
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.cxf</groupId>-->
+                <!--<artifactId>cxf-codegen-plugin</artifactId>-->
+                <!--<version>${cxf.version}</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>generate-sources</id>-->
+                        <!--<phase>generate-sources</phase>-->
+                        <!--<configuration>-->
+                            <!--<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>-->
+                            <!--<wsdlOptions>-->
+                                <!--<wsdlOption>-->
+                                    <!--<wsdl>${project.basedir}/src/main/resources/service.wsdl</wsdl>-->
+                                <!--</wsdlOption>-->
+                            <!--</wsdlOptions>-->
+                        <!--</configuration>-->
+                        <!--<goals>-->
+                            <!--<goal>wsdl2java</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/resources/schema//</source>
+                            </sources>
+                            <packageName>com.blue.jaxb.all</packageName>
+                            <xjcSourceExcludeFilters>
+                                <filter implementation="org.codehaus.mojo.jaxb2.shared.filters.pattern.PatternFileFilter">
+                                <patterns>
+                                    <pattern>.dtd</pattern>
+                                    <pattern>cp_reply.xsd</pattern>
+                                    <pattern>cp_req.xsd</pattern>
+                                </patterns>
+                                </filter>
+                            </xjcSourceExcludeFilters>
+                            <outputDirectory>/${project.build.directory}/generated-sources/all</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>hds-reply</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/resources/schema/hds/cp_reply.xsd</source>
+                            </sources>
+                            <packageName>com.blue.jaxb.hds.reply</packageName>
+                            <outputDirectory>/${project.build.directory}/generated-sources/hdsReply/</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>hds-request</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/resources/schema/hds/cp_req.xsd</source>
+                            </sources>
+                            <packageName>com.blue.jaxb.hds.request</packageName>
+                            <outputDirectory>/${project.build.directory}/generated-sources/hdsRequest/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

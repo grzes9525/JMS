@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_getRequestStatusRequest">
+		<xs:choice>
+			<xs:element name="GID" type="t_GID">
+				<xs:annotation>
+					<xs:documentation>GID of request which status should be read.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HLTID" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>HLTID of request which status should be read.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_createVPABXGroupRequestType">
+		<xs:sequence>
+			<xs:element name="groupName" type="xs:string"/>
+			<xs:element name="groupSetName" type="xs:string"/>
+			<xs:element name="useAclip" type="xs:boolean"/>	<!-- TODO FAZA2 - pole wymagane -->
+			<xs:element name="language" type="xs:string" minOccurs="0"/>
+			<xs:element name="voiceMail" type="t_voiceMailType" minOccurs="0"/>
+			<xs:element name="defaultFAX" type="xs:string" minOccurs="0"/>
+			<!-- points to the member that represents default FAX of the group -->
+			<xs:element name="defaultCCN" type="xs:string" minOccurs="0"/>
+					<!-- points to the member that represents default CCN -->
+			<xs:element name="defaultHuntingGroup" type="xs:string" minOccurs="0"/>
+			<xs:element name="failedCallTreatment" type="t_failedCallTreatmentType" minOccurs="0"/>
+			<xs:element name="failedCallTreatmentMemberName" type="xs:string" minOccurs="0"/>
+			<xs:element name="faxTreatment" type="t_faxTreatmentType" minOccurs="0"/>
+			<xs:element name="member" type="t_memberType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="huntingGroup" type="t_huntingGroupType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ivr" type="t_ivrType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="announcement" type="t_groupAnnouncementType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
+

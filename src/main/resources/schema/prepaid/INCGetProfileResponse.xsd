@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_getProfileResponse">
+		<xs:sequence>
+		 <xs:element name="operator" type="xs:string" minOccurs="0">
+		  <xs:annotation>
+		   <xs:documentation>name of subscriber`s operator (this element is present only if client has set in configuration using new response version).</xs:documentation>
+		  </xs:annotation>
+		 </xs:element>
+		 <xs:element name="tariff" type="xs:string" minOccurs="0">
+		  <xs:annotation>
+		   <xs:documentation>name of subscriber`s tariff (this element is present only if client has set in configuration using new response version).</xs:documentation>
+		  </xs:annotation>
+		 </xs:element>
+		 <xs:element name="profileAttribute" type="t_attribute" minOccurs="0" maxOccurs="unbounded">
+		  <xs:annotation><xs:documentation>each element has an attribute 'name' containing the profile attribute name (a string) and contains the profile attribute value (a string)</xs:documentation></xs:annotation>
+		 </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

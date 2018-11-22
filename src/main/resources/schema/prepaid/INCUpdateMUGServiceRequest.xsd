@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_updateMUGServiceRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithOperator"/>
+			<xs:element name="tariff" type="t_tariff" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>this element contains the specification of the subscriber`s tariff</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="setAttribute" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="service" type="t_service" maxOccurs="unbounded">
+							<xs:annotation><xs:documentation>specify services to be modified</xs:documentation></xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

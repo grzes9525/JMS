@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_updateProfileRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContext"/>
+			<xs:element name="profileAttribute" type="t_attribute" maxOccurs="unbounded">
+			 <xs:annotation>
+			  <xs:documentation>each element has an attribute 'name' which gives the name of a profile attribute (as string) to be modified on IN Platform and contains the profile attribute value (as string)
+			  </xs:documentation>
+			 </xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

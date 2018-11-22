@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd" />
+	<xs:include schemaLocation="../../INCComplexTypes.xsd" />
+	<xs:complexType name="t_addVpnFmsNumberRequest">
+		<xs:sequence>
+			<xs:element name="msisdn" type="t_vpabxMsisdn" />
+			<xs:element name="vpnFmsNumber" type="t_vpabxMsisdn" />
+			<xs:element name="vpnFmsShortNumber" type="xs:string" minOccurs="0" />
+			<xs:element name="businessContext" type="t_businessContext"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="t_removeVpnFmsNumberRequest">
+		<xs:sequence>
+			<xs:element name="ccn" type="t_vpabxMsisdn"/>
+			<xs:element name="msisdn" type="t_vpabxMsisdn" />
+		</xs:sequence>
+	</xs:complexType>	
+</xs:schema>

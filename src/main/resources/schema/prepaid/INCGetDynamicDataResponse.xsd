@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_getDynamicDataResponse">
+		<xs:sequence>
+			<xs:element name="MACAccount" type="t_MACaccount" minOccurs="0"/>
+			<xs:element name="subaccount" type="t_subaccountWithUnitPacksWithBalance" minOccurs="0" maxOccurs="64">
+				<xs:annotation>
+					<xs:documentation>each containing detailed information about one subaccount in the following elements:</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="counter" type="t_counter" minOccurs="0" maxOccurs="64"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

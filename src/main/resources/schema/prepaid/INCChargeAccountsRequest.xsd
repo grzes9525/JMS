@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_chargeAccountsRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContext"/>
+		 	<xs:element name="chargeMAC" type="t_chargeMAC" minOccurs="0"/>
+			<xs:element name="chargeSubaccount" type="t_chargeSubaccount" minOccurs="0" maxOccurs="20"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

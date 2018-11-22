@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd" />
+	<xs:include schemaLocation="../../INCComplexTypes.xsd" />
+	<xs:complexType name="t_sendEmailRequest">
+		<xs:sequence>
+			<xs:element name="sender" type="xs:string"/>
+			<xs:element name="recipient" type="xs:string" />
+			<xs:element name="subject" type="xs:string" />
+			<xs:element name="content" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

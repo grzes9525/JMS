@@ -1,0 +1,39 @@
+<!ELEMENT cp_reply (cp_id, cp_transaction_id, op_transaction_id?, result, rejected_item?, extra_info?, account_id?, credit_balance?, end_val_date?, end_inact_date?, profile?, acc_status?, prof_lang?, lock_information?, account_bundles?, account_type?, begin_act_date?, service_retailer?, acc_coff_name?, account_counters?)>
+<!ELEMENT cp_id (#PCDATA)>
+<!ELEMENT cp_transaction_id (#PCDATA)>
+<!ELEMENT op_transaction_id (#PCDATA)>
+<!ELEMENT result (#PCDATA)>
+<!ELEMENT rejected_item (#PCDATA)>
+<!ELEMENT extra_info (info+)>
+<!ELEMENT account_id (#PCDATA)>
+<!ELEMENT credit_balance (#PCDATA)>
+<!ELEMENT end_val_date (#PCDATA)>
+<!ELEMENT end_inact_date (#PCDATA)>
+<!ELEMENT profile (#PCDATA)>
+<!ELEMENT acc_status (#PCDATA)>
+<!ELEMENT prof_lang (#PCDATA)>
+<!ELEMENT account_type (#PCDATA)>
+<!ELEMENT lock_information (#PCDATA)>
+<!ELEMENT begin_act_date (#PCDATA)>
+<!ELEMENT service_retailer (#PCDATA)>
+<!ELEMENT acc_coff_name (#PCDATA)>
+<!ELEMENT account_bundles (bundle)+>
+<!ELEMENT bundle (bdl_type?, bdl_name, bdl_type?, amount, up_amount, value, bdl_buckets*)>
+<!ELEMENT bdl_name (#PCDATA)>
+<!ELEMENT bdl_type (#PCDATA)>
+<!ELEMENT amount (#PCDATA)>
+<!ELEMENT up_amount (#PCDATA)>
+<!ELEMENT value (#PCDATA)>
+<!ELEMENT bdl_buckets (bkt_creation?, bkt_fromDate?,bkt_toDate?,bkt_validity?, bkt_value)>
+<!ELEMENT bkt_creation (#PCDATA)>
+<!ELEMENT bkt_fromDate (#PCDATA)>
+<!ELEMENT bkt_toDate (#PCDATA)>
+<!ELEMENT bkt_validity (#PCDATA)>
+<!ELEMENT bkt_value (#PCDATA)>
+<!ELEMENT account_counters (counter)+> 
+<!ELEMENT counter (counter_date, value, valper, counter_name)> 
+<!ELEMENT counter_date (#PCDATA)> 
+<!ELEMENT valper (#PCDATA)> 
+<!ELEMENT counter_name (#PCDATA)> 
+<!ELEMENT info (#PCDATA)>
+<!ATTLIST info inf_ref CDATA #REQUIRED>

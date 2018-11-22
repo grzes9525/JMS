@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_topUpRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContext"/>
+			<xs:choice minOccurs="0">
+				<xs:element name="topUpMAC">
+					<xs:annotation><xs:documentation>element containing the following elements (at least one of them must be present):</xs:documentation></xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:choice minOccurs="0">
+								<xs:element name="balanceAdd" type="xs:nonNegativeInteger">
+									<xs:annotation>
+										<xs:documentation>Net amount (the number of Polish grosz) which will be added to the current MAC account balance.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:choice>
+							<xs:element name="revenueRateMAC" type="xs:integer" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation> the revenue rate of units managed by MAC.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:choice minOccurs="0">
+								<xs:element name="expiryDateSetTo" type="xs:date">
+									<xs:annotation>
+										<xs:documentation>The expiry date which will be set to the MAC account. If given date is earlier than activityBeginDate of account then INC will set expiry date to activityBeginDate instead and log warning in traces.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="expiryDateExtend" type="xs:nonNegativeInteger">
+									<xs:annotation>
+										<xs:documentation>The number of days the expiry date of the MAC account will be extended by (as integer). If account is inactive or deactivated extending expiry date causes setting expiry date to given number of days after current day midnight. If account is active expiry date is set to given number of days after original expiry date.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:choice>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="chargeMAC" type="t_chargeMAC"/>
+			</xs:choice>
+			<xs:element name="topUpSubaccount" minOccurs="0" maxOccurs="20">
+				<xs:annotation><xs:documentation>Specification of monobucket subaccount top up or creation of bucket of multibucket subaccount. Note that &lt;topUpSubaccount&gt; element must contain at least one subelement apart from &lt;subaccountName&gt;.</xs:documentation></xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="subaccountName" type="xs:string">
+							<xs:annotation><xs:documentation>Subaccount name (as string).</xs:documentation></xs:annotation>
+						</xs:element>
+						<xs:choice minOccurs="0">
+							<xs:element name="balanceSetTo" type="xs:nonNegativeInteger">
+								<xs:annotation>
+									<xs:documentation>Net amount (the number of Polish grosz) which will be set to the MAC account.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="balanceAdd" type="xs:nonNegativeInteger">
+								<xs:annotation>
+									<xs:documentation>Number of units which will be added to the current subaccount balance (monobucket) or set to the new bucket (multibucket); the value must be greater than or equal to zero.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:choice>
+						<xs:element name="revenueRate" type="xs:integer" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The revenue rate of units managed by the subaccount.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:choice minOccurs="0">
+							<xs:sequence>
+								<xs:sequence>
+									<xs:element name="expiryDateSetTo" type="xs:date">
+										<xs:annotation>
+											<xs:documentation>Date which will be set to expiry date of the subaccount (monobucket) or the new bucket (multibucket). Ignored for limitless subaccounts.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="expiryTimeSetTo" type="xs:time" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Time which will be set to expiry date of the subaccount (monobucket) or the new bucket (multibucket). If not given assumed to be equal to 23:59:59. Ignored for limitless subaccounts.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:sequence>
+							<xs:element name="expiryDateExtend" type="xs:nonNegativeInteger">
+								<xs:annotation>
+									<xs:documentation>Number of days by which the expiry date will be extended (monobucket) or validity period of the new bucket (multibucket). If current expiry date of monobucket subaccount is equal to 1970-01-01 23:59:59 (or no bucket exists) then instead of extending expiry date given number of days is added to the end (23:59:59) of the current day. Element ignored for limitless subaccounts.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

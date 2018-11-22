@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="cp_reply">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="cp_id"/>
+        <xs:element ref="cp_transaction_id"/>
+        <xs:element minOccurs="0" ref="op_transaction_id"/>
+        <xs:element ref="result"/>
+        <xs:element minOccurs="0" ref="rejected_item"/>
+        <xs:element minOccurs="0" ref="extra_info"/>
+        <xs:element minOccurs="0" ref="account_id"/>
+        <xs:element minOccurs="0" ref="credit_balance"/>
+        <xs:element minOccurs="0" ref="end_val_date"/>
+        <xs:element minOccurs="0" ref="end_inact_date"/>
+        <xs:element minOccurs="0" ref="profile"/>
+        <xs:element minOccurs="0" ref="acc_status"/>
+        <xs:element minOccurs="0" ref="prof_lang"/>
+        <xs:element minOccurs="0" ref="lock_information"/>
+        <xs:element minOccurs="0" ref="account_bundles"/>
+        <xs:element minOccurs="0" ref="account_type"/>
+        <xs:element minOccurs="0" ref="begin_act_date"/>
+        <xs:element minOccurs="0" ref="service_retailer"/>
+        <xs:element minOccurs="0" ref="acc_coff_name"/>
+        <xs:element minOccurs="0" ref="account_counters"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cp_id" type="xs:string"/>
+  <xs:element name="cp_transaction_id" type="xs:string"/>
+  <xs:element name="op_transaction_id" type="xs:string"/>
+  <xs:element name="result" type="xs:string"/>
+  <xs:element name="rejected_item" type="xs:string"/>
+  <xs:element name="extra_info">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="info"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="account_id" type="xs:string"/>
+  <xs:element name="credit_balance" type="xs:string"/>
+  <xs:element name="end_val_date" type="xs:string"/>
+  <xs:element name="end_inact_date" type="xs:string"/>
+  <xs:element name="profile" type="xs:string"/>
+  <xs:element name="acc_status" type="xs:string"/>
+  <xs:element name="prof_lang" type="xs:string"/>
+  <xs:element name="account_type" type="xs:string"/>
+  <xs:element name="lock_information" type="xs:string"/>
+  <xs:element name="begin_act_date" type="xs:string"/>
+  <xs:element name="service_retailer" type="xs:string"/>
+  <xs:element name="acc_coff_name" type="xs:string"/>
+  <xs:element name="account_bundles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="bundle"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bundle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="bdl_type" minOccurs="0"/>
+        <xs:element ref="bdl_name"/>
+        <xs:element ref="bdl_type" minOccurs="0"/>
+        <xs:element ref="amount" minOccurs="0"/>
+        <xs:element ref="up_amount" minOccurs="0"/>
+        <xs:element ref="value" minOccurs="0"/>
+        <xs:element maxOccurs="unbounded" ref="bdl_buckets" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bdl_name" type="xs:string"/>
+  <xs:element name="bdl_type" type="xs:string"/>
+  <xs:element name="amount" type="xs:string"/>
+  <xs:element name="up_amount" type="xs:string"/>
+  <xs:element name="value" type="xs:string"/>
+  <xs:element name="bdl_buckets">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="bkt_creation"/>
+        <xs:element minOccurs="0" ref="bkt_fromDate"/>
+        <xs:element minOccurs="0" ref="bkt_toDate"/>
+        <xs:element minOccurs="0" ref="bkt_validity"/>
+        <xs:element ref="bkt_value"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bkt_creation" type="xs:string"/>
+  <xs:element name="bkt_fromDate" type="xs:string"/>
+  <xs:element name="bkt_toDate" type="xs:string"/>
+  <xs:element name="bkt_validity" type="xs:string"/>
+  <xs:element name="bkt_value" type="xs:string"/>
+  <xs:element name="account_counters">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="counter"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="counter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="counter_date" minOccurs="0"/>
+        <xs:element ref="valper" minOccurs="0"/>
+        <xs:element ref="counter_name" minOccurs="0"/>
+        <xs:element ref="value" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="counter_date" type="xs:string"/>
+  <xs:element name="valper" type="xs:string"/>
+  <xs:element name="counter_name" type="xs:string"/>
+  <xs:element name="info">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.info"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.info">
+    <xs:attribute name="inf_ref" use="required"/>
+  </xs:attributeGroup>
+</xs:schema>

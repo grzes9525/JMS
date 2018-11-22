@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- VERSION 3.0.0 -->
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<xs:include schemaLocation="INCErrorResponse.xsd" />
+
+	<xs:include schemaLocation="prepaid/INCPrePaidResponses.xsd" />
+	<xs:include schemaLocation="vpabx/legacy/INCVpabxLegacyResponses.xsd" />
+	<xs:include schemaLocation="vpabx/conf/INCVpabxConfResponses.xsd" />
+	<xs:include schemaLocation="business/suite/INCPostPaidResponses.xsd" />
+	
+	<xs:include schemaLocation="special/INCConditionalOutpaymentResponse.xsd" />
+	<xs:include schemaLocation="special/INCSogSubscriptionExpirationResponse.xsd" />
+	<xs:include schemaLocation="special/INCSogSubscriptionsRepairResponse.xsd" />
+
+	<xs:complexType name="t_responseHeader">
+		<xs:annotation>
+			<xs:documentation>Element common for all response types.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="msgSeqID" type="xs:string" />
+			<xs:element name="HLTID" type="xs:string" minOccurs="0" />
+			<xs:element name="GID" type="t_GID" minOccurs="0" />
+			<!-- identifier of a batch operation that this request belongs to -->
+			<xs:element name="batchID" type="xs:string" minOccurs="0" />
+			<xs:element name="additionalInfo" type="t_attribute" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:group name="t_specialResponsesBodies">
+		<xs:choice>
+		
+			<!-- internal -->
+			<xs:element name="conditionalOutpaymentResponse" type="t_conditionalOutpaymentResponse" />
+			<xs:element name="sogSubscriptionExpirationResponse" type="t_sogSubscriptionExpirationResponse" />
+			<xs:element name="sogSubscriptionsRepairResponse" type="t_sogSubscriptionsRepairResponse" />
+
+			<!-- batch -->
+			<xs:element name="batchResponse" type="t_batchResponse" />
+			
+		</xs:choice>
+	</xs:group>	
+	
+	<xs:complexType name="t_responseBody">
+		<xs:choice>
+			<xs:element name="errorResponse" type="t_errorResponse" />
+			<xs:group ref="t_prePaidResponsesBodies"/>
+			<xs:group ref="t_specialResponsesBodies"/>
+			<xs:group ref="t_postPaidResponsesBodies"/>  
+			<xs:group ref="t_vpabxLegacyResponsesBodies"/>
+			<xs:group ref="t_vpabxConfResponsesBodys"/>
+		</xs:choice>
+	</xs:complexType>
+	
+	<xs:complexType name="t_batchResponse">
+		<xs:sequence>
+			<xs:element name="step" type="t_responseBody" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="t_AInterfaceResponse">
+		<xs:annotation>
+			<xs:documentation>Top level element for A-Interface responses.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="header" type="t_responseHeader" />
+			<xs:element name="body" type="t_responseBody" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="AInterfaceResponse" type="t_AInterfaceResponse" />
+
+</xs:schema>

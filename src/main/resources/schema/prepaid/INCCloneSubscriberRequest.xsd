@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_cloneSubscriberRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContext"/>
+			<xs:element name="destinationMSISDN" type="t_msisdn">
+				<xs:annotation>
+					<xs:documentation>this element contains MSISDN number of a copied subscriber.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="returnBucketIds" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>if this element is present and set to 'true' MSISDNs and mapping of bucket IDs are returned in response. Not supported in OCS version.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

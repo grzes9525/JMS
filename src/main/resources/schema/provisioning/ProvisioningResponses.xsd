@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="ProvisioningTypes.xsd" />
+
+	<xs:element name="ocpProvisioningResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="header">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="version" type="xs:string" />
+							<xs:element name="referenceID" type="xs:string" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="body">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="error">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="code" type="xs:int" />
+										<xs:element name="objectType" type="xs:string" minOccurs="0" />
+										<xs:element name="details" type="xs:string" minOccurs="0" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:sequence>
+								<xs:element name="readResult" minOccurs="0" maxOccurs="unbounded" type="readResultType" />
+								<xs:element name="result" minOccurs="0" maxOccurs="unbounded" type="operationResultType" />
+							</xs:sequence>
+							<xs:element name="requestStatusResult">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="status">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="SUCCESS" />
+													<xs:enumeration value="FAILED" />
+													<xs:enumeration value="NOT_FOUND" />
+													<xs:enumeration value="IN_PROGRESS" />
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="timestamp" type="xs:dateTime" minOccurs="0" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

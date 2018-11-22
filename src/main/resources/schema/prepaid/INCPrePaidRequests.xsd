@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC"
+	elementFormDefault="qualified">
+
+	<xs:include schemaLocation="INCActivateTariffRequest.xsd"/>
+	<xs:include schemaLocation="INCAdjustAccountsRequest.xsd"/>
+	<xs:include schemaLocation="INCChangeTariffRequest.xsd"/>
+	<xs:include schemaLocation="INCChargeAccountsRequest.xsd"/>
+	<xs:include schemaLocation="INCChargeOneAccountRequest.xsd"/>
+	<xs:include schemaLocation="INCChargeUnifiedCostRequest.xsd"/>
+	<xs:include schemaLocation="INCCloneSubscriberRequest.xsd"/>
+	<xs:include schemaLocation="INCCreateSubscriberRequest.xsd"/>
+	<xs:include schemaLocation="INCGetAccountsAndChargeRequest.xsd"/>
+	<xs:include schemaLocation="INCGetAccountsDataRequest.xsd"/>
+	<xs:include schemaLocation="INCGetAccountsDetailsRequest.xsd"/>
+	<xs:include schemaLocation="INCGetAccountsRequest.xsd"/>
+	<xs:include schemaLocation="INCGetDynamicDataRequest.xsd"/>
+	<xs:include schemaLocation="INCGetProfileRequest.xsd"/>
+	<xs:include schemaLocation="INCGetRequestStatusRequest.xsd"/>
+	<xs:include schemaLocation="INCGetServiceRequest.xsd"/>
+	<xs:include schemaLocation="INCGetTariffRequest.xsd"/>
+	<xs:include schemaLocation="INCGetTariffRequest.xsd"/>
+	<xs:include schemaLocation="INCOutpaymentRequest.xsd"/>
+	<xs:include schemaLocation="INCMigrateSubscriberRequest.xsd"/>
+	<xs:include schemaLocation="INCPurgeSubscriberRequest.xsd"/>
+	<xs:include schemaLocation="INCRemoveSubscriberRequest.xsd"/>
+	<xs:include schemaLocation="INCTopUpRequest.xsd"/>
+	<xs:include schemaLocation="INCUpdateMUGServiceRequest.xsd"/>
+	<xs:include schemaLocation="INCUpdateProfileRequest.xsd"/>
+	<xs:include schemaLocation="INCUpdateServicesRequest.xsd"/>
+
+
+	<xs:group name="t_prePaidRequestsBodies">
+		<xs:annotation>
+			<xs:documentation>Contains elements specific for each request.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<!-- prepaid -->
+
+			<xs:element name="getProfileRequest" type="t_getProfileRequest">
+				<xs:annotation>
+					<xs:documentation>This operation reads the set or all subscriber profile parameters on the platform.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="updateProfileRequest" type="t_updateProfileRequest">
+				<xs:annotation>
+					<xs:documentation>This operation modifies the subscriber`s profile on the IN platform, setting the parameters given in the request to the given values. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="getTariffRequest" type="t_getTariffRequest">
+				<xs:annotation>
+					<xs:documentation>This operation reads the tariff and the set of services (together with their attributes) for the specified subscriber.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="getServiceRequest" type="t_getServiceRequest">
+				<xs:annotation>
+					<xs:documentation>This operation reads the attributes of the given services for the given customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="activateTariffRequest" type="t_activateTariffRequest">
+				<xs:annotation>
+					<xs:documentation>This operation activates:
+						- a new tariff  
+						- a (optional) set of services for the given tariff
+						- a (optional) set of subaccounts for a given subscriber.
+						Optionally a fee will be charged from the MAC account.
+						The request may optionally include deactivation of:
+						- the old tariff - if the old tariff name is given, the system verifies, if the subscriber really has this tariff and returns with error if this is not the case;
+						- the set of all active services - if the old services are given, the system verifies, if all the given services are active for the subscriber and if the list of services contains all the active services for the subscriber that are not migrated, and returns with error if either condition is not satisfied;
+						- a set of subaccounts - for CIN, given subaccounts are deactivated/deleted or migrated after the system checks, if all of them are active. An error is returned otherwise. For OCS, by default all active subaccounts that exist in a new tariff are migrated (internal logic of OCS). INC will manage only DELETE actions, both for subaccounts not existing in a new tariff and for subaccounts existing in a new tariff, but being exceptions to default actions performed for OCS. For DELETE actions from this section, INC first makes outpayment of the subaccount to be deleted, than sends to OCS the main request. In both cases migration preserves subaccount balance, but redefines subaccount to the new tariff.
+						
+						This operation verifies that values of activated service attributes are valid according to the service status strategy (service status strategy won't determine that the service is inactive based on its service attributes).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="migrateSubscriberRequest" type="t_migrateSubscriber">
+				<xs:annotation>
+					<xs:documentation>This operation:
+						- migrates a subscriber to a new operator
+						- activates a new tariff
+						The request may optionally include deactivation of:
+						- the old tariff - if the old tariff name is given, the system verifies, if the subscriber really has this tariff and returns with error if this is not the case;
+						- the set of all active services - if the old services are given, the system verifies, if all the given services are active for the subscriber and if the list of services contains all the active services for the subscriber, and returns with error if either condition is not satisfied;
+						- a set of subaccounts - for CIN, given subaccounts are deactivated/deleted or migrated after the system checks, if all of them are active. An error is returned otherwise. For OCS, by default all active subaccounts that exist in a new tariff are migrated (internal logic of OCS). INC will manage only DELETE actions, both for subaccounts not existing in a new tariff and for subaccounts existing in a new tariff, but being exceptions to default actions performed for OCS. For DELETE actions from this section, INC first makes outpayment of the subaccount to be deleted, than sends to OCS the main request. In both cases migration preserves subaccount balance, but redefines subaccount to the new tariff.
+						
+						This operation verifies that values of activated service attributes are valid according to the service status strategy (service status strategy won’t determine that the service is inactive based on its service attributes).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="changeTariffRequest" type="t_changeTariffRequest">
+				<xs:annotation>
+					<xs:documentation>This operation activates:
+						- a new tariff  
+						The request may optionally include deactivation of:
+						- the old tariff - if the old tariff name is given, the system verifies, if the subscriber really has this tariff and returns with error if this is not the case;
+						
+						Services and subaccounts are not affected by this operation.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="updateServicesRequest" type="t_updateServicesRequest">
+				<xs:annotation>
+					<xs:documentation>This operation:
+						- (optionally) activates and/or deactivates a set of services for a given subscriber
+						- (optionally) charges the subscriber's MAC account.
+						There must be at least one service to be activated or deactivated.
+						
+						The operation verifies that:
+						- each deactivated service is active and can be deactivated by this request according to its status strategy
+						- each activated service is not active and can be activated by this request according to its status strategy
+						- values of activated service attributes are valid according to the service status strategy (service status strategy won't determine that the service is inactive based on its service attributes)
+						- each service attributes' modification (section setAttributes) does not change values of attributes in a way, that service status (active/inactive) is changed
+						- the target combination of the services is allowed for the given tariff
+						- the MAC balance minus the price of the request is greater or equal to zero.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="updateMUGServiceRequest" type="t_updateMUGServiceRequest">
+				<xs:annotation>
+					<xs:documentation>Supported only for OCS platform. This operation:
+						- modifies values of MUG services attributes
+						- if modified MUG service is inactive and non-empty service attributes are set, it is activated
+						- if modified MUG service is active and all its attributes are set to '', it is deactivated
+						
+						The operation verifies that:
+						- the target combination of the MUG services is allowed for MUG tariff
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="createSubscriberRequest" type="t_createSubscriberRequest">
+				<xs:annotation>
+					<xs:documentation>This operation creates a new subscriber on a given platform. The subscriber must not exist on the given platform.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="removeSubscriberRequest" type="t_removeSubscriberRequest">
+				<xs:annotation>
+					<xs:documentation>This operation removes the subscriber from the given platform. 
+						The subscriber has to exist on the platform. Outpayment (setting account balance to zero) is carried out unconditionally on the MAC account and on all subaccounts of the subscriber. Additionally a client may indicate if the Statistic Record should be generated on IN Platform containing information about removing subscriber in outpayment mode.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="cloneSubscriberRequest" type="t_cloneSubscriberRequest">
+				<xs:annotation>
+					<xs:documentation>This operation changes MSISDN of the given subscriber to the value provided in the request.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="purgeSubscriberRequest" type="t_purgeSubscriberRequest">
+				<xs:annotation>
+					<xs:documentation>This operation removes the subscriber from the CIN platform. It is unsupported on OCS.
+					If service retailer name is given INC tries to remove only subscriber with this service retailer name. Otherwise all service retailer names are tried.
+					Also SIG data of subscriber is removed regardless of whether subscriber exists.
+					If subscriber exists SIG data with the same service retailer name as subscriber's is removed. Otherwise given service retailer name is used. If no service retailer name is given and subscriber does not exist INC tries to remove SIG data using all service retailer names. 
+					Despite of result of removing subscriber and SIG data from CIN platform, this request always provide removing subscriber contract from SDB (TimesTen) and EraPP (quick_sdb) systems:
+					- If given subscriber and SIG data do not exist on CIN and MSISDN is given then subscriber with given MSISDN is removed from TimesTen SDB and EraPP.
+					- If given subscriber and SIG data do not exist on CIN and IN_ID is given then subscriber with given INID is removed from TimesTen SDB.
+					- If subscriber or SIG data exists on CIN then subscriber with given or read MSISDN is removed from TimesTen SDB and EraPP and subscriber with given or read INID is removed from TimesTen SDB.
+					
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<!-- SAM -->
+
+			<xs:element name="getAccountsRequest" type="t_getAccountsRequest">
+				<xs:annotation>
+					<xs:documentation>When 'getAccountsUnitPacks' flag is not set, all the information is read from DCC interface which is more efficient. When reading from DCC, only profile attributes that can be read from DCC are returned (which makes all significant attributes for the moment of DCC interface customization). When the flag is set the request reads the information from WS interface which has performance limitations. An additional WS interface read may be performed in case of inconsistency between account information read from DCC and tariff specification defined in configuration.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="getAccountsDataRequest" type="t_getAccountsDataRequest">
+				<xs:annotation>
+					<xs:documentation>This operation reads information about the MAC account and/or a set of subaccounts for a given subscriber. When 'getAccountsUnitPacks' flag is not set, all the information is read from DCC interface which is more efficient. When the flag is set the request reads the information from WS interface which has performance limitations. An additional WS interface read may be performed in case of inconsistency between account information read from DCC and tariff specification defined in configuration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="getAccountsDetailsRequest" type="t_getAccountsDetailsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation reads information about the MAC account and/or a set of subaccounts (with unit packs ids) and/or a set of counters for a given subscriber. When 'getAccountsUnitPacks' flag is not set, all the information is read from DCC interface which is more efficient. When the flag is set the request reads the information from WS interface which has performance limitations. An additional WS interface read may be performed in case of inconsistency between account information read from DCC and tariff specification defined in configuration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="getDynamicDataRequest" type="t_getDynamicDataRequest">
+				<xs:annotation>
+					<xs:documentation>This operation reads information about the MAC account and/or a set of subaccounts and/or a set of counters for a given subscriber. When 'getAccountsUnitPacks' flag is not set, all the information is read from DCC interface which is more efficient. When the flag is set the request reads the information from WS interface which has performance limitations. An additional WS interface read may be performed in case of inconsistency between account information read from DCC and tariff specification defined in configuration.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="chargeOneAccountRequest" type="t_chargeOneAccountRequest">
+				<xs:annotation>
+					<xs:documentation>This operation charges one account of a subscriber. The request may contain several accounts with their charge value given in particular order. The system will try to charge each account in the same order as they have been given in the request. The operation succeeds if charging of one subaccount is done. Otherwise system will try to charge next subaccount given in the request. Charging fails if:
+						- None of subaccounts can be charged (each has not enough available units, is inactive or expired). Subaccount's available units are the sum of all units from active buckets (with start date in the past and limit date in the future). Subaccounts balance may be greater than amount of available units.
+						- MAC account is given, but the result balance is below zero.
+						- An inconsistency between account information read from DCC and tariff specification defined in configuration is detected.
+
+						Note that there may be at most one &lt;chargeMAC&gt; element and at most one &lt;chargeSubaccoun&gt; element for a specific subaccount. The order in which the &lt;chargeMAC&gt; and &lt;chargeSubaccount&gt; elements are given is the same as the charging order.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="chargeUnifiedCostRequest" type="t_chargeUnifiedCostRequest">
+				<xs:annotation>
+					<xs:documentation>This operation may charge several subaccounts. The charge value is specified in Unified Units. Each subaccount has specific exchange rate between subaccount's units and unified units. The system will try to charge as many unified units as possible from the first account given (subaccount available units and MAC balance must not drop below zero). Then it charges as much as possible from the second account, and so on.
+						Note that there may be at most one &lt;chargeMAC&gt; element and at most one &lt;chargeSubaccount&gt; element for a specific subaccount. The order in which the &lt;chargeMAC&gt; and &lt;chargeSubaccount&gt; elements are given is the same as the charging order.
+						Subaccount's available units are the sum of all active units from buckets (with start date in the past and limit date in the future). Subaccounts balance may be greater than amount of available units.
+						Charging fails if subscriber accounts' balance is insufficient or an inconsistency between account information read from DCC and tariff specification defined in configuration is detected.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="chargeAccountsRequest" type="t_chargeAccountsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation changes the balance of several subaccounts and/or MAC account. The charge value for an account will be subtracted from the current balance of the account.
+Subaccount cannot be charged if the charge value is greater than amount of available units. Subaccount's available units are the sum of all active units (from buckets with start date in the past and limit date in the future). Subaccounts balance may be greater than amount of available units.
+Note that there must be at least one &lt;chargeMAC&gt; or &lt;chargeSubaccount&gt; element given and at most one &lt;chargeSubaccount&gt; element for a specific subaccount.
+Charging fails if subscriber accounts' balance is insufficient or an inconsistency between account information read from DCC and tariff specification defined in configuration is detected.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="adjustAccountsRequest" type="t_adjustAccountsRequest">
+				<xs:annotation>
+					<xs:documentation>This operations modifies subscriber's MAC accounts, subaccounts and unit packs.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="topUpRequest" type="t_topUpRequest">
+				<xs:annotation>
+					<xs:documentation>This operation tops up the MAC account and/or the monobucket subaccounts of a given subscriber and/or creates new bucket of multibucket subaccount. Additionally, MAC and/or monobucket subaccounts expiry dates may be extended.
+						There are three possibilities of extending the expiry date of an account:
+						1. Setting the expiry date to a new value (may not be earlier than current day for CIN, a day in the future for OCS). 
+						2. Extending the current expiry date by a given number of days.
+						3. Extending the current time by a given number of days.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="outpaymentRequest" type="t_outpaymentRequest">
+				<xs:annotation>
+					<xs:documentation>This operation causes outpayment of accounts (MAC account and/or subaccounts). Accounts are checked, if they qualify for outpayment according to their outpayment rules (subaccounts) or expiration date (MAC account).
+						If &lt;MAC&gt; is present request will succeed only if MAC will qualify for outpayment.
+						If &lt;subaccount&gt; elements are present and &lt;force&gt; flag is not present request will succeed only if each given subaccount will qualify for outpayment.
+						If &lt;subaccount&gt; elements are present and &lt;force&gt; flag is  present request will succeed regardless of whether any subaccount will qualify. The &lt;force&gt; flag is mandatory for OCS subscribers.
+						If &lt;allSubaccounts&gt; element is present request will succeed even if some subaccount will not qualify for outpayment (however if &lt;force&gt; element is not present outpayment of at least one subaccount should qualify).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<!-- new request -->
+
+
+			<xs:element name="getAccountsAndChargeRequest" type="t_getAccountsAndChargeRequest">
+				<xs:annotation>
+					<xs:documentation>The operation allows client systems to read MAC account and/or subaccounts and to charge MAC. The client system may read either all accounts without knowing what subaccounts the subscriber has or particular accounts.
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+
+			<!-- przeniesc do sekcji specjalnych requestow -->
+			<xs:element name="getRequestStatusRequest" type="t_getRequestStatusRequest">
+				<xs:annotation>
+					<xs:documentation>This operation is used to verify the status of a particular request sent to INC. It is assumed that a client cannot inquire for the requests sent by other clients.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+		</xs:choice>
+	</xs:group>
+</xs:schema>

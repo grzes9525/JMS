@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_chargeOneAccountResponse">
+			<xs:choice minOccurs="0">
+				<xs:element name="MACChargeResult" type="t_MACChargeResult">
+				 <xs:annotation>
+				  <xs:documentation>present if MAC account was charged in the request</xs:documentation>
+				 </xs:annotation>
+				</xs:element>
+				<xs:element name="subaccountChargeResult" type="t_subaccountChargeResult">
+				 <xs:annotation>
+				  <xs:documentation>present if a subaccount was charged in the request</xs:documentation>
+				 </xs:annotation>
+				</xs:element>
+			</xs:choice>
+	</xs:complexType>
+</xs:schema>

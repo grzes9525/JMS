@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_getAccountsDetailsRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContext"/>
+			<xs:element name="getAccountsUnitPacks" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>If missing no information about unit packs is returned in response. If set to 'true' unit packs are returned for all subaccounts. For performance reasons this flag should be set only when necessary and agreed, not by default.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getExtendedTimeInfo" type="t_true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates if extended time information - instead of only expiry date - should be returned for subaccounts. Extended time information consists of: activation date and time, expiry date and time </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getMultibucketInfo" type="t_true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>indicates if additional information should be returned about each returned subaccount: whether it is a multi- or monobucket subaccount </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="includeGrossBalance" type="t_true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>indicates if information about gross balance should be returned for some kind of subaccounts.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

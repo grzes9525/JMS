@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd" />
+	<xs:include schemaLocation="INCGetSubscribersResponse.xsd" />
+	<xs:include schemaLocation="INCGetUnansweredCallsListResponse.xsd" />
+
+	<xs:group name="t_vpabxConfResponsesBodys">
+		<xs:choice>
+			<!-- VPABX 2.0 GUI -->
+			<xs:element name="initAddMemberResponse" type="t_empty" />
+			<xs:element name="initRemoveMemberResponse" type="t_empty" />
+			<xs:element name="activateMemberRoamingCutOffResponse" type="t_empty" />
+			<xs:element name="deactivateMemberRoamingCutOffResponse" type="t_empty" />
+			<xs:element name="activateMemberSecretaryCallResponse" type="t_empty" />
+			<xs:element name="deactivateMemberSecretaryCallResponse" type="t_empty" />
+			<xs:element name="setMemberAclipResponse" type="t_empty" />
+			<xs:element name="addFaxResponse" type="t_empty" />
+			<xs:element name="removeFaxResponse" type="t_empty" />
+			<xs:element name="setFaxAutodetectionResponse" type="t_empty" />
+			<xs:element name="importMemberResponse" type="t_empty" />
+			<xs:element name="getClientContractsResponse" type="t_getSubscribersResponse" />
+			<xs:element name="setAlertingAnnouncementResponse" type="t_empty" />
+			<xs:element name="setWelcomeAnnouncementResponse" type="t_empty" />
+			<xs:element name="activateScenarioResponse" type="t_empty" />
+			<xs:element name="setCalendarResponse" type="t_empty" />
+			<xs:element name="setFailedCallTreatmentResponse" type="t_empty" />
+			<xs:element name="setVoiceMailBoxNumberResponse" type="t_empty" />
+			<xs:element name="querySubscribersResponse" type="t_getSubscribersResponse" />
+			<xs:element name="getUnansweredCallsListResponse" type="t_getUnansweredCallsListResponse" />
+			<xs:element name="activateVpabxRoamingCutOffResponse" type="t_empty" />
+			<xs:element name="deactivateVpabxRoamingCutOffResponse" type="t_empty" />
+			<xs:element name="removeMsisdnFromAllVpabxsResponse" type="t_empty" />
+			<xs:element name="sendEmailResponse" type="t_empty" />
+			<xs:element name="addVpnFmsNumberResponse" type="t_empty" />
+			
+			<!-- VPABX 2.0 CPL -->
+			<xs:element name="addMemberResponse" type="t_empty" />
+			<xs:element name="removeMemberResponse" type="t_empty" />
+			<xs:element name="activateVpabxServiceResponse" type="t_empty" />
+			<xs:element name="deactivateVpabxServiceResponse" type="t_empty" />
+			<xs:element name="enableVpabxServiceResponse" type="t_empty" />
+			<xs:element name="disableVpabxServiceResponse" type="t_empty" />
+			<xs:element name="modifyVpabxServiceResponse" type="t_empty" />
+			<xs:element name="changeMemberNumberResponse" type="t_empty" />
+			<xs:element name="changeVpabxCCNNumberResponse" type="t_empty" />
+			<xs:element name="modifyMemberResponse" type="t_empty" />
+			<xs:element name="removeVpnFmsNumberResponse" type="t_empty" />
+			
+			<xs:element name="activateVpabxAclipResponse" type="t_empty" />
+			<xs:element name="deactivateVpabxAclipResponse" type="t_empty" />
+			<xs:element name="activateVpabxSecretaryCallResponse" type="t_empty" />
+			<xs:element name="deactivateVpabxSecretaryCallResponse" type="t_empty" />
+			<xs:element name="removeMemberFromAllVpabxsResponse" type="t_empty" />
+			
+			<xs:element name="removeVpabxOnlyFromDatabaseResponse" type="t_empty" />
+		</xs:choice>
+	</xs:group>
+</xs:schema>

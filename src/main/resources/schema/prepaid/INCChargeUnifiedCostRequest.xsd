@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_chargeUnifiedCostRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContext"/>
+			<xs:element name="unifiedUnitsChargeValue" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation>total amount of unified units by which the balance of subaccounts or MAC will be decreased</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice maxOccurs="64">
+				<xs:annotation>
+					<xs:documentation>Accounts will be charged in the sequence in which they appear in the request.</xs:documentation>
+				</xs:annotation>
+				<xs:element name="chargeMAC">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="MACUnifiedUnitCost" type="xs:positiveInteger">
+								<xs:annotation>
+									<xs:documentation>net amount (the number of Polish grosz) which is the cost of one Unified Unit on the MAC account; must be greater than zero</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="chargeSubaccount">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="subaccountName" type="xs:string">
+								<xs:annotation><xs:documentation>name of the subaccount</xs:documentation></xs:annotation>
+							</xs:element>
+							<xs:element name="subaccountUnifiedUnitCost" type="xs:positiveInteger">
+								<xs:annotation>
+									<xs:documentation>amount of units which is the cost of one Unified Unit on the subaccount; must be greater than zero</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<!-- accounts will be tried to charge in the given order -->
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

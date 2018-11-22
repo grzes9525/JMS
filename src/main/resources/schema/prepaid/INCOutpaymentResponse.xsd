@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_outpaymentResponse">
+		<xs:sequence>
+			<xs:element name="MSISDN" type="t_msisdn">
+				<xs:annotation>
+					<xs:documentation>MSISDN of the subscriber whose accounts were outpayed</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MACOutpaymentResult" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>MAC account balance before outpayment, present if MAC was outpayed</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subaccountOutpaymentResult" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>each containing subaccount balance before outpayment and attribute 'name' with name of subaccount. Only outpayed subaccounts are returned.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:int">
+							<xs:attribute name="name" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

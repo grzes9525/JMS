@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ #============================================================================
+ # AUTHOR:       TLS-Technologie (http://www.tls.pl), Infovide-Matrix S.A. (http://www.infovidematrix.pl)
+ # CREATION:     2006-10-27
+ # VERSION:      01.40
+ # SHORT DESC:   Error Response of the A-Interface of INC
+ #
+ # Copyright (C) 2006 by PTC/TSD/INU - all rights reserved
+ #____________________________________________________________________________
+ # HISTORY OF CHANGES:
+ #
+ # 2007-02-15	Anna Derlacka: 01.40 - With version 1.4 of A-Interface documentation
+ # 2007-02-11	Anna Derlacka: 01.20 - With version 1.2 of A-Interface documentation
+ # 2006-11-06    Marek Biskup: 01.00 - With version 1.0 of A-Interface documentation
+ # 2006-11-03    Marek Biskup: 00.30 - requestType zmienione z atrybutu XML na element XML, enumeration added
+ # 2006-10-27    Marek Biskup: 00.20 - With version 0.2 of A-Interface documentation
+ #
+ #============================================================================
+ -->
+<xs:schema targetNamespace="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="INCComplexTypes.xsd"/>
+	<xs:complexType name="t_errorResponse">
+		<xs:annotation>
+			<xs:documentation>Error response, common  for all requests.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RC" type="t_RC"/>
+			<xs:element name="description" type="xs:string"/>
+			<xs:element name="requestType" type="xs:string"/>
+			<xs:element name="details" type="xs:string" minOccurs="0"/>
+			<!-- Result Code -->
+			<!-- Textual description of the Result Code -->
+			<!-- The type of the operation which caused the error. Equal "unknown" if the operation is unknown (e.g. if a parse error occured). -->
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

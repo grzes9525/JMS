@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd" />
+	
+	<xs:include schemaLocation="INCCreateOrUpdateMNPPortedSubscribersRequest.xsd" />
+	<xs:include schemaLocation="INCCreateVPABXGroupRequest.xsd" />
+	<xs:include schemaLocation="INCGetAUSAccessNumberRequest.xsd" />
+	<xs:include schemaLocation="INCGetVPABXAccessNumberMembershipRequest.xsd" />
+	<xs:include schemaLocation="INCGetVPABXAnnouncementRequest.xsd" />
+	<xs:include schemaLocation="INCGetVPABXGroupHGRequest.xsd" />
+	<xs:include schemaLocation="INCGetVPABXGroupMemberRequest.xsd" />
+	<xs:include schemaLocation="INCGetVPABXGroupRequest.xsd" />
+	<xs:include schemaLocation="INCRemoveAUSAccessNumberRequest.xsd" />
+	<xs:include schemaLocation="INCRemoveMNPPortedSubscribersRequest.xsd" />
+	<xs:include schemaLocation="INCRemoveVPABXAccessNumberRequest.xsd" />
+	<xs:include schemaLocation="INCRemoveVPABXAnnouncementRequest.xsd" />
+	<xs:include schemaLocation="INCRemoveVPABXGroupRequest.xsd" />
+	<xs:include schemaLocation="INCUpdateVPABXAccessNumberRequest.xsd" />
+	<xs:include schemaLocation="INCUpdateVPABXAnnouncementRequest.xsd" />
+	<xs:include schemaLocation="INCUpdateVPABXGroupAnnouncementsRequest.xsd" />
+	<xs:include schemaLocation="INCUpdateVPABXGroupHGRequest.xsd" />
+	<xs:include schemaLocation="INCUpdateVPABXGroupIvrRequest.xsd" />
+	<xs:include schemaLocation="INCUpdateVPABXGroupMembersRequest.xsd" />
+	<xs:include schemaLocation="INCUpdateVPABXGroupRequest.xsd" />
+
+		
+	<xs:group name="t_vpabxLegacyRequestsBodies">
+		<xs:choice>
+			<!-- VPABX old -->
+			<xs:element name="createVPABXGroupRequest" type="t_createVPABXGroupRequestType"/>
+			<xs:element name="getVPABXAccessNumberMembershipRequest" type="t_getVPABXAccessNumberMembershipRequestType" />
+			<xs:element name="getVPABXAnnouncementRequest" type="t_getVPABXAnnouncementRequestType" />
+			<xs:element name="getVPABXGroupHGRequest" type="t_getVPABXGroupHGRequestType" />
+			<xs:element name="getVPABXGroupMemberRequest" type="t_getVPABXGroupMemberRequestType" />
+			<xs:element name="getVPABXGroupRequest" type="t_getVPABXGroupRequestType" />
+			<xs:element name="removeVPABXAccessNumberRequest" type="t_removeVPABXAccessNumberRequestType" />
+			<xs:element name="removeVPABXAnnouncementRequest" type="t_removeVPABXAnnouncementRequestType" />
+			<xs:element name="removeVPABXGroupRequest" type="t_removeVPABXGroupRequestType" />
+			<xs:element name="updateVPABXAccessNumberRequest" type="t_updateVPABXAccessNumberRequestType" />
+			<xs:element name="updateVPABXAnnouncementRequest" type="t_updateVPABXAnnouncementRequestType" />
+			<xs:element name="updateVPABXGroupAnnouncementsRequest" type="t_updateVPABXGroupAnnouncementsRequestType" />
+			<xs:element name="updateVPABXGroupHGRequest" type="t_updateVPABXGroupHGRequestType" />
+			<xs:element name="updateVPABXGroupIvrRequest" type="t_updateVPABXGroupIvrRequestType" />
+			<xs:element name="updateVPABXGroupMembersRequest" type="t_updateVPABXGroupMembersRequestType" />
+			<xs:element name="updateVPABXGroupRequest" type="t_updateVPABXGroupRequestType" />
+
+			<!-- AUS -->
+			<xs:element name="getAUSAccessNumberRequest" type="t_getAUSAccessNumberRequestType" />
+			<xs:element name="updateAUSAccessNumberRequest" type="t_AUSAccessNumberType" />
+			<xs:element name="removeAUSAccessNumberRequest" type="t_removeAUSAccessNumberRequestType" />
+
+			<!-- MNP -->
+			<xs:element name="createOrUpdateMNPSubscribersRequest" type="t_createOrUpdateMNPSubscribersRequestType" />
+			<xs:element name="removeMNPSubscribersRequest" type="t_removeMNPSubscribersRequestType" />
+
+		</xs:choice>
+	</xs:group>
+</xs:schema>

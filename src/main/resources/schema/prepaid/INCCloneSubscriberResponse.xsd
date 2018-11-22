@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+ <xs:include schemaLocation="../INCResponses.xsd"/>
+	<xs:complexType name="t_cloneSubscriberResponse">
+		<xs:sequence>
+			<xs:element name="IN_ID" type="t_IN_ID">
+			 <xs:annotation><xs:documentation>IN Identifier of new subscriber.</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="oldMSISDN" type="t_msisdn" minOccurs="0">
+			<xs:annotation><xs:documentation>MSISDN of original subscriber; present only if returnBucketIds is set to 'true'.</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="newMSISDN" type="t_msisdn" minOccurs="0">
+			 <xs:annotation><xs:documentation>MSISDN of new subscriber; present only if returnBucketIds is set to 'true'.</xs:documentation></xs:annotation>
+			</xs:element>
+			<xs:element name="bucketMigration" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation><xs:documentation>pairs of row identifiers of all cloned subaccount buckets (unit packs), buckets which were not cloned are not listed; present only if returnBucketIds is set to 'true'</xs:documentation></xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+					 	<xs:element name="oldBucketID" type="xs:string">
+					 	 <xs:annotation><xs:documentation>original row identifier of bucket (in original subscriber)</xs:documentation></xs:annotation>
+					 	</xs:element>
+					 	<xs:element name="newBucketID" type="xs:string">
+					 	 <xs:annotation><xs:documentation>row identifier of bucket after clone (identifier of corresponding bucket in new subscriber)</xs:documentation></xs:annotation>
+					 	</xs:element>
+					 </xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

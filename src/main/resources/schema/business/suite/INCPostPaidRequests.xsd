@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../../INCBaseTypes.xsd" />
+	<xs:include schemaLocation="./hlapi.xsd" />
+	<xs:include schemaLocation="./hlapi_notification.xsd"/>
+	<xs:group name="t_postPaidRequestsBodies">
+		<xs:choice>
+
+			<!-- BS -->
+			<xs:element name="getAccountRequest" type="t_GetAccountRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes of an Account.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyAccountRequest" type="t_ModifyAccountRequest">
+				<xs:annotation>
+					<xs:documentation>This operation modifies attributes of an Account.
+						NOTE: accounts are created and removed only together with Subsscriber Line object.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createAnnouncementRequest" type="t_CreateAnnouncementRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getAnnouncementRequest" type="t_GetAnnouncementRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes of an Announcement.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyAnnouncementRequest" type="t_ModifyAnnouncementRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeAnnouncementRequest" type="t_RemoveAnnouncementRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createNotificationRequest" type="t_CreateNotificationRequest" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getNotificationRequest" type="t_GetNotificationRequest" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyNotificationRequest" type="t_ModifyNotificationRequest" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeNotificationRequest" type="t_RemoveNotificationRequest" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createCalendarRequest" type="t_CreateCalendarRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getCalendarRequest" type="t_GetCalendarRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns Calendar definition.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyCalendarRequest" type="t_ModifyCalendarRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeCalendarRequest" type="t_RemoveCalendarRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createHuntingGroupMemberRequest" type="t_CreateHuntingGroupMemberRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createHuntingGroupRequest" type="t_CreateHuntingGroupRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getHuntingGroupRequest" type="t_GetHuntingGroupRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns Hunting Group definition but without a list of its members.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="listHuntingGroupMembersRequest" type="t_ListHuntingGroupMembersRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns a list of members of a given Hunting Group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyHuntingGroupRequest" type="t_ModifyHuntingGroupRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeHuntingGroupMemberRequest" type="t_RemoveHuntingGroupMemberRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeHuntingGroupRequest" type="t_RemoveHuntingGroupRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createBusinessRoutingProfileRequest" type="t_CreateBusinessRoutingProfileRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createBusinessRoutingRuleRequest" type="t_CreateBusinessRoutingRuleRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createPnpRequest" type="t_CreatePnpRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getBusinessRoutingProfileRequest" type="t_GetBusinessRoutingProfileRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns Business Routing Profile definition but without a list of Routing Rules.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getPnpRequest" type="t_GetPnpRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns a public number assigned as a given pnp number to a given group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- new request listPnpRequest -->
+			<xs:element name="listPnpRequest" type="t_ListPnpRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns a list of public number assigned to a given group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="listBusinessRoutingRulesRequest" type="t_ListBusinessRoutingRulesRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns a list of Business Routing Rules defined for a given Business Routing Profile.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyBusinessRoutingProfileRequest" type="t_ModifyBusinessRoutingProfileRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyBusinessRoutingRuleRequest" type="t_ModifyBusinessRoutingRuleRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyPnpRequest" type="t_ModifyPnpRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeBusinessRoutingProfileRequest" type="t_RemoveBusinessRoutingProfileRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeBusinessRoutingRuleRequest" type="t_RemoveBusinessRoutingRuleRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removePnpRequest" type="t_RemovePnpRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createBWTListEntryRequest" type="t_CreateBWTListEntryRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createCallScreeningProfileRequest" type="t_CreateCallScreeningProfileRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createRestrictionRequest" type="t_CreateRestrictionRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getCallScreeningProfileRequest" type="t_GetCallScreeningProfileRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns Call Screening Profile definition but without Black / White / Trusted lists and without
+						Restrictions.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="listBWTListEntriesRequest" type="t_ListBWTListEntriesRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns a list of Black / White / Trusted List entries defined for a given Call Screening Profile.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="listRestrictionsRequest" type="t_ListRestrictionsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns a list of Restrictions defined for a given Call Screening Profile.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyCallScreeningProfileRequest" type="t_ModifyCallScreeningProfileRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeBWTListEntryRequest" type="t_RemoveBWTListEntryRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeCallScreeningProfileRequest" type="t_RemoveCallScreeningProfileRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeRestrictionRequest" type="t_RemoveRestrictionRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createGroupMemberRequest" type="t_CreateGroupMemberRequest">
+				<xs:annotation>
+					<xs:documentation>This operation:
+						- creates a group member, which means assignment a given user to a given group and
+						- (optionally) sets general attributes of the newly created group member,
+						- (optionally) subscribes requested functionalities to the newly created group member.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGMCallHuntingSubsRequest" type="t_GetGMCallHuntingSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Hunting functionality subscription to the given Group Member.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGMCallQueuingSubsRequest" type="t_GetGMCallQueuingSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Call Queuing functionality subscription to the given Group Member.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGMCallRoutingSubsRequest" type="t_GetGMCallRoutingSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes concerning Business Routing functionality subscription to the given Group Member.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGMCallScreeningSubsRequest" type="t_GetGMCallScreeningSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Call Screening functionality subscription to the given Group Member.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGMCallTransferSubsRequest" type="t_GetGMCallTransferSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGMDoubleHuntingSubsRequest" type="t_GetGMDoubleHuntingSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGMPrivateCallSubsRequest" type="t_GetGMPrivateCallSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGMPrivateSmsSubsRequest" type="t_GetGMPrivateSmsSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGMZoningSubsRequest" type="t_GetGMZoningSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Zoning functionality subscription to the given Group Member.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGroupMemberRequest" type="t_GetGroupMemberRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes of a group member - including general attributes and parameters of functionalities
+						subscribed to the Group Member.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="listGroupMembersRequest" type="t_ListGroupMembersRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns a list of all members of a given Group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyGMCallRoutingSubsRequest" type="t_ModifyGMCallRoutingSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyGMCallScreeningSubsRequest" type="t_ModifyGMCallScreeningSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyGMDoubleHuntingSubsRequest" type="t_ModifyGMDoubleHuntingSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyGMPrivateCallSubsRequest" type="t_ModifyGMPrivateCallSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyGMZoningSubsRequest" type="t_ModifyGMZoningSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyGroupMemberRequest" type="t_ModifyGroupMemberRequest">
+				<xs:annotation>
+					<xs:documentation>This operation modifies general attributes of a given group member.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeGroupMemberRequest" type="t_RemoveGroupMemberRequest">
+				<xs:annotation>
+					<xs:documentation>This operation removes a given group member.
+
+						NOTE: All functionalities are automatically unsubscribed, but objects created to provision this functionalities (e.g. call screening
+						profiles, zones) must be removed separately.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGMCallHuntingRequest" type="t_SubscribeGMCallHuntingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGMCallQueuingRequest" type="t_SubscribeGMCallQueuingRequest">
+				<xs:annotation>
+					<xs:documentation>This operation allows to subscribe Call Queuing functionality to a Group Member.
+						NOTE: announcements and sounds used in queue handling are set at User level (modifyUCallQueuingSubs).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGMCallRoutingRequest" type="t_SubscribeGMCallRoutingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGMCallScreeningRequest" type="t_SubscribeGMCallScreeningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGMCallTransferRequest" type="t_SubscribeGMCallTransferRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGMDoubleHuntingRequest" type="t_SubscribeGMDoubleHuntingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGMPrivateCallRequest" type="t_SubscribeGMPrivateCallRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGMPrivateSmsRequest" type="t_SubscribeGMPrivateSmsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGMZoningRequest" type="t_SubscribeGMZoningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGMCallHuntingRequest" type="t_UnsubscribeGMCallHuntingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGMCallQueuingRequest" type="t_UnsubscribeGMCallQueuingRequest">
+				<xs:annotation>
+					<xs:documentation>This operation allows to unsubscribe Call Queueing functionality at a Group Member level.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGMCallRoutingRequest" type="t_UnsubscribeGMCallRoutingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGMCallScreeningRequest" type="t_UnsubscribeGMCallScreeningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGMCallTransferRequest" type="t_UnsubscribeGMCallTransferRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGMDoubleHuntingRequest" type="t_UnsubscribeGMDoubleHuntingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGMPrivateCallRequest" type="t_UnsubscribeGMPrivateCallRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGMPrivateSmsRequest" type="t_UnsubscribeGMPrivateSmsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGMZoningRequest" type="t_UnsubscribeGMZoningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createGroupRequest" type="t_CreateGroupRequest">
+				<xs:annotation>
+					<xs:documentation>This operation:
+						- creates a new group and
+						- (optionally) sets general attributes of the newly created group,
+						- (optionally) subscribes requested functionalities to the newly created group.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGCallHuntingSubsRequest" type="t_GetGCallHuntingSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Hunting functionality subscription to the given Group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGCallRoutingSubsRequest" type="t_GetGCallRoutingSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes concerning Business Routing functionality subscription to the given Group.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGCallScreeningSubsRequest" type="t_GetGCallScreeningSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Call Screening functionality subscription to the given Group.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGroupRequest" type="t_GetGroupRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes of a group - including general attributes and parameters of functionalities
+						subscribed to the group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getGZoningSubsRequest" type="t_GetGZoningSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Zoning functionality subscription to the given Group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyGCallHuntingSubsRequest" type="t_ModifyGCallHuntingSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyGCallRoutingSubsRequest" type="t_ModifyGCallRoutingSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyGCallScreeningSubsRequest" type="t_ModifyGCallScreeningSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyGroupRequest" type="t_ModifyGroupRequest">
+				<xs:annotation>
+					<xs:documentation>This operation modifies general attributes of a given group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyGZoningSubsRequest" type="t_ModifyGZoningSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeGroupRequest" type="t_RemoveGroupRequest">
+				<xs:annotation>
+					<xs:documentation>This operation removes a given group.
+
+						NOTE: All functionalities are automatically unsubscribed, but objects created to provision this functionalities (e.g. call screening
+						profiles, zones) must be removed separately.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGCallHuntingRequest" type="t_SubscribeGCallHuntingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGCallRoutingRequest" type="t_SubscribeGCallRoutingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGCallScreeningRequest" type="t_SubscribeGCallScreeningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeGZoningRequest" type="t_SubscribeGZoningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGCallHuntingRequest" type="t_UnsubscribeGCallHuntingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGCallRoutingRequest" type="t_UnsubscribeGCallRoutingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGCallScreeningRequest" type="t_UnsubscribeGCallScreeningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeGZoningRequest" type="t_UnsubscribeGZoningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createPartnershipDefinitionRequest" type="t_CreatePartnershipDefinitionRequest">
+				<xs:annotation>
+					<xs:documentation>This operation creates new Partnership Definition object which defines a list of partner groups. Partnership
+						Definition may be afterwards assigned to a Group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getPartnershipDefinitionRequest" type="t_GetPartnershipDefinitionRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns Partnership Definition.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyPartnershipDefinitionRequest" type="t_ModifyPartnershipDefinitionRequest">
+				<xs:annotation>
+					<xs:documentation>This operation allows modification of a list of partner groups (adding and removing partner groups from the list).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removePartnershipDefinitionRequest" type="t_RemovePartnershipDefinitionRequest">
+				<xs:annotation>
+					<xs:documentation>This operation removes a Parntership Definition along with the whole list of partner groups.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createPortedNumberRequest" type="t_CreatePortedNumberRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getPortedNumberRequest" type="t_GetPortedNumberRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns a single Ported Number entry.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyPortedNumberRequest" type="t_ModifyPortedNumberRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removePortedNumberRequest" type="t_RemovePortedNumberRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="addSubscriberKeysRequest" type="t_AddSubscriberKeysRequest">
+				<xs:annotation>
+					<xs:documentation>This operation adds a list of new Subscriber Keys to an existing Subscriber Line object. NOTE that for each
+						additional User Key, a separate Subscriber Key should be created.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="changeMSISDNRequest" type="t_ChangeMSISDNRequest">
+				<xs:annotation>
+					<xs:documentation>This operation modifies the MSISDN of the Subscriber Line object - changes the MSISDN in both objects: the Account
+						and the Subscriber Line.
+						NOTE: the new MSISDN must be available.
+						NOTE: HLTID and msgSeqId is not logged by the operation.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createSubscriberLineRequest" type="t_CreateSubscriberLineRequest">
+				<xs:annotation>
+					<xs:documentation>This operation creates a new subscriber line object with all nested objects such as:
+						- defaultAccount,
+						- user,
+						- group members, which meansassignment of a user to group(s) - each user should belong to at least one group;
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getSubscriberKeysRequest" type="t_GetSubscriberKeysRequest">
+				<xs:annotation>
+					<xs:documentation>This operation gets list of all Subscriber Keys defined for a given Subscriber Line object.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getSubscriberLineRequest" type="t_GetSubscriberLineRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes of a SubscriberLine, including all nested objects such as Account and AllUserData
+						(list of Group Members, User, list of User Keys).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifySubscriberLineRequest" type="t_ModifySubscriberLineRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<!-- new req added -->
+			<xs:element name="activateAccountRequest" type="t_ActivateAccountRequest">
+				<xs:annotation>
+					<xs:documentation>This operation makes account in status ACTIVE. This request is called just after createSubscriberLine Request
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeSubscriberKeysRequest" type="t_RemoveSubscriberKeysRequest">
+				<xs:annotation>
+					<xs:documentation>This operation removes a list of existing Subscriber Key from an existing Subscriber Line object. NOTE that if User
+						Key is removed, also Subscriber Key should be removed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeSubscriberLineRequest" type="t_RemoveSubscriberLineRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createUserKeyRequest" type="t_CreateUserKeyRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getUKCallHuntingSubsRequest" type="t_GetUKCallHuntingSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Hunting functionality subscription to the given User Key.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getUKCallRoutingSubsRequest" type="t_GetUKCallRoutingSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes concerning Business Routing functionality subscription to the given User Key.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getUKCallScreeningSubsRequest" type="t_GetUKCallScreeningSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Call Screening functionality subscription to the given User Key.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getUKDoubleHuntingSubsRequest" type="t_GetUKDoubleHuntingSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getUKZoningSubsRequest" type="t_GetUKZoningSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Zoning functionality subscription to the given User Key.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getUserKeyRequest" type="t_GetUserKeyRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes of a User Key - including general attributes and parameters of functionalities
+						subscribed to the Group Member.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="listUserKeyRequest" type="t_ListUserKeyRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes of a User Key - including general attributes and parameters of functionalities
+						subscribed to the Group Member.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyUKCallRoutingSubsRequest" type="t_ModifyUKCallRoutingSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyUKCallScreeningSubsRequest" type="t_ModifyUKCallScreeningSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyUKDoubleHuntingSubsRequest" type="t_ModifyUKDoubleHuntingSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyUKZoningSubsRequest" type="t_ModifyUKZoningSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyUserKeyRequest" type="t_ModifyUserKeyRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeUserKeyRequest" type="t_RemoveUserKeyRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeUKCallHuntingRequest" type="t_SubscribeUKCallHuntingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeUKCallRoutingRequest" type="t_SubscribeUKCallRoutingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeUKCallScreeningRequest" type="t_SubscribeUKCallScreeningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeUKDoubleHuntingRequest" type="t_SubscribeUKDoubleHuntingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeUKZoningRequest" type="t_SubscribeUKZoningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeUKCallHuntingRequest" type="t_UnsubscribeUKCallHuntingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeUKCallRoutingRequest" type="t_UnsubscribeUKCallRoutingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeUKCallScreeningRequest" type="t_UnsubscribeUKCallScreeningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeUKDoubleHuntingRequest" type="t_UnsubscribeUKDoubleHuntingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeUKZoningRequest" type="t_UnsubscribeUKZoningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createAllUserDataRequest" type="t_CreateAllUserDataRequest">
+				<xs:annotation>
+					<xs:documentation>This operation creates a User object along with all relevant data:
+						- its assignment to Groups (list of Group Member objects) and
+						- its User Key objects (list of User Key objects).
+						NOTE: this operation is used only for creating members of VPABX; all other users are created together with Subscriber Line object.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getAllUserDataRequest" type="t_GetAllUserDataRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes of a User along with all relevant data - its assigment to Groups (list of Group
+						Member objects) and its User Key objects (list of User Key objects) - all with general attributes and parameters of functionalities
+						subscribed to them.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getUCallQueuingSubsRequest" type="t_GetUCallQueuingSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Call Queuing functionality subscription to the given User (in fact this is
+						not a subscription but announcements and sound settings specific for the User which are used in queue handling).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getUCallRoutingSubsRequest" type="t_GetUCallRoutingSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes concerning Business Routing functionality subscription to the given User.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getUCallScreeningSubsRequest" type="t_GetUCallScreeningSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Call Screening functionality subscription to the given User.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getUserRequest" type="t_GetUserRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes of a User - including general attributes and parameters of functionalities
+						subscribed to the User.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getUZoningSubsRequest" type="t_GetUZoningSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns information about Zoning functionality subscription to the given User.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyUCallQueuingSubsRequest" type="t_ModifyUCallQueuingSubsRequest">
+				<xs:annotation>
+					<xs:documentation>This operation allows to set attributes of announcements and musing on hold (they are set only at the User level).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyUCallRoutingSubsRequest" type="t_ModifyUCallRoutingSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyUCallScreeningSubsRequest" type="t_ModifyUCallScreeningSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyUserRequest" type="t_ModifyUserRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyUZoningSubsRequest" type="t_ModifyUZoningSubsRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeAllUserDataRequest" type="t_RemoveAllUserDataRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeUCallRoutingRequest" type="t_SubscribeUCallRoutingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeUCallScreeningRequest" type="t_SubscribeUCallScreeningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscribeUZoningRequest" type="t_SubscribeUZoningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeUCallRoutingRequest" type="t_UnsubscribeUCallRoutingRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeUCallScreeningRequest" type="t_UnsubscribeUCallScreeningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unsubscribeUZoningRequest" type="t_UnsubscribeUZoningRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="addZonesToComplexZoneRequest" type="t_AddZonesToComplexZoneRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createComplexZoneRequest" type="t_CreateComplexZoneRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createZoneRequest" type="t_CreateZoneRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getComplexZoneRequest" type="t_GetComplexZoneRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getZoneRequest" type="t_GetZoneRequest">
+				<xs:annotation>
+					<xs:documentation>This operation returns attributes of a Zone.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modifyZoneRequest" type="t_ModifyZoneRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeComplexZoneRequest" type="t_RemoveComplexZoneRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeZoneRequest" type="t_RemoveZoneRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="removeZonesFromComplexZoneRequest" type="t_RemoveZonesFromComplexZoneRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="listGroupMembersByAttributesRequest" type="t_ListGroupMembersByAttributesRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cleanSubscriberLineRequest" type="t_CleanSubscriberLineRequest">
+				<xs:annotation>
+					<xs:documentation />
+				</xs:annotation>
+			</xs:element>			
+			<!-- BusinessSuite requests -->
+		</xs:choice>
+
+	</xs:group>
+</xs:schema>

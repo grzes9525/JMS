@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ #============================================================================
+ # AUTHOR:       Infovide-Matrix S.A. (http://www.infovidematrix.pl)
+ # CREATION:     2007-06-13
+ # VERSION:      01.40
+ # SHORT DESC:   Sog Subscription Expiration Request of the A-Interface of INC
+ #
+ # Copyright (C) 2007 by PTC/TSD/INU - all rights reserved
+ #____________________________________________________________________________
+ # HISTORY OF CHANGES:
+ #
+ # 2007-06-13	Piotr F�fara: 01.00
+ #
+ #============================================================================
+ -->
+<xs:schema targetNamespace="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC" elementFormDefault="qualified">
+  	<xs:include schemaLocation="../INCComplexTypes.xsd" />
+  	<xs:include schemaLocation="../INCBaseTypes.xsd" />
+	<xs:complexType name="t_sogSubscriptionsRepairRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithOperator"/>
+			<xs:element name="tariff" type="t_tariff">
+			<xs:annotation>
+				<xs:documentation>this element contains the specification of the subscriber`s tariff</xs:documentation>
+			</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="INC" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_getAccountsAndChargeRequest">
+		<xs:sequence>
+			<xs:element name="subscriber" type="t_subscriberWithContext"/>
+			<xs:element name="chargeMAC" type="t_chargeMACNoCharge" minOccurs="0"/>
+			<xs:choice>
+				<xs:element name="getAllAccounts">
+					<xs:annotation>
+						<xs:documentation>Indicates whether information about MAC and all subaccounts should be returned.
+Value true in the element &lt;getAllAccounts&gt; - all accounts` data will be returned and elements &lt;getMAC&gt; and list of &lt;subaccountName&gt;s must not be provided; 
+lack of the element &lt;getAllAccounts&gt; means that the client asks about specific accounts, therefore &lt;getMAC&gt; and/or list of &lt;subaccountName&gt;s must be provided</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="true"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:sequence>
+					<xs:annotation>
+						<xs:documentation>the specification which accounts' data should be returned</xs:documentation>
+					</xs:annotation>
+					<xs:element name="getMAC" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Indicates whether MAC information should be returned.
+Value true in the element &lt;getMAC&gt; - the MAC account information will be returned, 
+lack of the element &lt;getMAC&gt; - the information about MAC will not be returned</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="true"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="subaccountName" type="xs:string" minOccurs="0" maxOccurs="64">
+						<xs:annotation>
+							<xs:documentation>containing the subaccount name (as string) for which information should be returned
+						</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:choice>
+			<xs:element name="getAccountsUnitPacks" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>If missing no information about unit packs is returned in response. If set to 'true' unit packs are returned for all subaccounts. If set to 'false' number of unit packs is returned for multibucket subaccounts.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="getExtendedTimeInfo" type="t_true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates if extended time information - instead of only expiry date - should be returned for subaccounts. Extended time information consists of: activation date and time, expiry date and time </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

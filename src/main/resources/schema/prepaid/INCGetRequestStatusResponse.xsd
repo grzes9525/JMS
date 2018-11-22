@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="INC" xmlns="INC" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:include schemaLocation="../INCBaseTypes.xsd"/>
+	<xs:include schemaLocation="../INCComplexTypes.xsd"/>
+	<xs:complexType name="t_getRequestStatusResponse">
+		<xs:sequence>
+			<xs:element name="RC" type="t_RC" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>this element contains the result code; this element is omitted if the request state is neither successful nor failed, see below</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>this element contains the result description; this element is omitted if the request state is neither successful nor failed, see below</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="state" type="t_requestState">
+				<xs:annotation>
+					<xs:documentation>this element provides information about the execution state:
+					- 'received' - the request has been received by the INC/SAM component
+					- 'in_progress' - the request was sent to IN platform
+					- 'successful' - the processing of the request has been finished successfully
+					- 'failed' - the processing of the request failed
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="requestType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>the type of the request - element of the enumeration type; the type contains a list of all requests e.g. getProfile, updateProfile</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateOfRequest" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>date and time when the request was received by INC</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateOfExecution" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>date and time when the request was executed by INC; this element is omitted if the request state is neither successful nor failed</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
