@@ -13,7 +13,7 @@ public class CustomizedOperationDataRepositoryImpl implements CustomizedOperatio
     EntityManager entityManager;
 
     @Override
-    public List<OperationData> findByTarrif(String subscriberId) {
+    public List<OperationData> findByTariff(String subscriberId) {
         Query query = entityManager.createNativeQuery("SELECT * FROM OperationData as od " +
                 "WHERE od.subscriberId = ?", OperationData.class);
         query.setParameter(1, subscriberId);

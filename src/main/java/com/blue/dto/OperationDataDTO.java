@@ -11,17 +11,20 @@ import java.util.Date;
 @AllArgsConstructor
 public class OperationDataDTO {
     long id;
-    public String subscriberId;
-    public String msisdn;
-    public Date startTime;
-    public Date endTime;
-    public String cost;
-    public String statusOperation;
-    public String xmlWej;
-    public String xmlWyj;
-    public String nameOperation;
-    public String tariff;
-    public String operator;
-    public String numerType;
-    public String git;
+
+    private String operationStatus;
+
+    private String xmlReq;
+
+    private String xmlResp;
+
+    private String operationName;
+
+    private String tariff;
+
+    private String operatorName;
+
+    private String numerType;
+
+    private String git;
 }

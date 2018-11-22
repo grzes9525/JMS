@@ -4,6 +4,6 @@ import com.blue.entity.OperationData;
 import org.springframework.data.repository.CrudRepository;
 
 public interface OperationDataRepository extends CrudRepository<OperationData, Long>, CustomizedOperationDataRepository{
-     OperationData findByStatusOperation(String msisdn);
+     public OperationData findByOperationStatus(String msisdn);
 
 }

@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface CustomizedOperationDataRepository {
-     List<OperationData> findByTarrif(String tarrif);
+     List<OperationData> findByTariff(String tarrif);
 }

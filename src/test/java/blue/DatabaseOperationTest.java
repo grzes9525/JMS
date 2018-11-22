@@ -26,8 +26,8 @@ public class DatabaseOperationTest {
     public void testInsertData(){
         OperationData operationData = new OperationData(123L, "SUCCESS", "in", "out", "topup", "taktak", "tmobile", "numerType", "git");
         operationDataRepository.save(operationData);
-        List<OperationData> resultList = operationDataRepository.findByTarrif("taktak");
-        assertThat(resultList.get(0).getNameOperation()).isEqualTo("topup");
+        List<OperationData> resultList = operationDataRepository.findByTariff("taktak");
+        assertThat(resultList.get(0).getOperationName()).isEqualTo("topup");
 
     }
 }
