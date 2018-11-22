@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AInterfaceResponse xmlns="INC"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="INC file:/C:/workspace/JMS/src/main/resources/schema/INCResponses.xsd">
+    <header>
+        <msgSeqID>msgSeqID0</msgSeqID>
+        <HLTID>HLTID0</HLTID>
+        <GID>GID0</GID>
+        <batchID>batchID0</batchID>
+        <additionalInfo name="name1">additionalInfo0</additionalInfo>
+        <additionalInfo name="name3">additionalInfo1</additionalInfo>
+    </header>
+    <body>
+<!--        <errorResponse>
+            <RC>5000</RC>
+            <description>description0</description>
+            <requestType>requestType0</requestType>
+            <details>details0</details>
+        </errorResponse>-->
+<!--        <changeTariffResponse/>
+-->
+<!--        <conditionalOutpaymentResponse>
+            <MSISDN>MSISDN0</MSISDN>
+            <MACOutpaymentResult>false</MACOutpaymentResult>
+            <subaccountName>subaccountName0</subaccountName>
+            <subaccountName>subaccountName1</subaccountName>
+        </conditionalOutpaymentResponse>-->
+        <sogSubscriptionExpirationResponse>
+            <MSISDN>MSISDN1</MSISDN>
+            <sogName>sogName0</sogName>
+        </sogSubscriptionExpirationResponse>
+<!--        <sogSubscriptionsRepairResponse>
+            <sogs>sogs0</sogs>
+        </sogSubscriptionsRepairResponse>-->
+<!--        <batchResponse>
+            <step>
+                <updateVPABXGroupMembersResponse/>
+            </step>
+            <step>
+                <outpaymentResponse>
+                    <MSISDN>MSISDN2</MSISDN>
+                    <MACOutpaymentResult>0</MACOutpaymentResult>
+                    <subaccountOutpaymentResult name="name5">0</subaccountOutpaymentResult>
+                    <subaccountOutpaymentResult name="name7">0</subaccountOutpaymentResult>
+                </outpaymentResponse>
+            </step>
+        </batchResponse>-->
+<!--        <subscribeUKZoningResponse/>
+-->
+<!--        <removeVPABXAccessNumberResponse/>
+-->
+<!--        <removeMemberFromAllVpabxsResponse/>
+-->
+    </body>
+</AInterfaceResponse>

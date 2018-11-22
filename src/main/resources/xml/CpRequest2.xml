@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cp_request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="file:/C:/workspace/JMS/src/main/resources/schema/hds/cp_req.xsd">
+    <cp_id>cp_id0</cp_id>
+    <cp_transaction_id>cp_transaction_id0</cp_transaction_id>
+    <op_transaction_id>op_transaction_id0</op_transaction_id>
+    <application>application0</application>
+    <action>action0</action>
+    <user_id type="MSISDN">
+    </user_id>
+    <account_id a_type="Login">
+    </account_id>
+    <cp_timer>cp_timer0</cp_timer>
+    <transaction_currency>transaction_currency0</transaction_currency>
+    <transaction_price>transaction_price0</transaction_price>
+    <transaction_description>transaction_description0</transaction_description>
+    <sms_id>sms_id0</sms_id>
+    <debit_params>
+        <dbt_param dbt_ref="dbt_ref0">
+        </dbt_param>
+        <dbt_param dbt_ref="dbt_ref1">
+        </dbt_param>
+        <account_bundles>
+            <bundle>
+                <bdl_name>bdl_name0</bdl_name>
+                <amount>amount0</amount>
+            </bundle>
+            <bundle>
+                <bdl_name>bdl_name1</bdl_name>
+                <amount>amount1</amount>
+            </bundle>
+        </account_bundles>
+    </debit_params>
+    <credit_params main_activity="main_activity0" main_inactivity="main_inactivity0" main_limit="main_limit0" main_balance="main_balance0">
+        <crd_param bdl_name="bdl_name2" bdl_validity="bdl_validity0" bdl_start="bdl_start0" bdl_limit="bdl_limit0" bdl_balance="bdl_balance0">
+        </crd_param>
+        <crd_param bdl_name="bdl_name3" bdl_validity="bdl_validity1" bdl_start="bdl_start1" bdl_limit="bdl_limit1" bdl_balance="bdl_balance1">
+        </crd_param>
+    </credit_params>
+    <recharge_id>recharge_id0</recharge_id>
+    <option>50</option>
+</cp_request>
