@@ -24,10 +24,10 @@ public class DatabaseOperationTest {
 
     @Test
     public void testInsertData(){
-        OperationData operationData = new OperationData(123L, "100", "48500123123", new Date(), new Date(new Date().getTime()+100000l), "1,23");
+        OperationData operationData = new OperationData(123L, "SUCCESS", "in", "out", "topup", "taktak", "tmobile", "numerType", "git");
         operationDataRepository.save(operationData);
-        OperationData data = operationDataRepository.findOneByMsisdn("48500123123");
-        assertThat(data.getMsisdn()).isEqualTo("48500123123");
+        List<OperationData> resultList = operationDataRepository.findByTarrif("taktak");
+        assertThat(resultList.get(0).getNameOperation()).isEqualTo("topup");
 
     }
 }

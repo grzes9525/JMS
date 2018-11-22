@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("/file")
+@RestController()
+@RequestMapping("/file")
 public class FileReaderRestController {
 
     @Autowired
@@ -26,15 +27,7 @@ public class FileReaderRestController {
     @Autowired
     ReadCsvService readCsvService;
 
-    @RequestMapping(path = "/operationData", method = RequestMethod.GET)
-    public List<OperationDataDTO> getOperationData(){
-        List<OperationData> all = (List<OperationData>) operationDataRepository.findAll();
-        java.lang.reflect.Type targetListType = new TypeToken<List<OperationDataDTO>>(){}.getType();
-        List<OperationDataDTO> resultSet = modelMapper.map(all, targetListType);
-        return resultSet;
-    }
-
-    @RequestMapping(path = "/operationData", method = RequestMethod.POST)
+    @RequestMapping(path = "/file", method = RequestMethod.POST)
     public void readCsvFile(){
         readCsvService.readAllCSV();
     }

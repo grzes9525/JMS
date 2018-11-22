@@ -3,6 +3,8 @@ package com.blue.repository;
 import com.blue.entity.OperationData;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface CustomizedOperationDataRepository {
-     OperationData findBySubscriberId(String subscriberId);
+     List<OperationData> findByTarrif(String tarrif);
 }

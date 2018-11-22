@@ -5,6 +5,7 @@ import com.blue.entity.OperationData;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 
 public class CustomizedOperationDataRepositoryImpl implements CustomizedOperationDataRepository {
 
@@ -12,11 +13,11 @@ public class CustomizedOperationDataRepositoryImpl implements CustomizedOperatio
     EntityManager entityManager;
 
     @Override
-    public OperationData findBySubscriberId(String subscriberId) {
+    public List<OperationData> findByTarrif(String subscriberId) {
         Query query = entityManager.createNativeQuery("SELECT * FROM OperationData as od " +
                 "WHERE od.subscriberId = ?", OperationData.class);
         query.setParameter(1, subscriberId);
-        OperationData singleResult = (OperationData) query.getSingleResult();
-        return singleResult;
+        List<OperationData>  resultList =  query.getResultList();
+        return resultList;
     }
 }

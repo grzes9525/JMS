@@ -17,16 +17,13 @@ public class OperationData {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    public String subscriberId;
-    public String msisdn;
-    public Date startTime;
-    public Date endTime;
-    public String cost;
     public String statusOperation;
-    public String xmlWej;
-    public String xmlWyj;
+    @Lob
+    public String xmlReq;
+    @Lob
+    public String xmlResp;
     public String nameOperation;
-    public String tariff;
+    public String tarrif;
     public String operator;
     public String numerType;
     public String git;
