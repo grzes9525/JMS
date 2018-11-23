@@ -12,6 +12,8 @@ import java.util.Date;
 public class OperationDataDTO {
     long id;
 
+    private String msisdn;
+
     private String operationStatus;
 
     private String xmlReq;

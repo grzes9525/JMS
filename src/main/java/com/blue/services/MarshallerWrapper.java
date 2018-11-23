@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Component;
 
+import javax.validation.UnexpectedTypeException;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -54,7 +55,7 @@ public class MarshallerWrapper implements InitializingBean {
         objectFactoryHdsRequest = new com.blue.jaxb.hds.request.ObjectFactory();
         objectFactoryHdsReply = new com.blue.jaxb.hds.reply.ObjectFactory();
     }
-    public <T> String marshallToXmlString(MarshallerType type, final T obj) throws JAXBException {
+    public <T> String marshallToXmlString(final T obj, MarshallerType type) throws JAXBException {
         StringWriter sw = new StringWriter();
         StreamResult result = new StreamResult(sw);
 
@@ -104,6 +105,7 @@ public class MarshallerWrapper implements InitializingBean {
                 break;
             default:
                 log.error("Unknown Marshaller type passed. ");
+                throw new UnexpectedTypeException("Unexpected marshaller type.");
         }
         return (T) unmarshaled;
     }

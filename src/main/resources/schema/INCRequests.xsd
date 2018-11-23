@@ -65,11 +65,7 @@
 	<xs:complexType name="t_body">
 		<xs:choice>
 			<xs:group ref="t_prePaidRequestsBodies"/>
-			<xs:group ref="t_specialRequestsBodies"/>
-		
-			<xs:group ref="t_vpabxLegacyRequestsBodies"/>
-			<xs:group ref="t_postPaidRequestsBodies"/>
-			<xs:group ref="t_vpabxConfRequestsBodies"/>
+
 			
 		</xs:choice>
 	</xs:complexType>

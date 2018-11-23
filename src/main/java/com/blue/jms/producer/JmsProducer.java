@@ -32,6 +32,15 @@ public class JmsProducer {
         });
     }
 
+    public void send(String request){
+        jmsTemplate.convertAndSend(queue, request, new MessagePostProcessor() {
+            public Message postProcessMessage(Message message) throws JMSException {
+                logAll.info(message.toString());
+                return message;
+            }
+        });
+    }
+
 
 
 }

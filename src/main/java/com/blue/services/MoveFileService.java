@@ -24,7 +24,7 @@ public class MoveFileService {
             if(afile.renameTo(new File(doneFileFolder + afile.getName()))){
                 logs.info("File: "+file.getAbsolutePath()+" was moved.");
             }else{
-                logs.info("File: "+file.getAbsolutePath()+" was not moved.");
+                logs.error("File: "+file.getAbsolutePath()+" was not moved.");
             }
 
         }catch(Exception e){

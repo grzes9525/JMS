@@ -52,8 +52,7 @@ public class TestRestController {
         topup.getTopUpMAC().setExpiryDateExtend(new BigInteger("12345678"));
         TAInterfaceRequest req = new TAInterfaceRequest();
         req.setBody(new TBody());
-        req.getBody().setTopUpRequest(topup);
-
+        req.getBody().setTopUpRequest((topup));
         JAXBElement<TAInterfaceRequest> reqEl = new ObjectFactory().createAInterfaceRequest(req);
         StringWriter sw = new StringWriter();
         marshaller.marshal(reqEl, new StreamResult(sw));

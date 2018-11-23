@@ -45,10 +45,10 @@
 		<xs:choice>
 			<xs:element name="errorResponse" type="t_errorResponse" />
 			<xs:group ref="t_prePaidResponsesBodies"/>
-			<xs:group ref="t_specialResponsesBodies"/>
+<!--			<xs:group ref="t_specialResponsesBodies"/>
 			<xs:group ref="t_postPaidResponsesBodies"/>  
 			<xs:group ref="t_vpabxLegacyResponsesBodies"/>
-			<xs:group ref="t_vpabxConfResponsesBodys"/>
+			<xs:group ref="t_vpabxConfResponsesBodys"/>-->
 		</xs:choice>
 	</xs:complexType>
 	

@@ -57,7 +57,12 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{35} - %msg %n</pattern>
         </encoder>
     </appender>
-
+    <logger name="JMS_ALL">
+        <appender-ref ref="JMS_COMMUNICATION"/>
+    </logger>
+    <logger name="JMS_FAILED">
+        <appender-ref ref="JMS_COMMUNICATION_FAILED"/>
+    </logger>
     <root level="DEBUG">
         <appender-ref ref="LOG"/>
         <appender-ref ref="CONSOLE"/>
